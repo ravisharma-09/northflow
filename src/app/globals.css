@@ -1,0 +1,203 @@
+@import "tailwindcss";
+
+/* ===== LIGHT THEME (default) ===== */
+:root {
+  --background: #FAFAFA;
+  --foreground: #0A0A0A;
+  --surface: rgba(0, 0, 0, 0.03);
+  --border: rgba(0, 0, 0, 0.08);
+  --muted: #6B7280;
+  --brand: #34D279;
+  --brand-hover: #2cb768;
+  --brand-muted: rgba(52, 210, 121, 0.08);
+  --shadow: 0 12px 40px rgba(0, 0, 0, 0.08), 0 1px 4px rgba(0, 0, 0, 0.04);
+  --glass-bg: rgba(255, 255, 255, 0.80);
+  --glass-border: rgba(0, 0, 0, 0.06);
+  --glow: rgba(52, 210, 121, 0.08);
+  --card-bg: rgba(255, 255, 255, 0.90);
+  --card-border: rgba(0, 0, 0, 0.06);
+  --nav-bg: rgba(255, 255, 255, 0.80);
+  --nav-bg-scrolled: rgba(255, 255, 255, 0.95);
+  --nav-border: rgba(0, 0, 0, 0.06);
+  --nav-border-scrolled: rgba(0, 0, 0, 0.10);
+  --nav-shadow: 0 4px 10px rgba(0, 0, 0, 0.04);
+  --nav-shadow-scrolled: 0 12px 30px rgba(0, 0, 0, 0.08);
+}
+
+/* ===== DARK THEME ===== */
+:root.dark {
+  --background: #050505;
+  --foreground: #FFFFFF;
+  --surface: rgba(255, 255, 255, 0.03);
+  --border: rgba(255, 255, 255, 0.06);
+  --muted: #A1A1AA;
+  --brand: #34D279;
+  --brand-hover: #2cb768;
+  --brand-muted: rgba(52, 210, 121, 0.08);
+  --shadow: 0 12px 40px rgba(0, 0, 0, 0.6), 0 1px 4px rgba(0, 0, 0, 0.4);
+  --glass-bg: rgba(5, 5, 5, 0.75);
+  --glass-border: rgba(255, 255, 255, 0.06);
+  --glow: rgba(52, 210, 121, 0.10);
+  --card-bg: rgba(10, 10, 10, 0.90);
+  --card-border: rgba(255, 255, 255, 0.08);
+  --nav-bg: rgba(5, 5, 5, 0.5);
+  --nav-bg-scrolled: rgba(5, 5, 5, 0.9);
+  --nav-border: rgba(255, 255, 255, 0.05);
+  --nav-border-scrolled: rgba(255, 255, 255, 0.1);
+  --nav-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  --nav-shadow-scrolled: 0 12px 30px rgba(0, 0, 0, 0.8);
+}
+
+@theme {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-surface: var(--surface);
+  --color-border: var(--border);
+  --color-muted: var(--muted);
+  --color-brand: var(--brand);
+  --color-brand-hover: var(--brand-hover);
+  --color-brand-muted: var(--brand-muted);
+  --color-glass-bg: var(--glass-bg);
+  --color-glass-border: var(--glass-border);
+  --color-glow: var(--glow);
+  --color-card-bg: var(--card-bg);
+  --color-card-border: var(--card-border);
+
+  --font-sans: var(--font-sans), sans-serif;
+  --font-display: var(--font-display), sans-serif;
+
+  --radius-3xl: 32px;
+  --radius-4xl: 32px;
+  --radius-5xl: 32px;
+
+  --shadow-premium: var(--shadow);
+}
+
+/* Smooth theme transition */
+html, body, * {
+  transition-property: background-color, border-color, color, box-shadow;
+  transition-duration: 0.3s;
+  transition-timing-function: ease;
+}
+/* Exclude transforms and opacity from global transition */
+.hero-browser, .hero-card, .hero-parallax-browser, [class*="hero-parallax-card"] {
+  transition: none !important;
+}
+
+
+/* Base styles */
+html, body {
+  background-color: var(--background);
+  color: var(--foreground);
+  overflow-x: hidden;
+  font-family: var(--font-sans), sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+/* Lenis scroll container configurations */
+html.lenis, html.lenis body {
+  height: auto;
+}
+
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overflow: clip;
+}
+
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+
+.lenis.lenis-scrolling iframe {
+  pointer-events: none;
+}
+
+/* Dynamic Grid Overlay */
+.grid-floor {
+  background-image: 
+    linear-gradient(to right, rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+  background-size: 60px 60px;
+}
+
+:root:not(.dark) .grid-floor {
+  background-image: 
+    linear-gradient(to right, rgba(0, 0, 0, 0.03) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(0, 0, 0, 0.03) 1px, transparent 1px);
+}
+
+/* Disable selection for decorative items */
+.no-select {
+  user-select: none;
+  -webkit-user-drag: none;
+}
+
+/* Hide scrollbar default behaviour when using Lenis */
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: var(--background);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--border);
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--muted);
+}
+
+/* Soft cinematic cursor elements */
+.soft-cursor-dot {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 8px;
+  height: 8px;
+  background-color: #34D279;
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 9999;
+  transform: translate(-50%, -50%);
+  transition: width 0.3s ease, height 0.3s ease, background-color 0.3s ease;
+}
+
+.soft-cursor-orb {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 48px;
+  height: 48px;
+  border: 1px solid rgba(52, 210, 121, 0.35);
+  background-color: rgba(52, 210, 121, 0.03);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 9998;
+  transform: translate(-50%, -50%);
+}
+
+/* Breathing Animation */
+@keyframes breathing {
+  0% { transform: scale(1); opacity: 0.8; }
+  50% { transform: scale(1.05); opacity: 1; }
+  100% { transform: scale(1); opacity: 0.8; }
+}
+
+.animate-breathing {
+  animation: breathing 3s ease-in-out infinite;
+}
+
+/* Flowing Grid background animations */
+.moving-field-bg {
+  background: radial-gradient(circle at 50% 50%, rgba(52, 210, 121, 0.05), transparent 60%);
+  background-size: 200% 200%;
+}
+
+/* ScrollReveal initial state (set by GSAP) */
+.scroll-reveal {
+  will-change: transform, opacity;
+}
