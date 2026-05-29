@@ -7,13 +7,13 @@
   --surface: rgba(0, 0, 0, 0.03);
   --border: rgba(0, 0, 0, 0.08);
   --muted: #6B7280;
-  --brand: #34D279;
-  --brand-hover: #2cb768;
-  --brand-muted: rgba(52, 210, 121, 0.08);
+  --brand: #1A1A1A;
+  --brand-hover: #000000;
+  --brand-muted: rgba(26, 26, 26, 0.08);
   --shadow: 0 12px 40px rgba(0, 0, 0, 0.08), 0 1px 4px rgba(0, 0, 0, 0.04);
   --glass-bg: rgba(255, 255, 255, 0.80);
   --glass-border: rgba(0, 0, 0, 0.06);
-  --glow: rgba(52, 210, 121, 0.08);
+  --glow: rgba(0, 0, 0, 0.04);
   --card-bg: rgba(255, 255, 255, 0.90);
   --card-border: rgba(0, 0, 0, 0.06);
   --nav-bg: rgba(255, 255, 255, 0.80);
@@ -31,13 +31,13 @@
   --surface: rgba(255, 255, 255, 0.03);
   --border: rgba(255, 255, 255, 0.06);
   --muted: #A1A1AA;
-  --brand: #34D279;
-  --brand-hover: #2cb768;
-  --brand-muted: rgba(52, 210, 121, 0.08);
+  --brand: #FFFFFF;
+  --brand-hover: #E5E5E5;
+  --brand-muted: rgba(255, 255, 255, 0.08);
   --shadow: 0 12px 40px rgba(0, 0, 0, 0.6), 0 1px 4px rgba(0, 0, 0, 0.4);
   --glass-bg: rgba(5, 5, 5, 0.75);
   --glass-border: rgba(255, 255, 255, 0.06);
-  --glow: rgba(52, 210, 121, 0.10);
+  --glow: rgba(255, 255, 255, 0.04);
   --card-bg: rgba(10, 10, 10, 0.90);
   --card-border: rgba(255, 255, 255, 0.08);
   --nav-bg: rgba(5, 5, 5, 0.5);
@@ -149,52 +149,6 @@ html.lenis, html.lenis body {
 }
 ::-webkit-scrollbar-thumb:hover {
   background: var(--muted);
-}
-
-/* Soft cinematic cursor elements */
-.soft-cursor-dot {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 8px;
-  height: 8px;
-  background-color: #34D279;
-  border-radius: 50%;
-  pointer-events: none;
-  z-index: 9999;
-  transform: translate(-50%, -50%);
-  transition: width 0.3s ease, height 0.3s ease, background-color 0.3s ease;
-}
-
-.soft-cursor-orb {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 48px;
-  height: 48px;
-  border: 1px solid rgba(52, 210, 121, 0.35);
-  background-color: rgba(52, 210, 121, 0.03);
-  border-radius: 50%;
-  pointer-events: none;
-  z-index: 9998;
-  transform: translate(-50%, -50%);
-}
-
-/* Breathing Animation */
-@keyframes breathing {
-  0% { transform: scale(1); opacity: 0.8; }
-  50% { transform: scale(1.05); opacity: 1; }
-  100% { transform: scale(1); opacity: 0.8; }
-}
-
-.animate-breathing {
-  animation: breathing 3s ease-in-out infinite;
-}
-
-/* Flowing Grid background animations */
-.moving-field-bg {
-  background: radial-gradient(circle at 50% 50%, rgba(52, 210, 121, 0.05), transparent 60%);
-  background-size: 200% 200%;
 }
 
 /* ScrollReveal initial state (set by GSAP) */

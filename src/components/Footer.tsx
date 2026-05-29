@@ -21,7 +21,7 @@ export default function Footer() {
     company: [
       { name: 'About Us', href: '#metrics' },
       { name: 'Our Work', href: '#projects' },
-      { name: 'Contact', href: '#cta' },
+      { name: 'Start Your System', href: '/start' },
     ],
     resources: [
       { name: 'How It Works', href: '#how-it-works' },

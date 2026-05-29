@@ -155,10 +155,10 @@ export default function CTA() {
               onMouseMove={handleMouseMove}
               onMouseLeave={handleMouseLeave}
               style={{ x: springX, y: springY }}
-              href="mailto:hello@northflow.co"
+              href="/start"
               className="flex items-center gap-3 px-8 py-4.5 rounded-full bg-white text-black font-bold text-base hover:shadow-lg transition-shadow duration-300 group"
             >
-              Book a Call
+              Start Your System
               <span className="flex items-center justify-center w-5 h-5 rounded-full bg-brand text-black group-hover:translate-x-0.5 transition-transform duration-300">
                 <ArrowRight className="w-3.5 h-3.5" />
               </span>

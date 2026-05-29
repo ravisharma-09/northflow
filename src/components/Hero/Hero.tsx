@@ -33,24 +33,8 @@ export default function Hero() {
     // 0.8s buttons rise
     tl.fromTo('.hero-button', { y: 30, opacity: 0 }, { y: 0, opacity: 1, duration: 0.8, stagger: 0.1 }, 0.8);
 
-    // 1.0s browser enters: opacity, translateY(60), rotate(4deg)
-    tl.fromTo('.hero-browser', 
-      { opacity: 0, y: 60, rotation: 4 }, 
-      { opacity: 1, y: 0, rotation: 0, duration: 1, ease: 'power3.out' }, 
-      1.0
-    );
-
-    // 1.3s AI card appears -> 1.2s
-    tl.fromTo('.hero-card-ai', { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 0.8 }, 1.2);
-
-    // 1.4s Workflow card appears
-    tl.fromTo('.hero-card-workflow', { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 0.8 }, 1.4);
-
-    // 1.6s Results card appears
-    tl.fromTo('.hero-card-growth', { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 0.8 }, 1.6);
-
-    // 1.8s Lead card appears
-    tl.fromTo('.hero-card-leads', { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 0.8 }, 1.8);
+    // 1.0s 3D Visual enters
+    tl.fromTo('.hero-visual-container', { opacity: 0, scale: 0.95 }, { opacity: 1, scale: 1, duration: 1.5, ease: 'power3.out' }, 1.0);
 
 
 
@@ -89,56 +73,7 @@ export default function Hero() {
       });
     });
 
-    // Init depths for perspective cards
-    gsap.set('.hero-parallax-card-1', { z: 40 });
-    gsap.set('.hero-parallax-card-2', { z: 60 });
-    gsap.set('.hero-parallax-card-3', { z: 20 });
-    gsap.set('.hero-parallax-card-4', { z: 80 });
-
-    // Cursor Parallax
-    const visualContainer = document.querySelector('.hero-visual-container') as HTMLElement;
-    if (visualContainer) {
-      const handleVisualMouseMove = (e: MouseEvent) => {
-        const rect = visualContainer.getBoundingClientRect();
-        const x = (e.clientX - rect.left) / rect.width - 0.5; // -0.5 to 0.5
-        const y = (e.clientY - rect.top) / rect.height - 0.5;
-
-        gsap.to('.hero-parallax-browser', {
-          rotationY: x * 2,
-          rotationX: -y * 2,
-          x: x * 6,
-          y: y * 6,
-          duration: 1,
-          ease: 'power2.out'
-        });
-
-        gsap.to(['.hero-parallax-card-1', '.hero-parallax-card-2', '.hero-parallax-card-3', '.hero-parallax-card-4'], { 
-          x: x * 6, 
-          y: y * 6, 
-          duration: 1, 
-          ease: 'power2.out' 
-        });
-      };
-
-      const handleVisualMouseLeave = () => {
-        gsap.to(['.hero-parallax-browser', '.hero-parallax-card-1', '.hero-parallax-card-2', '.hero-parallax-card-3', '.hero-parallax-card-4'], {
-          rotationY: 0,
-          rotationX: 0,
-          x: 0,
-          y: 0,
-          duration: 1.5,
-          ease: 'power2.out'
-        });
-      };
-
-      visualContainer.addEventListener('mousemove', handleVisualMouseMove);
-      visualContainer.addEventListener('mouseleave', handleVisualMouseLeave);
-      
-      cleanups.push(() => {
-        visualContainer.removeEventListener('mousemove', handleVisualMouseMove);
-        visualContainer.removeEventListener('mouseleave', handleVisualMouseLeave);
-      });
-    }
+    // Clean up depths (removed parallax cards)
 
     // --- Scroll Parallax ---
     gsap.to(containerRef.current, {
@@ -186,7 +121,7 @@ export default function Hero() {
       {/* Background with fading grid and soft glow */}
       <div className="hero-bg absolute inset-0 opacity-0 z-0 pointer-events-none">
         <div className="absolute inset-0 grid-floor bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:24px_24px] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,#000_70%,transparent_100%)] opacity-[0.03]" />
-        <div className="absolute top-1/2 right-0 w-[600px] h-[600px] bg-brand/10 blur-[150px] rounded-full transform -translate-y-1/2 translate-x-1/3" />
+        {/* Removed massive radial blur for a cleaner, colder look */}
         <div className="absolute inset-x-0 bottom-0 h-40 bg-gradient-to-t from-background to-transparent" />
       </div>
 
@@ -196,19 +131,12 @@ export default function Hero() {
         {/* Left Side: Headlines and CTAs */}
         <div className="lg:col-span-6 flex flex-col justify-center text-left">
           
-          {/* Top Label */}
-          <div className="hero-headline inline-flex items-center gap-2 mb-8">
-            <span className="px-3 py-1 rounded-full text-xs font-bold bg-brand-muted text-brand border border-brand/20">
-              Build
-            </span>
-            <span className="w-1.5 h-1.5 rounded-full bg-muted/40"></span>
-            <span className="px-3 py-1 rounded-full text-xs font-bold bg-brand-muted text-brand border border-brand/20">
-              Automate
-            </span>
-            <span className="w-1.5 h-1.5 rounded-full bg-muted/40"></span>
-            <span className="px-3 py-1 rounded-full text-xs font-bold bg-brand-muted text-brand border border-brand/20">
-              Scale
-            </span>
+          <div className="hero-headline flex items-center gap-3 mb-8">
+            <span className="text-[10px] font-bold tracking-[0.2em] uppercase text-muted">Build</span>
+            <span className="w-1 h-1 rounded-full bg-border"></span>
+            <span className="text-[10px] font-bold tracking-[0.2em] uppercase text-muted">Automate</span>
+            <span className="w-1 h-1 rounded-full bg-border"></span>
+            <span className="text-[10px] font-bold tracking-[0.2em] uppercase text-muted">Scale</span>
           </div>
 
           {/* Heading */}
@@ -231,7 +159,7 @@ export default function Hero() {
               className="hero-button flex items-center gap-2 px-7 py-4 rounded-full bg-foreground text-background font-bold text-base hover:scale-[1.03] transition-transform duration-300 shadow-md group"
             >
               Book a Call
-              <span className="hero-icon flex items-center justify-center w-5 h-5 rounded-full bg-brand text-white group-hover:translate-x-0.5 transition-transform duration-300">
+              <span className="hero-icon flex items-center justify-center w-5 h-5 rounded-full bg-background text-foreground group-hover:translate-x-0.5 transition-transform duration-300">
                 <ArrowRight className="w-3.5 h-3.5" />
               </span>
             </a>
@@ -241,7 +169,7 @@ export default function Hero() {
               className="hero-button flex items-center gap-2 px-7 py-4 rounded-full border border-border bg-surface/50 text-foreground font-bold text-base hover:bg-surface hover:scale-[1.03] transition-transform duration-300"
             >
               View Work
-              <span className="hero-icon flex items-center justify-center w-5 h-5 rounded-full bg-brand/10 text-brand">
+              <span className="hero-icon flex items-center justify-center w-5 h-5 rounded-full bg-foreground/10 text-foreground">
                 <Play className="w-3.5 h-3.5 fill-current" />
               </span>
             </a>

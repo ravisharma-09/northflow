@@ -1,0 +1,30 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model Lead {
+  id           String   @id @default(cuid())
+  name         String
+  email        String
+  whatsapp     String?
+  businessName String?
+  services     String?
+  message      String?
+  meetLink     String?
+  eventId      String?
+  
+  meetingStart DateTime
+  meetingEnd   DateTime
+  
+  status       String   @default("NEW") // NEW, CONTACTED, CLOSED, NO_SHOW
+  
+  remindersSent Int      @default(0) // 0 = none, 1 = 24h sent, 2 = 1h sent
+  
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+}

@@ -58,7 +58,7 @@ export default function Navbar() {
         >
           {/* Logo */}
           <a href="#home" className="flex items-center gap-2 group">
-            <span className="flex items-center justify-center w-8 h-8 rounded-full bg-brand text-black font-extrabold text-lg shadow-sm">
+            <span className="flex items-center justify-center w-8 h-8 rounded-full bg-foreground text-background font-extrabold text-lg shadow-sm">
               N
             </span>
             <span className="font-display font-bold tracking-tight text-lg text-foreground">
@@ -114,11 +114,11 @@ export default function Navbar() {
 
             {/* CTA Button */}
             <a
-              href="#cta"
+              href="/start"
               className="hidden sm:flex items-center gap-2 px-5 py-2.5 rounded-full bg-foreground text-background font-bold text-sm hover:scale-[1.03] active:scale-[0.98] transition-all duration-300 shadow-md group pointer-events-auto"
             >
-              Book a Call
-              <span className="flex items-center justify-center w-5 h-5 rounded-full bg-brand text-black group-hover:translate-x-0.5 transition-transform duration-300">
+              Start Your System
+              <span className="flex items-center justify-center w-5 h-5 rounded-full bg-background text-foreground group-hover:translate-x-0.5 transition-transform duration-300">
                 <ArrowRight className="w-3.5 h-3.5" />
               </span>
             </a>
@@ -159,12 +159,12 @@ export default function Navbar() {
             </nav>
 
             <a
-              href="#cta"
+              href="/start"
               onClick={() => setMobileMenuOpen(false)}
               className="flex items-center justify-center gap-2 w-full py-3.5 rounded-2xl bg-foreground text-background font-bold text-base hover:opacity-90 active:scale-95 transition-all duration-300 shadow-md group"
             >
-              Book a Call
-              <span className="flex items-center justify-center w-5 h-5 rounded-full bg-brand text-black group-hover:translate-x-0.5 transition-transform duration-300">
+              Start Your System
+              <span className="flex items-center justify-center w-5 h-5 rounded-full bg-background text-foreground group-hover:translate-x-0.5 transition-transform duration-300">
                 <ArrowRight className="w-3.5 h-3.5" />
               </span>
             </a>
