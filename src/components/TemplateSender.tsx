@@ -37,7 +37,7 @@ export default function TemplateSender({ templates, leads }: { templates: any[],
   return (
     <div className="bg-surface border border-border rounded-2xl p-6 shadow-sm mt-8">
       <h2 className="text-xl font-bold mb-2 flex items-center gap-2"><Send className="w-5 h-5" /> Send Template to Clients</h2>
-      <p className="text-sm text-muted mb-6">Select a template and choose which clients should receive it. You can use placeholders like <code className="bg-background px-1 py-0.5 rounded">{{name}}</code>, <code className="bg-background px-1 py-0.5 rounded">{{businessName}}</code>, and <code className="bg-background px-1 py-0.5 rounded">{{meetLink}}</code> in your templates.</p>
+      <p className="text-sm text-muted mb-6">Select a template and choose which clients should receive it. You can use placeholders like <code className="bg-background px-1 py-0.5 rounded">{"{{name}}"}</code>, <code className="bg-background px-1 py-0.5 rounded">{"{{businessName}}"}</code>, and <code className="bg-background px-1 py-0.5 rounded">{"{{meetLink}}"}</code> in your templates.</p>
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
         
