@@ -3,7 +3,8 @@
 import { signIn } from "next-auth/react";
 import { motion } from "framer-motion";
 import { Lock, AlertCircle } from "lucide-react";
-import { useSearchParams, Suspense } from 'next/navigation';
+import { useSearchParams } from 'next/navigation';
+import { Suspense } from 'react';
 
 function LoginForm() {
   const searchParams = useSearchParams();
