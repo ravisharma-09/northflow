@@ -96,17 +96,18 @@ export async function sendTemplateToLeads(templateId: string, leadIds: string[])
   const transporter = getTransporter();
 
   for (const lead of leads) {
-    // Replace placeholders
+    // Replace placeholders (supports both {{name}} and [Name] syntaxes)
     const subject = template.subject
-      .replace(/{{name}}/g, lead.name)
-      .replace(/{{businessName}}/g, lead.businessName || 'your business')
-      .replace(/{{services}}/g, lead.services || '');
+      .replace(/\{\{name\}\}|\[Name\]/gi, lead.name)
+      .replace(/\{\{businessName\}\}|\[Company\]/gi, lead.businessName || 'your company')
+      .replace(/\{\{services\}\}/gi, lead.services || '');
 
     const body = template.body
-      .replace(/{{name}}/g, lead.name)
-      .replace(/{{businessName}}/g, lead.businessName || 'your business')
-      .replace(/{{services}}/g, lead.services || '')
-      .replace(/{{meetLink}}/g, lead.meetLink || '');
+      .replace(/\{\{name\}\}|\[Name\]/gi, lead.name)
+      .replace(/\{\{businessName\}\}|\[Company\]/gi, lead.businessName || 'your company')
+      .replace(/\{\{services\}\}/gi, lead.services || '')
+      .replace(/\{\{meetLink\}\}|\[MeetLink\]/gi, lead.meetLink || 'N/A')
+      .replace(/\[Time\]/gi, 'your scheduled time');
 
     await transporter.sendMail({
       from: `"NorthFlow" <${process.env.GOOGLE_CALENDAR_ID}>`,
