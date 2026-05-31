@@ -1,9 +1,8 @@
-'use client';
-
 import { useState } from 'react';
 import { format } from 'date-fns';
 import { Mail, MessageSquare, ExternalLink, Loader2 } from 'lucide-react';
 import { updateLeadStatus } from '@/app/actions/lead';
+import { useRouter } from 'next/navigation';
 
 const STATUSES = [
   'New',
@@ -18,6 +17,7 @@ const STATUSES = [
 export default function LeadRow({ lead }: { lead: any }) {
   const [status, setStatus] = useState(lead.status);
   const [updating, setUpdating] = useState(false);
+  const router = useRouter();
 
   const handleStatusChange = async (e: React.ChangeEvent<HTMLSelectElement>) => {
     const newStatus = e.target.value;
@@ -35,7 +35,7 @@ export default function LeadRow({ lead }: { lead: any }) {
 
   return (
     <tr className="hover:bg-surface/30 transition-colors group">
-      <td className="p-4 cursor-pointer" onClick={() => window.location.href = `/admin/leads/${lead.id}`}>
+      <td className="p-4 cursor-pointer" onClick={() => router.push(`/admin/leads/${lead.id}`)}>
         <p className="font-bold text-foreground group-hover:underline">{lead.name}</p>
         <p className="text-sm text-muted">{lead.email}</p>
         <p className="text-sm text-muted">{lead.whatsapp}</p>

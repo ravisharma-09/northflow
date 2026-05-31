@@ -2,6 +2,7 @@ import { prisma } from '@/lib/prisma';
 import { format, isToday, isTomorrow, isThisWeek, isAfter, startOfDay } from 'date-fns';
 import { ExternalLink, Calendar as CalendarIcon, Clock } from 'lucide-react';
 import Link from 'next/link';
+import BookingActions from '@/components/BookingActions';
 
 export default async function BookingsPage() {
   const upcomingLeads = await prisma.lead.findMany({
@@ -37,6 +38,7 @@ export default async function BookingsPage() {
           <ExternalLink className="w-4 h-4" /> Join Meeting
         </a>
       )}
+      <BookingActions leadId={lead.id} currentStart={lead.meetingStart} />
     </div>
   );
 
