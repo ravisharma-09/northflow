@@ -48,11 +48,9 @@ export async function POST(request: Request) {
       `,
       start: {
         dateTime: startDateTime.toISOString(),
-        timeZone: 'UTC',
       },
       end: {
         dateTime: endDateTime.toISOString(),
-        timeZone: 'UTC',
       },
       attendees: [
         { email: email } // Since we use OAuth, we CAN invite attendees securely!

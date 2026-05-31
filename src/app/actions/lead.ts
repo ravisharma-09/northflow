@@ -134,8 +134,8 @@ export async function rescheduleBooking(leadId: string, newStartIso: string) {
         eventId: lead.eventId,
         sendUpdates: 'all', // notifies client of reschedule
         requestBody: {
-          start: { dateTime: newStart.toISOString(), timeZone: 'UTC' },
-          end: { dateTime: newEnd.toISOString(), timeZone: 'UTC' }
+          start: { dateTime: newStart.toISOString() },
+          end: { dateTime: newEnd.toISOString() }
         }
       });
     } catch (e) {
