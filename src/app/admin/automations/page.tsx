@@ -2,6 +2,7 @@ import { prisma } from '@/lib/prisma';
 import { Zap, Plus, Trash2, ArrowRight } from 'lucide-react';
 import { getServerSession } from 'next-auth/next';
 import { authOptions } from '@/lib/auth';
+import { redirect } from 'next/navigation';
 import { createAutomationRule, deleteAutomationRule } from '@/app/actions/automation';
 import SubmitButton from '@/components/SubmitButton';
 
