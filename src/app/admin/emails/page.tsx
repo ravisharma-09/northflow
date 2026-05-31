@@ -1,7 +1,8 @@
 import { prisma } from '@/lib/prisma';
 import { Mail, Plus, Trash2 } from 'lucide-react';
-import { saveTemplate, deleteTemplate } from '@/app/actions/email';
+import { saveTemplate } from '@/app/actions/email';
 import TemplateSender from '@/components/TemplateSender';
+import TemplateCard from '@/components/TemplateCard';
 
 export default async function EmailsPage() {
   const [templates, leads] = await Promise.all([
@@ -57,25 +58,7 @@ export default async function EmailsPage() {
           <h2 className="text-xl font-bold">Saved Templates ({templates.length})</h2>
           
           {templates.map((template) => (
-            <div key={template.id} className="bg-surface border border-border rounded-2xl p-6 shadow-sm group hover:border-primary/50 transition-colors">
-              <div className="flex justify-between items-start mb-4">
-                <div>
-                  <h3 className="font-black text-lg text-foreground">{template.name}</h3>
-                  <p className="text-sm font-bold text-primary mt-1">Subject: {template.subject}</p>
-                </div>
-                <form action={async () => {
-                  'use server';
-                  await deleteTemplate(template.id);
-                }}>
-                  <button type="submit" className="p-2 text-red-500 hover:bg-red-500/10 rounded-lg transition-colors" title="Delete Template">
-                    <Trash2 className="w-5 h-5" />
-                  </button>
-                </form>
-              </div>
-              <div className="bg-background border border-border rounded-xl p-4">
-                <p className="text-sm text-muted whitespace-pre-wrap">{template.body}</p>
-              </div>
-            </div>
+            <TemplateCard key={template.id} template={template} />
           ))}
 
           {templates.length === 0 && (

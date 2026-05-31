@@ -72,6 +72,19 @@ export async function deleteTemplate(id: string) {
   return { success: true };
 }
 
+export async function updateTemplate(id: string, name: string, subject: string, body: string) {
+  const session = await getServerSession(authOptions);
+  if (!session) throw new Error("Unauthorized");
+
+  await prisma.emailTemplate.update({
+    where: { id },
+    data: { name, subject, body }
+  });
+
+  revalidatePath('/admin/emails');
+  return { success: true };
+}
+
 export async function sendTemplateToLeads(templateId: string, leadIds: string[]) {
   const session = await getServerSession(authOptions);
   if (!session) throw new Error("Unauthorized");
