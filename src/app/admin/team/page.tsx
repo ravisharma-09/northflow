@@ -1,10 +1,11 @@
 import { prisma } from '@/lib/prisma';
-import { Users, Shield, UserPlus, Trash2 } from 'lucide-react';
+import { Users, Shield, UserPlus, Trash2, Plus } from 'lucide-react';
 import { getServerSession } from 'next-auth/next';
 import { authOptions } from '@/lib/auth';
 import { redirect } from 'next/navigation';
 import { inviteTeamMember, removeTeamMember } from '@/app/actions/team';
 import { format } from 'date-fns';
+import SubmitButton from '@/components/SubmitButton';
 
 export default async function TeamPage() {
   const session = await getServerSession(authOptions);
@@ -52,9 +53,12 @@ export default async function TeamPage() {
                     <option value="ADMIN">Admin (Full System Access)</option>
                   </select>
                 </div>
-                <button type="submit" className="w-full py-3 bg-foreground text-background font-bold rounded-xl hover:scale-[1.02] transition-transform flex items-center justify-center gap-2">
-                  <UserPlus className="w-5 h-5" /> Whitelist User
-                </button>
+                <SubmitButton 
+                  icon={Plus}
+                  className="w-full py-3 bg-foreground text-background font-bold rounded-xl hover:scale-[1.02]"
+                >
+                  Send Invite
+                </SubmitButton>
               </div>
             </form>
           </div>
@@ -110,9 +114,10 @@ export default async function TeamPage() {
                           'use server';
                           await removeTeamMember(user.id);
                         }}>
-                          <button type="submit" className="p-2 text-red-500 hover:bg-red-500/10 rounded-lg transition-colors" title="Revoke Access">
-                            <Trash2 className="w-5 h-5" />
-                          </button>
+                          <SubmitButton 
+                            icon={Trash2}
+                            className="p-2 text-red-500 hover:bg-red-500/10 rounded-lg"
+                          />
                         </form>
                       )}
                     </td>

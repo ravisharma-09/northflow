@@ -1,8 +1,8 @@
 import { prisma } from '@/lib/prisma';
 import { Mail, Plus, Trash2 } from 'lucide-react';
-import { saveTemplate } from '@/app/actions/email';
 import TemplateSender from '@/components/TemplateSender';
 import TemplateCard from '@/components/TemplateCard';
+import SubmitButton from '@/components/SubmitButton';
 
 export default async function EmailsPage() {
   const [templates, leads] = await Promise.all([
@@ -45,9 +45,12 @@ export default async function EmailsPage() {
                   <label className="block text-sm text-muted mb-1">Email Body</label>
                   <textarea name="body" required placeholder="Type your message here..." className="w-full bg-background border border-border rounded-xl p-4 min-h-[200px] outline-none focus:ring-2 focus:ring-primary resize-y" />
                 </div>
-                <button type="submit" className="w-full py-3 bg-foreground text-background font-bold rounded-xl hover:scale-[1.02] transition-transform flex items-center justify-center gap-2">
-                  <Plus className="w-5 h-5" /> Save Template
-                </button>
+                <SubmitButton 
+                  icon={Plus}
+                  className="w-full py-3 bg-foreground text-background font-bold rounded-xl hover:scale-[1.02]"
+                >
+                  Save Template
+                </SubmitButton>
               </div>
             </form>
           </div>

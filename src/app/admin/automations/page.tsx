@@ -2,8 +2,8 @@ import { prisma } from '@/lib/prisma';
 import { Zap, Plus, Trash2, ArrowRight } from 'lucide-react';
 import { getServerSession } from 'next-auth/next';
 import { authOptions } from '@/lib/auth';
-import { redirect } from 'next/navigation';
 import { createAutomationRule, deleteAutomationRule } from '@/app/actions/automation';
+import SubmitButton from '@/components/SubmitButton';
 
 const STATUSES = ['New', 'Contacted', 'Meeting Scheduled', 'Proposal Sent', 'Negotiation', 'Won', 'Lost'];
 
@@ -61,9 +61,12 @@ export default async function AutomationsPage() {
                   </select>
                 </div>
 
-                <button type="submit" className="w-full py-3 bg-primary text-background font-bold rounded-xl hover:scale-[1.02] transition-transform flex items-center justify-center gap-2">
-                  <Plus className="w-5 h-5" /> Activate Rule
-                </button>
+                <SubmitButton 
+                  icon={Plus} 
+                  className="w-full py-3 bg-foreground text-background font-bold rounded-xl hover:scale-[1.02]"
+                >
+                  Activate Rule
+                </SubmitButton>
               </div>
             </form>
           </div>
@@ -92,9 +95,10 @@ export default async function AutomationsPage() {
                 'use server';
                 await deleteAutomationRule(rule.id);
               }}>
-                <button type="submit" className="p-3 text-red-500 hover:bg-red-500/10 rounded-xl transition-colors ml-4" title="Delete Workflow">
-                  <Trash2 className="w-5 h-5" />
-                </button>
+                <SubmitButton 
+                  icon={Trash2}
+                  className="p-3 text-red-500 hover:bg-red-500/10 rounded-xl ml-4" 
+                />
               </form>
             </div>
           ))}
