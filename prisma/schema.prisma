@@ -8,6 +8,57 @@ datasource db {
   directUrl = env("DIRECT_URL")
 }
 
+model User {
+  id            String    @id @default(cuid())
+  name          String?
+  email         String?   @unique
+  emailVerified DateTime?
+  image         String?
+  role          String    @default("ADMIN") // ADMIN, TECH, SALES
+  accounts      Account[]
+  sessions      Session[]
+  assignedLeads Lead[]    @relation("AssignedLeads")
+  activities    LeadActivity[]
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+}
+
+// NextAuth standard models
+model Account {
+  id                 String  @id @default(cuid())
+  userId             String
+  type               String
+  provider           String
+  providerAccountId  String
+  refresh_token      String?  @db.Text
+  access_token       String?  @db.Text
+  expires_at         Int?
+  token_type         String?
+  scope              String?
+  id_token           String?  @db.Text
+  session_state      String?
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([provider, providerAccountId])
+}
+
+model Session {
+  id           String   @id @default(cuid())
+  sessionToken String   @unique
+  userId       String
+  expires      DateTime
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model VerificationToken {
+  identifier String
+  token      String   @unique
+  expires    DateTime
+
+  @@unique([identifier, token])
+}
+
 model Lead {
   id           String   @id @default(cuid())
   name         String
@@ -22,10 +73,63 @@ model Lead {
   meetingStart DateTime
   meetingEnd   DateTime
   
-  status       String   @default("NEW") // NEW, CONTACTED, CLOSED, NO_SHOW
+  status       String   @default("New") // New, Contacted, Meeting Scheduled, Proposal Sent, Negotiation, Won, Lost
   
-  remindersSent Int      @default(0) // 0 = none, 1 = 24h sent, 2 = 1h sent
+  dealValue    Float?   @default(0)
+  finalValue   Float?   @default(0)
+  
+  remindersSent Int     @default(0) // 0 = none, 1 = 24h sent, 2 = 1h sent, 3 = 15m sent
+  
+  assignedToId String?
+  assignedTo   User?    @relation("AssignedLeads", fields: [assignedToId], references: [id])
+  
+  notes        LeadNote[]
+  activities   LeadActivity[]
   
   createdAt    DateTime @default(now())
   updatedAt    DateTime @updatedAt
+}
+
+model LeadNote {
+  id        String   @id @default(cuid())
+  content   String   @db.Text
+  leadId    String
+  lead      Lead     @relation(fields: [leadId], references: [id], onDelete: Cascade)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model LeadActivity {
+  id          String   @id @default(cuid())
+  action      String   // e.g. "Status changed to Contacted", "Proposal Sent", "Lead Created"
+  description String?  @db.Text
+  leadId      String
+  lead        Lead     @relation(fields: [leadId], references: [id], onDelete: Cascade)
+  userId      String?  // Optional: Who did this action
+  user        User?    @relation(fields: [userId], references: [id])
+  createdAt   DateTime @default(now())
+}
+
+model EmailTemplate {
+  id        String   @id @default(cuid())
+  name      String   @unique // e.g. "Thank You", "Proposal Sent"
+  subject   String
+  body      String   @db.Text
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Notification {
+  id        String   @id @default(cuid())
+  title     String
+  message   String
+  read      Boolean  @default(false)
+  createdAt DateTime @default(now())
+}
+
+model Setting {
+  id        String   @id @default(cuid())
+  key       String   @unique
+  value     String   @db.Text
+  updatedAt DateTime @updatedAt
 }

@@ -1,76 +1,62 @@
 import { prisma } from '@/lib/prisma';
-import { format } from 'date-fns';
-import { Mail, MessageSquare, ExternalLink } from 'lucide-react';
+import { Users, Calendar, DollarSign, TrendingUp } from 'lucide-react';
 
 export default async function AdminDashboard() {
-  const leads = await prisma.lead.findMany({
-    orderBy: { createdAt: 'desc' }
-  });
+  const [totalLeads, newLeads, wonDeals] = await Promise.all([
+    prisma.lead.count(),
+    prisma.lead.count({ where: { status: 'New' } }),
+    prisma.lead.count({ where: { status: 'Won' } }),
+  ]);
+
+  const allLeads = await prisma.lead.findMany();
+  const pipelineValue = allLeads.reduce((sum, lead) => sum + (lead.dealValue || 0), 0);
+  const closedRevenue = allLeads.filter(l => l.status === 'Won').reduce((sum, lead) => sum + (lead.finalValue || 0), 0);
+
+  const kpis = [
+    { label: 'Total Leads', value: totalLeads, icon: Users, color: 'text-blue-500', bg: 'bg-blue-500/10' },
+    { label: 'New Leads', value: newLeads, icon: Users, color: 'text-green-500', bg: 'bg-green-500/10' },
+    { label: 'Won Deals', value: wonDeals, icon: TrendingUp, color: 'text-purple-500', bg: 'bg-purple-500/10' },
+    { label: 'Pipeline Value', value: `$${pipelineValue.toLocaleString()}`, icon: DollarSign, color: 'text-yellow-500', bg: 'bg-yellow-500/10' },
+    { label: 'Revenue Closed', value: `$${closedRevenue.toLocaleString()}`, icon: DollarSign, color: 'text-emerald-500', bg: 'bg-emerald-500/10' },
+  ];
 
   return (
-    <div className="min-h-screen bg-background text-foreground p-10 font-sans">
-      <div className="max-w-7xl mx-auto">
-        <h1 className="text-4xl font-bold mb-2">NorthFlow Command Center</h1>
-        <p className="text-muted mb-10">Manage your discovery calls and leads.</p>
+    <div className="p-8 font-sans">
+      <div className="mb-8">
+        <h1 className="text-3xl font-bold text-foreground">Dashboard Overview</h1>
+        <p className="text-muted">Welcome to NorthFlow CRM V2.</p>
+      </div>
 
-        <div className="bg-surface border border-border rounded-2xl overflow-hidden shadow-2xl">
-          <table className="w-full text-left border-collapse">
-            <thead>
-              <tr className="bg-surface/50 border-b border-border">
-                <th className="p-4 font-semibold text-muted text-sm uppercase tracking-wider">Lead Info</th>
-                <th className="p-4 font-semibold text-muted text-sm uppercase tracking-wider">Business & Services</th>
-                <th className="p-4 font-semibold text-muted text-sm uppercase tracking-wider">Meeting Time</th>
-                <th className="p-4 font-semibold text-muted text-sm uppercase tracking-wider">Status</th>
-                <th className="p-4 font-semibold text-muted text-sm uppercase tracking-wider">Actions</th>
-              </tr>
-            </thead>
-            <tbody className="divide-y divide-border">
-              {leads.map((lead) => (
-                <tr key={lead.id} className="hover:bg-surface/30 transition-colors">
-                  <td className="p-4">
-                    <p className="font-bold text-foreground">{lead.name}</p>
-                    <p className="text-sm text-muted">{lead.email}</p>
-                    <p className="text-sm text-muted">{lead.whatsapp}</p>
-                  </td>
-                  <td className="p-4">
-                    <p className="font-semibold">{lead.businessName || 'N/A'}</p>
-                    <p className="text-sm text-muted truncate max-w-[200px]">{lead.services || 'None selected'}</p>
-                  </td>
-                  <td className="p-4">
-                    <p className="font-semibold text-primary">{format(new Date(lead.meetingStart), 'MMM d, yyyy')}</p>
-                    <p className="text-sm text-muted">{format(new Date(lead.meetingStart), 'h:mm a')}</p>
-                  </td>
-                  <td className="p-4">
-                    <span className="px-3 py-1 bg-primary/10 text-primary text-xs font-bold uppercase rounded-full tracking-wider border border-primary/20">
-                      {lead.status}
-                    </span>
-                  </td>
-                  <td className="p-4 flex items-center gap-3">
-                    <a href={`mailto:${lead.email}`} className="p-2 bg-surface rounded-lg hover:bg-border transition-colors group" title="Send Email">
-                      <Mail className="w-5 h-5 text-muted group-hover:text-foreground" />
-                    </a>
-                    {lead.whatsapp && (
-                      <a href={`https://wa.me/${lead.whatsapp.replace(/\\D/g, '')}`} target="_blank" rel="noopener noreferrer" className="p-2 bg-surface rounded-lg hover:bg-green-500/20 transition-colors group" title="WhatsApp Message">
-                        <MessageSquare className="w-5 h-5 text-muted group-hover:text-green-500" />
-                      </a>
-                    )}
-                    {lead.meetLink && (
-                      <a href={lead.meetLink} target="_blank" rel="noopener noreferrer" className="p-2 bg-primary text-background rounded-lg hover:scale-105 transition-transform" title="Join Google Meet">
-                        <ExternalLink className="w-5 h-5" />
-                      </a>
-                    )}
-                  </td>
-                </tr>
-              ))}
-              {leads.length === 0 && (
-                <tr>
-                  <td colSpan={5} className="p-10 text-center text-muted">
-                    No leads found. Start sharing your booking link!
-                  </td>
-                </tr>
-              )}
-            </tbody>
-          </table>
+      <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-6 mb-10">
+        {kpis.map((kpi, idx) => {
+          const Icon = kpi.icon;
+          return (
+            <div key={idx} className="bg-surface border border-border rounded-2xl p-6 flex flex-col gap-4 shadow-sm hover:shadow-md transition-shadow">
+              <div className={`w-12 h-12 rounded-full flex items-center justify-center ${kpi.bg}`}>
+                <Icon className={`w-6 h-6 ${kpi.color}`} />
+              </div>
+              <div>
+                <p className="text-sm font-semibold text-muted uppercase tracking-wider">{kpi.label}</p>
+                <p className="text-3xl font-black text-foreground mt-1">{kpi.value}</p>
+              </div>
+            </div>
+          );
+        })}
+      </div>
+
+      {/* Activity Feed and Upcoming Meetings will go here in Phase 2 */}
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+        <div className="bg-surface border border-border rounded-2xl p-6 min-h-[400px]">
+          <h2 className="text-xl font-bold mb-4">Recent Activity</h2>
+          <div className="flex items-center justify-center h-full text-muted">
+            Activity feed coming in Phase 2...
+          </div>
+        </div>
+        <div className="bg-surface border border-border rounded-2xl p-6 min-h-[400px]">
+          <h2 className="text-xl font-bold mb-4">Upcoming Meetings</h2>
+          <div className="flex items-center justify-center h-full text-muted">
+            Meetings feed coming in Phase 2...
+          </div>
         </div>
       </div>
     </div>
