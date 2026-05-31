@@ -2,18 +2,20 @@
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { LayoutDashboard, Users, Calendar, Mail, Settings, LogOut } from 'lucide-react';
+import { LayoutDashboard, Users, Calendar, Mail, Settings, LogOut, Shield, Zap } from 'lucide-react';
 import { signOut } from 'next-auth/react';
 
 export default function AdminSidebar({ user }: any) {
   const pathname = usePathname();
 
   const links = [
-    { name: 'Dashboard', href: '/admin', icon: LayoutDashboard },
-    { name: 'Leads', href: '/admin/leads', icon: Users },
-    { name: 'Bookings', href: '/admin/bookings', icon: Calendar },
-    { name: 'Emails', href: '/admin/emails', icon: Mail },
-    { name: 'Settings', href: '/admin/settings', icon: Settings },
+    { name: 'Dashboard', href: '/admin', icon: LayoutDashboard, adminOnly: false },
+    { name: 'Leads', href: '/admin/leads', icon: Users, adminOnly: false },
+    { name: 'Bookings', href: '/admin/bookings', icon: Calendar, adminOnly: false },
+    { name: 'Emails', href: '/admin/emails', icon: Mail, adminOnly: false },
+    { name: 'Automations', href: '/admin/automations', icon: Zap, adminOnly: true },
+    { name: 'Team', href: '/admin/team', icon: Shield, adminOnly: true },
+    { name: 'Settings', href: '/admin/settings', icon: Settings, adminOnly: true },
   ];
 
   return (
@@ -25,6 +27,8 @@ export default function AdminSidebar({ user }: any) {
 
       <nav className="flex-1 p-4 space-y-2">
         {links.map((link) => {
+          if (link.adminOnly && user?.role !== 'ADMIN') return null;
+
           const isActive = pathname === link.href;
           const Icon = link.icon;
           return (

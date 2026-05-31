@@ -6,9 +6,10 @@ import Link from 'next/link';
 import LeadNotes from '@/components/LeadNotes';
 import DealValueEditor from '@/components/DealValueEditor';
 import EmailComposer from '@/components/EmailComposer';
+import LeadAssigner from '@/components/LeadAssigner';
 
 export default async function LeadDetailsPage({ params }: { params: { id: string } }) {
-  const [lead, templates] = await Promise.all([
+  const [lead, templates, team] = await Promise.all([
     prisma.lead.findUnique({
       where: { id: params.id },
       include: {
@@ -16,7 +17,8 @@ export default async function LeadDetailsPage({ params }: { params: { id: string
         activities: { orderBy: { createdAt: 'desc' } }
       }
     }),
-    prisma.emailTemplate.findMany({ orderBy: { name: 'asc' } })
+    prisma.emailTemplate.findMany({ orderBy: { name: 'asc' } }),
+    prisma.user.findMany({ orderBy: { name: 'asc' } })
   ]);
 
   if (!lead) return notFound();
@@ -99,6 +101,7 @@ export default async function LeadDetailsPage({ params }: { params: { id: string
 
         {/* Right Column: Notes & Activity */}
         <div className="space-y-8">
+          <LeadAssigner leadId={lead.id} currentAssigneeId={lead.assignedToId} team={team} />
           <EmailComposer leadId={lead.id} templates={templates} />
           <DealValueEditor lead={lead} />
           <LeadNotes leadId={lead.id} existingNotes={lead.notes} />

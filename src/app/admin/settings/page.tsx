@@ -1,9 +1,14 @@
 import { Settings, Shield, Mail, Key } from 'lucide-react';
 import { getServerSession } from 'next-auth/next';
 import { authOptions } from '@/lib/auth';
+import { redirect } from 'next/navigation';
 
 export default async function SettingsPage() {
   const session = await getServerSession(authOptions);
+
+  if ((session?.user as any)?.role !== 'ADMIN') {
+    redirect('/admin'); // Boot non-admins back to dashboard
+  }
 
   return (
     <div className="p-8 font-sans max-w-7xl mx-auto">

@@ -36,15 +36,25 @@ export const authOptions: NextAuthOptions = {
       return session;
     },
     async signIn({ user }) {
-      // Security: Only allow specific emails to log in
-      const allowedEmails = [
-        process.env.GOOGLE_CALENDAR_ID, // Founder's email
-        // Add other team members here later
-      ];
-      if (user.email && allowedEmails.includes(user.email)) {
+      if (!user.email) return false;
+
+      // 1. Auto-allow Founder
+      if (user.email === process.env.GOOGLE_CALENDAR_ID) {
+        const existing = await prisma.user.findUnique({ where: { email: user.email } });
+        if (!existing) {
+          await prisma.user.create({ data: { email: user.email, name: user.name, role: 'ADMIN' } });
+        }
         return true;
       }
-      return false; // Block unauthorized emails
+
+      // 2. Allow whitelisted team members
+      const dbUser = await prisma.user.findUnique({ where: { email: user.email } });
+      if (dbUser) {
+        return true;
+      }
+
+      // Block unauthorized
+      return false;
     }
   },
   pages: {

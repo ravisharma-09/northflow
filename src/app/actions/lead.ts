@@ -6,6 +6,7 @@ import { getServerSession } from 'next-auth/next';
 import { authOptions } from '@/lib/auth';
 import { google } from 'googleapis';
 import { addMinutes } from 'date-fns';
+import { sendTemplateToLeads } from './email';
 
 export async function updateLeadStatus(leadId: string, newStatus: string) {
   const session = await getServerSession(authOptions);
@@ -23,6 +24,28 @@ export async function updateLeadStatus(leadId: string, newStatus: string) {
       userId: (session.user as any)?.id,
     }
   });
+
+  // --- AUTOMATION WORKFLOW HOOK ---
+  const matchingRules = await prisma.automationRule.findMany({
+    where: {
+      isActive: true,
+      triggerType: 'STATUS_CHANGED',
+      triggerValue: newStatus
+    }
+  });
+
+  if (matchingRules.length > 0) {
+    for (const rule of matchingRules) {
+      if (rule.actionType === 'SEND_EMAIL' && rule.templateId) {
+        try {
+          await sendTemplateToLeads(rule.templateId, [leadId]);
+        } catch (e) {
+          console.error(`Automation Rule ${rule.name} failed:`, e);
+        }
+      }
+    }
+  }
+  // --------------------------------
 
   revalidatePath('/admin/leads');
   revalidatePath(`/admin/leads/${leadId}`);
@@ -138,6 +161,68 @@ export async function rescheduleBooking(leadId: string, newStartIso: string) {
   });
 
   revalidatePath('/admin/bookings');
+  return { success: true };
+}
+
+export async function assignLead(leadId: string, userId: string | null) {
+  const session = await getServerSession(authOptions);
+  if (!session) throw new Error("Unauthorized");
+
+  const lead = await prisma.lead.update({
+    where: { id: leadId },
+    data: { assignedToId: userId }
+  });
+
+  let assigneeName = "Unassigned";
+
+  if (userId) {
+    const assignee = await prisma.user.findUnique({ where: { id: userId } });
+    if (assignee) {
+      assigneeName = assignee.name || assignee.email || 'Team Member';
+      
+      // Email the assignee!
+      if (process.env.GMAIL_APP_PASSWORD && assignee.email) {
+        try {
+          const transporter = getGoogleCalendarAuth(); // wait, no, I need nodemailer here
+          const mailer = require('nodemailer').createTransport({
+            service: 'gmail',
+            auth: {
+              user: process.env.GOOGLE_CALENDAR_ID,
+              pass: process.env.GMAIL_APP_PASSWORD,
+            },
+          });
+
+          await mailer.sendMail({
+            from: `"NorthFlow CRM" <${process.env.GOOGLE_CALENDAR_ID}>`,
+            to: assignee.email,
+            subject: `🔔 New Lead Assigned: ${lead.name}`,
+            html: `
+              <div style="font-family: sans-serif; padding: 20px; color: #333;">
+                <h2>You have been assigned a new lead!</h2>
+                <p><strong>Lead:</strong> ${lead.name}</p>
+                <p><strong>Company:</strong> ${lead.businessName || 'N/A'}</p>
+                <div style="margin-top: 20px;">
+                  <a href="${process.env.NEXTAUTH_URL}/admin/leads/${lead.id}" style="background: #0070f3; color: #fff; padding: 10px 20px; text-decoration: none; border-radius: 5px;">View in CRM</a>
+                </div>
+              </div>
+            `
+          });
+        } catch (e) {
+          console.error("Failed to email assignee", e);
+        }
+      }
+    }
+  }
+
+  await prisma.leadActivity.create({
+    data: {
+      leadId,
+      action: `Lead assigned to ${assigneeName}`,
+      userId: (session.user as any)?.id,
+    }
+  });
+
+  revalidatePath('/admin/leads/[id]', 'page');
   return { success: true };
 }
 

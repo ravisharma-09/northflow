@@ -122,10 +122,13 @@ export async function POST(request: Request) {
         `
       }).catch(console.error);
 
-      // 2. Email to Admin/Team
+      // 2. Email to Entire Team
+      const team = await prisma.user.findMany({ select: { email: true } });
+      const teamEmails = team.map(u => u.email).filter(Boolean).join(',');
+
       await transporter.sendMail({
         from: `"NorthFlow CRM" <${process.env.GOOGLE_CALENDAR_ID}>`,
-        to: process.env.GOOGLE_CALENDAR_ID, // Send to founder
+        to: teamEmails || process.env.GOOGLE_CALENDAR_ID, // Send to all team members, fallback to founder
         subject: `🎉 NEW BOOKING: ${name} (${businessName || 'No Company'})`,
         html: `
           <div style="font-family: sans-serif; padding: 20px; color: #333;">
