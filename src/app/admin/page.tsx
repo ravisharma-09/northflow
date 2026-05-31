@@ -1,5 +1,7 @@
 import { prisma } from '@/lib/prisma';
-import { Users, Calendar, DollarSign, TrendingUp } from 'lucide-react';
+import { Users, Calendar, DollarSign, TrendingUp, Clock, ArrowRight } from 'lucide-react';
+import { format } from 'date-fns';
+import Link from 'next/link';
 
 export default async function AdminDashboard() {
   const [totalLeads, newLeads, wonDeals] = await Promise.all([
@@ -11,6 +13,18 @@ export default async function AdminDashboard() {
   const allLeads = await prisma.lead.findMany();
   const pipelineValue = allLeads.reduce((sum, lead) => sum + (lead.dealValue || 0), 0);
   const closedRevenue = allLeads.filter(l => l.status === 'Won').reduce((sum, lead) => sum + (lead.finalValue || 0), 0);
+
+  const recentActivities = await prisma.leadActivity.findMany({
+    take: 5,
+    orderBy: { createdAt: 'desc' },
+    include: { lead: true }
+  });
+
+  const upcomingLeads = await prisma.lead.findMany({
+    where: { meetingStart: { gte: new Date() }, status: { notIn: ['Lost'] } },
+    orderBy: { meetingStart: 'asc' },
+    take: 5
+  });
 
   const kpis = [
     { label: 'Total Leads', value: totalLeads, icon: Users, color: 'text-blue-500', bg: 'bg-blue-500/10' },
@@ -44,18 +58,50 @@ export default async function AdminDashboard() {
         })}
       </div>
 
-      {/* Activity Feed and Upcoming Meetings will go here in Phase 2 */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
         <div className="bg-surface border border-border rounded-2xl p-6 min-h-[400px]">
-          <h2 className="text-xl font-bold mb-4">Recent Activity</h2>
-          <div className="flex items-center justify-center h-full text-muted">
-            Activity feed coming in Phase 2...
+          <div className="flex items-center justify-between mb-6">
+            <h2 className="text-xl font-bold">Recent Activity</h2>
+          </div>
+          <div className="space-y-6">
+            {recentActivities.map(activity => (
+              <div key={activity.id} className="relative pl-6 border-l-2 border-primary/20">
+                <div className="absolute w-3 h-3 bg-primary rounded-full -left-[7px] top-1"></div>
+                <p className="font-medium text-sm">
+                  <Link href={`/admin/leads/${activity.leadId}`} className="hover:underline font-bold text-foreground">
+                    {activity.lead.name}
+                  </Link>
+                  {' - '}{activity.action}
+                </p>
+                <p className="text-xs text-muted mt-1">{format(new Date(activity.createdAt), 'MMM d, h:mm a')}</p>
+              </div>
+            ))}
+            {recentActivities.length === 0 && <p className="text-muted text-sm">No recent activity.</p>}
           </div>
         </div>
+
         <div className="bg-surface border border-border rounded-2xl p-6 min-h-[400px]">
-          <h2 className="text-xl font-bold mb-4">Upcoming Meetings</h2>
-          <div className="flex items-center justify-center h-full text-muted">
-            Meetings feed coming in Phase 2...
+          <div className="flex items-center justify-between mb-6">
+            <h2 className="text-xl font-bold">Upcoming Meetings</h2>
+            <Link href="/admin/bookings" className="text-sm font-bold text-primary hover:underline flex items-center gap-1">
+              View All <ArrowRight className="w-4 h-4" />
+            </Link>
+          </div>
+          <div className="space-y-4">
+            {upcomingLeads.map(lead => (
+              <Link key={lead.id} href={`/admin/leads/${lead.id}`} className="block p-4 rounded-xl border border-border hover:border-primary transition-colors">
+                <div className="flex justify-between items-start">
+                  <div>
+                    <p className="font-bold text-foreground">{lead.name}</p>
+                    <p className="text-xs text-muted">{lead.businessName || lead.services}</p>
+                  </div>
+                  <span className="px-2 py-1 bg-primary/10 text-primary text-xs font-bold rounded-lg whitespace-nowrap">
+                    {format(new Date(lead.meetingStart), 'MMM d, h:mm a')}
+                  </span>
+                </div>
+              </Link>
+            ))}
+            {upcomingLeads.length === 0 && <p className="text-muted text-sm">No upcoming meetings.</p>}
           </div>
         </div>
       </div>
