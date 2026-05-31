@@ -1,11 +1,13 @@
 import { prisma } from '@/lib/prisma';
 import { Mail, Plus, Trash2 } from 'lucide-react';
 import { saveTemplate, deleteTemplate } from '@/app/actions/email';
+import TemplateSender from '@/components/TemplateSender';
 
 export default async function EmailsPage() {
-  const templates = await prisma.emailTemplate.findMany({
-    orderBy: { createdAt: 'desc' }
-  });
+  const [templates, leads] = await Promise.all([
+    prisma.emailTemplate.findMany({ orderBy: { createdAt: 'desc' } }),
+    prisma.lead.findMany({ orderBy: { createdAt: 'desc' } })
+  ]);
 
   return (
     <div className="p-8 font-sans max-w-7xl mx-auto">
@@ -85,6 +87,10 @@ export default async function EmailsPage() {
           )}
         </div>
       </div>
+
+      {/* Bulk Send Section */}
+      <TemplateSender templates={templates} leads={leads} />
+
     </div>
   );
 }

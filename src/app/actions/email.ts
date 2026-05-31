@@ -71,3 +71,50 @@ export async function deleteTemplate(id: string) {
   revalidatePath('/admin/emails');
   return { success: true };
 }
+
+export async function sendTemplateToLeads(templateId: string, leadIds: string[]) {
+  const session = await getServerSession(authOptions);
+  if (!session) throw new Error("Unauthorized");
+
+  const template = await prisma.emailTemplate.findUnique({ where: { id: templateId } });
+  if (!template) throw new Error("Template not found");
+
+  const leads = await prisma.lead.findMany({ where: { id: { in: leadIds } } });
+  const transporter = getTransporter();
+
+  for (const lead of leads) {
+    // Replace placeholders
+    const subject = template.subject
+      .replace(/{{name}}/g, lead.name)
+      .replace(/{{businessName}}/g, lead.businessName || 'your business')
+      .replace(/{{services}}/g, lead.services || '');
+
+    const body = template.body
+      .replace(/{{name}}/g, lead.name)
+      .replace(/{{businessName}}/g, lead.businessName || 'your business')
+      .replace(/{{services}}/g, lead.services || '')
+      .replace(/{{meetLink}}/g, lead.meetLink || '');
+
+    await transporter.sendMail({
+      from: `"NorthFlow" <${process.env.GOOGLE_CALENDAR_ID}>`,
+      to: lead.email,
+      subject,
+      html: `
+        <div style="font-family: sans-serif; padding: 30px; max-width: 600px; color: #333; line-height: 1.6;">
+          ${body.replace(/\\n/g, '<br/>')}
+        </div>
+      `
+    });
+
+    await prisma.leadActivity.create({
+      data: {
+        leadId: lead.id,
+        action: `Sent template: "${template.name}"`,
+        userId: (session.user as any)?.id,
+      }
+    });
+  }
+
+  revalidatePath('/admin/emails');
+  return { success: true };
+}
