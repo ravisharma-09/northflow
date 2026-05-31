@@ -11,7 +11,7 @@ export default async function AdminLayout({
 }) {
   const session = await getServerSession(authOptions);
   
-  if (!session) {
+  if (!session || (session as any).error === 'UserDeleted') {
     redirect("/login");
   }
 

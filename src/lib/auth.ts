@@ -33,9 +33,14 @@ export const authOptions: NextAuthOptions = {
       return token;
     },
     async session({ session, token }) {
-      if (session.user) {
-        (session.user as any).role = token.role;
-        (session.user as any).id = token.id;
+      if (session.user && token.id) {
+        const dbUser = await prisma.user.findUnique({ where: { id: token.id as string } });
+        if (!dbUser) {
+          (session as any).error = "UserDeleted";
+          return session;
+        }
+        (session.user as any).role = dbUser.role;
+        (session.user as any).id = dbUser.id;
       }
       return session;
     },

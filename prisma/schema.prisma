@@ -81,7 +81,7 @@ model Lead {
   remindersSent Int     @default(0) // 0 = none, 1 = 24h sent, 2 = 1h sent, 3 = 15m sent
   
   assignedToId String?
-  assignedTo   User?    @relation("AssignedLeads", fields: [assignedToId], references: [id])
+  assignedTo   User?    @relation("AssignedLeads", fields: [assignedToId], references: [id], onDelete: SetNull)
   
   notes        LeadNote[]
   activities   LeadActivity[]
@@ -106,7 +106,7 @@ model LeadActivity {
   leadId      String
   lead        Lead     @relation(fields: [leadId], references: [id], onDelete: Cascade)
   userId      String?  // Optional: Who did this action
-  user        User?    @relation(fields: [userId], references: [id])
+  user        User?    @relation(fields: [userId], references: [id], onDelete: SetNull)
   createdAt   DateTime @default(now())
 }
 
