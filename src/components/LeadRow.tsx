@@ -1,3 +1,5 @@
+'use client';
+
 import { useState } from 'react';
 import { format } from 'date-fns';
 import { Mail, MessageSquare, ExternalLink, Loader2 } from 'lucide-react';
