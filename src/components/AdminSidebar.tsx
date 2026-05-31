@@ -17,7 +17,7 @@ export default function AdminSidebar({ user }: any) {
   ];
 
   return (
-    <div className="w-64 border-r border-border bg-surface h-full flex flex-col">
+    <div className="w-64 border-r border-border bg-surface h-screen flex flex-col sticky top-0 overflow-y-auto shrink-0">
       <div className="p-6 border-b border-border">
         <h2 className="text-2xl font-black text-foreground tracking-tight">NORTHFLOW</h2>
         <p className="text-xs text-primary font-bold tracking-widest mt-1">CRM V2</p>
