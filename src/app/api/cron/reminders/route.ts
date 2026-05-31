@@ -1,7 +1,7 @@
 import { NextResponse } from 'next/server';
 import { prisma } from '@/lib/prisma';
 import nodemailer from 'nodemailer';
-import { differenceInHours } from 'date-fns';
+import { differenceInMinutes } from 'date-fns';
 
 export async function GET(request: Request) {
   // Security: Prevent random people from triggering this endpoint in production
@@ -23,35 +23,41 @@ export async function GET(request: Request) {
   });
 
   try {
-    // Find all upcoming meetings that haven't had both reminders sent
+    // Find all upcoming meetings that haven't had all reminders sent
     const upcomingLeads = await prisma.lead.findMany({
       where: {
         meetingStart: { gt: new Date() },
-        remindersSent: { lt: 2 },
-        status: { not: 'CLOSED' }
+        remindersSent: { lt: 3 },
+        status: { notIn: ['Lost'] }
       }
     });
 
     let emailsSent = 0;
 
     for (const lead of upcomingLeads) {
-      const hoursUntilMeeting = differenceInHours(new Date(lead.meetingStart), new Date());
+      const minutesUntilMeeting = differenceInMinutes(new Date(lead.meetingStart), new Date());
 
       let shouldSend = false;
       let emailType = '';
       let newReminderState = lead.remindersSent;
 
-      // 24 Hour Reminder (Trigger if meeting is 1-24 hours away and we haven't sent anything)
-      if (hoursUntilMeeting <= 24 && hoursUntilMeeting > 1 && lead.remindersSent === 0) {
+      // 24 Hour Reminder
+      if (minutesUntilMeeting <= 1440 && minutesUntilMeeting > 60 && lead.remindersSent === 0) {
         shouldSend = true;
         emailType = '24 Hours';
         newReminderState = 1;
       }
-      // 1 Hour Reminder (Trigger if meeting is <= 1 hour away)
-      else if (hoursUntilMeeting <= 1 && lead.remindersSent < 2) {
+      // 1 Hour Reminder
+      else if (minutesUntilMeeting <= 60 && minutesUntilMeeting > 15 && lead.remindersSent < 2) {
         shouldSend = true;
         emailType = '1 Hour';
         newReminderState = 2;
+      }
+      // 15 Minute Reminder
+      else if (minutesUntilMeeting <= 15 && minutesUntilMeeting > 0 && lead.remindersSent < 3) {
+        shouldSend = true;
+        emailType = '15 Minutes';
+        newReminderState = 3;
       }
 
       if (shouldSend) {

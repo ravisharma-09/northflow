@@ -1,7 +1,8 @@
 import { NextResponse } from 'next/server';
 import { google } from 'googleapis';
-import { addMinutes, parseISO } from 'date-fns';
+import { addMinutes, parseISO, format } from 'date-fns';
 import { prisma } from '@/lib/prisma';
+import nodemailer from 'nodemailer';
 
 export async function POST(request: Request) {
   try {
@@ -72,7 +73,7 @@ export async function POST(request: Request) {
     });
 
     // Save to our new Prisma Database!
-    await prisma.lead.create({
+    const newLead = await prisma.lead.create({
       data: {
         name,
         email,
@@ -84,10 +85,65 @@ export async function POST(request: Request) {
         eventId: response.data.id || '',
         meetingStart: startDateTime,
         meetingEnd: endDateTime,
-        status: 'NEW',
+        status: 'New',
         remindersSent: 0,
       }
     });
+
+    // Send Immediate Confirmation Emails
+    if (process.env.GMAIL_APP_PASSWORD) {
+      const transporter = nodemailer.createTransport({
+        service: 'gmail',
+        auth: {
+          user: process.env.GOOGLE_CALENDAR_ID,
+          pass: process.env.GMAIL_APP_PASSWORD,
+        },
+      });
+
+      const formattedTime = format(startDateTime, 'EEEE, MMMM d, yyyy @ h:mm a');
+
+      // 1. Email to Client
+      await transporter.sendMail({
+        from: `"NorthFlow" <${process.env.GOOGLE_CALENDAR_ID}>`,
+        to: email,
+        subject: `Confirmed: Discovery Call with NorthFlow`,
+        html: `
+          <div style="font-family: sans-serif; padding: 30px; color: #333; line-height: 1.6;">
+            <h2>Hi ${name},</h2>
+            <p>Your discovery call is confirmed for <strong>${formattedTime}</strong>.</p>
+            ${response.data.hangoutLink ? `
+              <div style="margin: 30px 0;">
+                <a href="${response.data.hangoutLink}" style="background: #000; color: #fff; padding: 14px 28px; text-decoration: none; border-radius: 8px; font-weight: bold;">Join Google Meet</a>
+              </div>
+            ` : ''}
+            <p>We look forward to speaking with you!</p>
+            <p>- NorthFlow Team</p>
+          </div>
+        `
+      }).catch(console.error);
+
+      // 2. Email to Admin/Team
+      await transporter.sendMail({
+        from: `"NorthFlow CRM" <${process.env.GOOGLE_CALENDAR_ID}>`,
+        to: process.env.GOOGLE_CALENDAR_ID, // Send to founder
+        subject: `🎉 NEW BOOKING: ${name} (${businessName || 'No Company'})`,
+        html: `
+          <div style="font-family: sans-serif; padding: 20px; color: #333;">
+            <h2>New Discovery Call Booked!</h2>
+            <p><strong>Name:</strong> ${name}</p>
+            <p><strong>Email:</strong> ${email}</p>
+            <p><strong>WhatsApp:</strong> ${whatsapp || 'N/A'}</p>
+            <p><strong>Company:</strong> ${businessName || 'N/A'}</p>
+            <p><strong>Services:</strong> ${services?.join(', ') || 'N/A'}</p>
+            <p><strong>Time:</strong> ${formattedTime}</p>
+            <p><strong>Message:</strong> ${message || 'N/A'}</p>
+            <div style="margin-top: 20px;">
+              <a href="${process.env.NEXTAUTH_URL}/admin/leads/${newLead.id}" style="background: #0070f3; color: #fff; padding: 10px 20px; text-decoration: none; border-radius: 5px;">View in CRM</a>
+            </div>
+          </div>
+        `
+      }).catch(console.error);
+    }
 
     return NextResponse.json({ 
       success: true, 

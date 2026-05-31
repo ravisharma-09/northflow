@@ -5,15 +5,19 @@ import { ArrowLeft, Briefcase, Calendar, Mail, MessageSquare, ExternalLink } fro
 import Link from 'next/link';
 import LeadNotes from '@/components/LeadNotes';
 import DealValueEditor from '@/components/DealValueEditor';
+import EmailComposer from '@/components/EmailComposer';
 
 export default async function LeadDetailsPage({ params }: { params: { id: string } }) {
-  const lead = await prisma.lead.findUnique({
-    where: { id: params.id },
-    include: {
-      notes: { orderBy: { createdAt: 'desc' } },
-      activities: { orderBy: { createdAt: 'desc' } }
-    }
-  });
+  const [lead, templates] = await Promise.all([
+    prisma.lead.findUnique({
+      where: { id: params.id },
+      include: {
+        notes: { orderBy: { createdAt: 'desc' } },
+        activities: { orderBy: { createdAt: 'desc' } }
+      }
+    }),
+    prisma.emailTemplate.findMany({ orderBy: { name: 'asc' } })
+  ]);
 
   if (!lead) return notFound();
 
@@ -95,6 +99,7 @@ export default async function LeadDetailsPage({ params }: { params: { id: string
 
         {/* Right Column: Notes & Activity */}
         <div className="space-y-8">
+          <EmailComposer leadId={lead.id} templates={templates} />
           <DealValueEditor lead={lead} />
           <LeadNotes leadId={lead.id} existingNotes={lead.notes} />
           
