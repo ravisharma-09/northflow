@@ -2,9 +2,22 @@
 
 import { signIn } from "next-auth/react";
 import { motion } from "framer-motion";
-import { Lock } from "lucide-react";
+import { Lock, AlertCircle } from "lucide-react";
+import { useSearchParams, Suspense } from 'next/navigation';
 
-export default function LoginPage() {
+function LoginForm() {
+  const searchParams = useSearchParams();
+  const error = searchParams.get('error');
+
+  let errorMessage = '';
+  if (error === 'AccessDenied') {
+    errorMessage = 'Unauthorized. Your email has not been whitelisted by an Administrator.';
+  } else if (error === 'OAuthAccountNotLinked') {
+    errorMessage = 'Email already exists with a different provider. Please contact support.';
+  } else if (error) {
+    errorMessage = 'An error occurred during authentication. Please try again.';
+  }
+
   return (
     <div className="min-h-screen flex items-center justify-center bg-background p-4">
       <motion.div 
@@ -16,7 +29,14 @@ export default function LoginPage() {
           <Lock className="w-10 h-10 text-primary" />
         </div>
         <h1 className="text-3xl font-bold text-foreground mb-3">Admin Portal</h1>
-        <p className="text-muted mb-8">Sign in with your authorized Google Workspace account to access the CRM.</p>
+        <p className="text-muted mb-6">Sign in with your authorized Google Workspace account to access the CRM.</p>
+
+        {errorMessage && (
+          <div className="mb-6 p-4 bg-red-500/10 border border-red-500/20 rounded-xl flex items-start gap-3 text-left">
+            <AlertCircle className="w-5 h-5 text-red-500 shrink-0 mt-0.5" />
+            <p className="text-sm font-bold text-red-500">{errorMessage}</p>
+          </div>
+        )}
         
         <button
           onClick={() => signIn("google", { callbackUrl: "/admin" })}
@@ -44,5 +64,13 @@ export default function LoginPage() {
         </button>
       </motion.div>
     </div>
+  );
+}
+
+export default function LoginPage() {
+  return (
+    <Suspense fallback={<div className="min-h-screen bg-background" />}>
+      <LoginForm />
+    </Suspense>
   );
 }

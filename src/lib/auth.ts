@@ -9,8 +9,7 @@ export const authOptions: NextAuthOptions = {
     GoogleProvider({
       clientId: process.env.GOOGLE_CLIENT_ID as string,
       clientSecret: process.env.GOOGLE_CLIENT_SECRET as string,
-      // We need authorization to be offline so we get a refresh token if needed, 
-      // but next-auth handles it for login. The Calendar API still uses the manual refresh token.
+      allowDangerousEmailAccountLinking: true,
     }),
   ],
   session: {
