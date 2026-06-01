@@ -7,7 +7,7 @@ import nodemailer from 'nodemailer';
 export async function POST(request: Request) {
   try {
     const body = await request.json();
-    const { name, email, whatsapp, businessName, services, message, slot } = body;
+    const { name, email, whatsapp, businessName, services, message, slot, clientTimeZone } = body;
 
     if (!slot || !name || !email) {
       return NextResponse.json({ error: 'Missing required fields' }, { status: 400 });
@@ -39,12 +39,16 @@ export async function POST(request: Request) {
     const event = {
       summary: `Discovery Call: ${businessName || name} x NorthFlow`,
       description: `
-        Name: ${name}
-        Email: ${email}
-        WhatsApp: ${whatsapp || 'N/A'}
-        Business: ${businessName || 'N/A'}
-        Services: ${services?.join(', ') || 'N/A'}
-        Message: ${message || 'N/A'}
+        <h3>🚀 New Discovery Call Booked!</h3>
+        <p><strong>Name:</strong> ${name}</p>
+        <p><strong>Email:</strong> <a href="mailto:${email}">${email}</a></p>
+        <p><strong>WhatsApp:</strong> ${whatsapp || 'N/A'}</p>
+        <hr/>
+        <p><strong>Business:</strong> ${businessName || 'N/A'}</p>
+        <p><strong>Services Needed:</strong> ${services?.join(', ') || 'N/A'}</p>
+        <p><strong>Message:</strong><br/>${message || 'N/A'}</p>
+        <hr/>
+        <p><i>Booked via NorthFlow CRM</i></p>
       `,
       start: {
         dateTime: startDateTime.toISOString(),
@@ -98,7 +102,16 @@ export async function POST(request: Request) {
         },
       });
 
-      const formattedTime = format(startDateTime, 'EEEE, MMMM d, yyyy @ h:mm a');
+      const formattedTime = new Intl.DateTimeFormat('en-US', {
+        timeZone: clientTimeZone || 'Asia/Kolkata',
+        weekday: 'long',
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric',
+        hour: 'numeric',
+        minute: '2-digit',
+        timeZoneName: 'short',
+      }).format(startDateTime);
 
       // 1. Email to Client
       await transporter.sendMail({

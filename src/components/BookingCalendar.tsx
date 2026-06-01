@@ -56,6 +56,7 @@ export default function BookingCalendar({ formData, onComplete, onBack }: any) {
         body: JSON.stringify({
           ...formData,
           slot: selectedSlot,
+          clientTimeZone: Intl.DateTimeFormat().resolvedOptions().timeZone
         }),
       });
       const data = await res.json();
