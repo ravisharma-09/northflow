@@ -2,89 +2,90 @@
 
 import React from 'react';
 import { motion } from 'framer-motion';
-import { ArrowUpRight, BarChart3, Globe, Zap } from 'lucide-react';
+import { UserPlus, Calendar, Zap, Mail, CheckCircle, ArrowRight } from 'lucide-react';
+
+const steps = [
+  { id: 1, title: 'Lead Captured', icon: UserPlus, x: 10, y: 10 },
+  { id: 2, title: 'Meeting Booked', icon: Calendar, x: 50, y: 30 },
+  { id: 3, title: 'Automation Triggered', icon: Zap, x: 90, y: 50 },
+  { id: 4, title: 'Follow-up Sent', icon: Mail, x: 50, y: 70 },
+  { id: 5, title: 'Deal Closed', icon: CheckCircle, x: 10, y: 90 },
+];
 
 export default function HeroVisual() {
   return (
-    <div className="w-full h-full relative flex items-center justify-center p-4 sm:p-8">
-      {/* 
-        The Bento Grid
-        - Highly structured
-        - Minimalist
-        - 1px borders
-        - Monochromatic with tiny brand accents
-      */}
-      <div className="w-full max-w-[500px] aspect-square grid grid-cols-2 grid-rows-2 gap-4 relative z-10">
+    <div className="w-full h-full relative flex items-center justify-center p-4">
+      {/* Container for the nodes */}
+      <div className="w-full max-w-[500px] aspect-[4/5] relative z-10 hidden md:block">
         
-        {/* Top Left: Main Visual / Image */}
-        <motion.div 
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 1.0, ease: [0.16, 1, 0.3, 1] }}
-          className="col-span-2 row-span-1 bg-surface/40 backdrop-blur-md border border-border/60 rounded-2xl overflow-hidden relative group"
-        >
-          <div className="absolute inset-0 bg-gradient-to-tr from-transparent via-white/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-          <img 
-            src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=800&q=80" 
-            alt="Dashboard" 
-            className="w-full h-full object-cover opacity-90 group-hover:scale-105 transition-transform duration-700 ease-out"
+        {/* SVG Lines connecting nodes */}
+        <svg className="absolute inset-0 w-full h-full pointer-events-none" style={{ overflow: 'visible' }}>
+          <motion.path
+            d="M 10% 10% L 50% 30% L 90% 50% L 50% 70% L 10% 90%"
+            fill="none"
+            stroke="var(--border)"
+            strokeWidth="2"
+            strokeDasharray="4 4"
           />
-          {/* Overlay UI element */}
-          <div className="absolute bottom-4 left-4 right-4 bg-background/90 backdrop-blur-xl border border-border/80 rounded-xl p-4 flex items-center justify-between shadow-sm">
-            <div className="flex flex-col">
-              <span className="text-[10px] font-bold text-muted uppercase tracking-wider mb-0.5">Live Data</span>
-              <span className="text-sm font-semibold text-foreground">Global Reach</span>
-            </div>
-            <div className="w-8 h-8 rounded-full bg-brand/10 flex items-center justify-center text-brand">
-              <Globe className="w-4 h-4" />
-            </div>
-          </div>
-        </motion.div>
+          <motion.path
+            d="M 10% 10% L 50% 30% L 90% 50% L 50% 70% L 10% 90%"
+            fill="none"
+            stroke="var(--foreground)"
+            strokeWidth="2"
+            initial={{ pathLength: 0 }}
+            animate={{ pathLength: 1 }}
+            transition={{ duration: 3, ease: "easeInOut", delay: 1, repeat: Infinity, repeatDelay: 3 }}
+          />
+        </svg>
 
-        {/* Bottom Left: Metric */}
-        <motion.div 
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 1.2, ease: [0.16, 1, 0.3, 1] }}
-          className="col-span-1 row-span-1 bg-background border border-border/80 rounded-2xl p-6 flex flex-col justify-between shadow-sm hover:shadow-md transition-shadow"
-        >
-          <div className="w-10 h-10 rounded-xl bg-surface border border-border/50 flex items-center justify-center text-foreground">
-            <BarChart3 className="w-5 h-5" />
-          </div>
-          <div className="flex flex-col mt-4">
-            <span className="text-[11px] font-bold text-muted uppercase tracking-wider mb-1">Conversion</span>
-            <div className="flex items-baseline gap-2">
-              <span className="text-3xl font-display font-black text-foreground">4.2</span>
-              <span className="text-sm font-bold text-brand">%</span>
-            </div>
-          </div>
-        </motion.div>
+        {/* Nodes */}
+        {steps.map((step, index) => {
+          const Icon = step.icon;
+          return (
+            <motion.div
+              key={step.id}
+              initial={{ opacity: 0, scale: 0.8, y: 20 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 1 + index * 0.4, ease: "easeOut" }}
+              className="absolute -translate-x-1/2 -translate-y-1/2"
+              style={{ left: `${step.x}%`, top: `${step.y}%` }}
+            >
+              <div className="bg-surface backdrop-blur-md border border-border/80 rounded-2xl p-4 shadow-lg shadow-foreground/5 flex items-center gap-4 min-w-[180px]">
+                <div className="w-10 h-10 rounded-xl bg-background border border-border flex items-center justify-center text-foreground shrink-0">
+                  <Icon className="w-5 h-5" />
+                </div>
+                <span className="text-sm font-bold text-foreground leading-tight">{step.title}</span>
+              </div>
+            </motion.div>
+          );
+        })}
+      </div>
 
-        {/* Bottom Right: Action/Status */}
-        <motion.div 
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 1.4, ease: [0.16, 1, 0.3, 1] }}
-          className="col-span-1 row-span-1 bg-foreground text-background rounded-2xl p-6 flex flex-col justify-between shadow-lg shadow-foreground/10 relative overflow-hidden group"
-        >
-          {/* Decorative glow */}
-          <div className="absolute top-0 right-0 w-32 h-32 bg-background/20 blur-2xl -translate-y-1/2 translate-x-1/2 rounded-full" />
-          
-          <div className="flex justify-between items-start relative z-10">
-            <div className="w-10 h-10 rounded-xl bg-background/10 flex items-center justify-center text-background backdrop-blur-sm">
-              <Zap className="w-5 h-5 fill-current" />
-            </div>
-            <ArrowUpRight className="w-5 h-5 opacity-70 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
-          </div>
-          <div className="flex flex-col mt-4 relative z-10">
-            <span className="text-[11px] font-bold text-background/70 uppercase tracking-wider mb-1">System Status</span>
-            <span className="text-lg font-bold text-background leading-tight">Optimized <br/>& Active</span>
-          </div>
-        </motion.div>
-
+      {/* Mobile fallback (linear list) */}
+      <div className="md:hidden flex flex-col gap-4 w-full relative z-10 pt-10">
+        {steps.map((step, index) => {
+          const Icon = step.icon;
+          return (
+            <motion.div
+              key={step.id}
+              initial={{ opacity: 0, x: -20 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.5, delay: 1 + index * 0.2 }}
+              className="bg-surface backdrop-blur-md border border-border/80 rounded-2xl p-4 flex items-center gap-4"
+            >
+              <div className="w-10 h-10 rounded-xl bg-background border border-border flex items-center justify-center text-foreground shrink-0">
+                <Icon className="w-5 h-5" />
+              </div>
+              <span className="text-sm font-bold text-foreground">{step.title}</span>
+              {index < steps.length - 1 && (
+                <ArrowRight className="w-4 h-4 text-muted ml-auto" />
+              )}
+            </motion.div>
+          );
+        })}
       </div>
       
-      {/* Background Decorative Grid for the right side */}
+      {/* Background Decorative Grid */}
       <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808008_1px,transparent_1px),linear-gradient(to_bottom,#80808008_1px,transparent_1px)] bg-[size:24px_24px] pointer-events-none z-0 [mask-image:radial-gradient(ellipse_50%_50%_at_50%_50%,#000_60%,transparent_100%)]" />
     </div>
   );

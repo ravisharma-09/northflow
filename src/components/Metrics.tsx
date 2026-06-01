@@ -1,151 +1,99 @@
 'use client';
 
-import React, { useEffect, useRef } from 'react';
-import { motion, useInView, animate } from 'framer-motion';
-import { Check, LayoutGrid, TrendingUp, ShieldAlert, Clock } from 'lucide-react';
+import React from 'react';
+import { motion } from 'framer-motion';
+import { Rocket, Sparkles, Bot, TrendingUp, ShieldCheck } from 'lucide-react';
 import ScrollReveal from './ScrollReveal';
 
-interface MetricItem {
-  value: number;
-  suffix: string;
-  label: string;
-  sublabel: string;
-  icon: React.ComponentType<any>;
-  isStatic?: boolean;
-  staticText?: string;
-}
-
-const metrics: MetricItem[] = [
+const advantages = [
   {
-    value: 20,
-    suffix: '+',
-    label: 'Projects',
-    sublabel: 'Bespoke deployments',
-    icon: LayoutGrid,
+    title: 'Fast Delivery',
+    description: 'Rapid deployment of your systems without compromising on code quality or design aesthetics.',
+    icon: Rocket,
+    colSpan: 'lg:col-span-2'
   },
   {
-    value: 300,
-    suffix: '%',
-    label: 'Growth',
-    sublabel: 'Average scale achieved',
+    title: 'Modern Design',
+    description: 'High-end, premium interfaces that build instant trust and authority with your customers.',
+    icon: Sparkles,
+    colSpan: 'lg:col-span-3'
+  },
+  {
+    title: 'Automation First',
+    description: 'Every system is built to minimize human error and automate repetitive daily operations.',
+    icon: Bot,
+    colSpan: 'lg:col-span-3'
+  },
+  {
+    title: 'Built For Scale',
+    description: 'Architecture that handles traffic spikes and business growth seamlessly.',
     icon: TrendingUp,
+    colSpan: 'lg:col-span-2'
   },
   {
-    value: 7,
-    suffix: ' Days',
-    label: 'Delivery',
-    sublabel: 'First draft turnaround',
-    icon: Clock,
-    isStatic: true,
-    staticText: '7 Days',
-  },
-  {
-    value: 24,
-    suffix: '/7',
-    label: 'Support',
-    sublabel: 'Active monitoring',
-    icon: ShieldAlert,
-    isStatic: true,
-    staticText: '24/7',
-  },
+    title: 'Ongoing Support',
+    description: 'Dedicated post-launch monitoring and optimization to ensure peak performance.',
+    icon: ShieldCheck,
+    colSpan: 'lg:col-span-5 md:col-span-2 lg:col-span-2'
+  }
 ];
 
-function CountUp({ item }: { item: MetricItem }) {
-  const ref = useRef<HTMLSpanElement>(null);
-  const inView = useInView(ref, { once: true, margin: '-50px' });
-
-  useEffect(() => {
-    if (!inView || item.isStatic) return;
-
-    const node = ref.current;
-    if (!node) return;
-
-    const controls = animate(0, item.value, {
-      duration: 2.0,
-      ease: [0.16, 1, 0.3, 1],
-      onUpdate(value) {
-        node.textContent = Math.round(value).toString() + item.suffix;
-      },
-    });
-
-    return () => controls.stop();
-  }, [inView, item]);
-
-  const Icon = item.icon;
-
-  return (
-    <motion.div
-      initial={{ opacity: 0, y: 20 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true }}
-      transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-      className="bg-surface border border-border rounded-[28px] md:rounded-[32px] p-8 flex flex-col justify-between items-start gap-8 hover:border-brand/20 transition-all duration-300"
-    >
-      <div className="flex items-center justify-center w-11 h-11 rounded-xl bg-[#161616] border border-border text-brand">
-        <Icon className="w-5 h-5" />
-      </div>
-
-      <div className="text-left">
-        <h4 className="text-3xl md:text-4.5xl font-display font-black tracking-tight text-foreground">
-          {item.isStatic ? (
-            <span>{item.staticText}</span>
-          ) : (
-            <span ref={ref}>0{item.suffix}</span>
-          )}
-        </h4>
-        <p className="text-sm font-extrabold text-foreground mt-2">{item.label}</p>
-        <p className="text-xs font-semibold text-muted mt-0.5">{item.sublabel}</p>
-      </div>
-    </motion.div>
-  );
-}
-
 export default function Metrics() {
-  const bulletPoints = [
-    'Custom systems',
-    'Premium execution',
-    'Automation first',
-    'Fast iteration',
-    'Long-term support',
-  ];
-
   return (
-    <section id="metrics" className="py-32 relative overflow-hidden bg-background">
-      <div className="w-full max-w-[1440px] mx-auto px-6 md:px-12 relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-20 items-center">
+    <section id="why-us" className="py-32 relative overflow-hidden bg-background">
+      <div className="w-full max-w-7xl mx-auto px-6 md:px-12 relative z-10">
         
-        {/* Left Side: Why Choose Us */}
-        <ScrollReveal className="lg:col-span-5 w-full">
-          <div className="flex flex-col text-left">
-            <span className="px-3 py-1 rounded-full text-xs font-bold bg-brand-muted text-brand border border-brand/20 mb-4 w-fit uppercase tracking-widest">
-              Why Us
+        {/* Header */}
+        <ScrollReveal>
+          <div className="flex flex-col items-start justify-start text-left mb-20 max-w-2xl">
+            <span className="text-xs font-bold text-muted mb-4 uppercase tracking-widest">
+              Why NorthFlow
             </span>
-            <h2 className="text-3xl sm:text-4xl md:text-5xl font-display font-black tracking-tight leading-[1.1] text-foreground mb-8">
-              Built For Results. <br />
-              Focused On <span className="text-brand">Growth.</span>
+            <h2 className="text-4xl md:text-5xl lg:text-6xl font-display font-black tracking-tighter leading-tight text-foreground">
+              Built For Scale. <br />
+              <span className="text-muted">Engineered For Growth.</span>
             </h2>
-            
-            <div className="flex flex-col gap-5 mt-2">
-              {bulletPoints.map((point, idx) => (
-                <div key={idx} className="flex items-center gap-4">
-                  <span className="flex items-center justify-center w-5.5 h-5.5 rounded-full bg-brand/10 text-brand flex-shrink-0">
-                    <Check className="w-3.5 h-3.5 stroke-[3]" />
-                  </span>
-                  <span className="text-base font-semibold text-muted">
-                    {point}
-                  </span>
-                </div>
-              ))}
-            </div>
           </div>
         </ScrollReveal>
 
-        {/* Right Side: Metrics Grid */}
-        <div className="lg:col-span-7 grid grid-cols-2 gap-6 w-full">
-          {metrics.map((item, idx) => (
-            <CountUp key={idx} item={item} />
-          ))}
+        {/* Bento Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-6">
+          {advantages.map((adv, idx) => {
+            const Icon = adv.icon;
+            // The 5th item should span differently to make the grid complete 
+            // row 1: 2 col + 3 col
+            // row 2: 3 col + 2 col
+            // Oh wait, if it's 5 items, maybe 3 on top, 2 on bottom. 
+            const dynamicColSpan = idx === 0 ? 'md:col-span-1 lg:col-span-2' : 
+                                   idx === 1 ? 'md:col-span-1 lg:col-span-3' : 
+                                   idx === 2 ? 'md:col-span-1 lg:col-span-2' :
+                                   idx === 3 ? 'md:col-span-1 lg:col-span-1' :
+                                   idx === 4 ? 'md:col-span-2 lg:col-span-2' : adv.colSpan;
+            
+            return (
+              <motion.div
+                key={idx}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: '-50px' }}
+                transition={{ duration: 0.7, delay: idx * 0.1, ease: [0.16, 1, 0.3, 1] }}
+                className={`bg-surface border border-border rounded-3xl p-8 flex flex-col justify-between items-start gap-12 group hover:border-foreground/20 transition-colors duration-500 cursor-default ${dynamicColSpan}`}
+              >
+                <div className="flex items-center justify-center w-12 h-12 rounded-2xl bg-background border border-border text-foreground shadow-sm group-hover:scale-110 transition-transform duration-500">
+                  <Icon className="w-5 h-5 stroke-[1.5]" />
+                </div>
+                <div>
+                  <h4 className="text-xl font-display font-black tracking-tight text-foreground mb-2">
+                    {adv.title}
+                  </h4>
+                  <p className="text-sm font-medium text-muted leading-relaxed">
+                    {adv.description}
+                  </p>
+                </div>
+              </motion.div>
+            );
+          })}
         </div>
-
       </div>
     </section>
   );

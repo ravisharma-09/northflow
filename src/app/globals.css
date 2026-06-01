@@ -2,16 +2,16 @@
 
 /* ===== LIGHT THEME (default) ===== */
 :root {
-  --background: #FAFAFA;
-  --foreground: #0A0A0A;
-  --surface: rgba(0, 0, 0, 0.03);
-  --border: rgba(0, 0, 0, 0.08);
-  --muted: #6B7280;
-  --brand: #1A1A1A;
-  --brand-hover: #000000;
-  --brand-muted: rgba(26, 26, 26, 0.08);
-  --shadow: 0 12px 40px rgba(0, 0, 0, 0.08), 0 1px 4px rgba(0, 0, 0, 0.04);
-  --glass-bg: rgba(255, 255, 255, 0.80);
+  --background: #F9F9F8; /* Soft off-white linen feel */
+  --foreground: #111111;
+  --surface: #FFFFFF;
+  --border: rgba(0, 0, 0, 0.06);
+  --muted: #737373;
+  --brand: #000000;
+  --brand-hover: #333333;
+  --brand-muted: rgba(0, 0, 0, 0.04);
+  --shadow: 0 24px 48px -12px rgba(0, 0, 0, 0.05), 0 4px 12px -4px rgba(0, 0, 0, 0.02);
+  --glass-bg: rgba(249, 249, 248, 0.85);
   --glass-border: rgba(0, 0, 0, 0.06);
   --glow: rgba(0, 0, 0, 0.04);
   --card-bg: rgba(255, 255, 255, 0.90);
@@ -26,16 +26,16 @@
 
 /* ===== DARK THEME ===== */
 :root.dark {
-  --background: #050505;
-  --foreground: #FFFFFF;
-  --surface: rgba(255, 255, 255, 0.03);
-  --border: rgba(255, 255, 255, 0.06);
-  --muted: #A1A1AA;
+  --background: #0A0A0A;
+  --foreground: #F9F9F8;
+  --surface: rgba(255, 255, 255, 0.02);
+  --border: rgba(255, 255, 255, 0.08);
+  --muted: #888888;
   --brand: #FFFFFF;
   --brand-hover: #E5E5E5;
-  --brand-muted: rgba(255, 255, 255, 0.08);
-  --shadow: 0 12px 40px rgba(0, 0, 0, 0.6), 0 1px 4px rgba(0, 0, 0, 0.4);
-  --glass-bg: rgba(5, 5, 5, 0.75);
+  --brand-muted: rgba(255, 255, 255, 0.05);
+  --shadow: 0 24px 48px -12px rgba(0, 0, 0, 0.4), 0 4px 12px -4px rgba(0, 0, 0, 0.2);
+  --glass-bg: rgba(10, 10, 10, 0.85);
   --glass-border: rgba(255, 255, 255, 0.06);
   --glow: rgba(255, 255, 255, 0.04);
   --card-bg: rgba(10, 10, 10, 0.90);

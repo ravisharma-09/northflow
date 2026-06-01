@@ -3,6 +3,7 @@ import Hero from "@/components/Hero/Hero";
 import Services from "@/components/Services";
 import HowItWorks from "@/components/HowItWorks";
 import Projects from "@/components/Projects";
+import Process from "@/components/Process";
 import Metrics from "@/components/Metrics";
 import CTA from "@/components/CTA";
 import Footer from "@/components/Footer";
@@ -23,13 +24,16 @@ export default function Home() {
         {/* Section 3: Animated timeline how-it-works process */}
         <HowItWorks />
         
-        {/* Section 4: Desktop horizontal / Mobile vertical projects showcaser */}
+        {/* Section 4: Projects (System Showcase) */}
         <Projects />
         
-        {/* Section 5: Why Choose Us & Scroll count-up metrics */}
+        {/* Section 5: Why NorthFlow */}
         <Metrics />
+
+        {/* Section 6: Process */}
+        <Process />
         
-        {/* Section 6: Large floating CTA with magnetic pull button */}
+        {/* Section 7: Final CTA */}
         <CTA />
       </main>
 

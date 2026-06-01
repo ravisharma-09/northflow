@@ -17,16 +17,31 @@ const plusJakartaSans = Plus_Jakarta_Sans({
 });
 
 export const metadata: Metadata = {
-  title: "NorthFlow | Premium Websites & Intelligent Automation",
-  description: "Designing digital experiences and automation systems for modern businesses.",
-  keywords: ["Website Design", "Intelligent Automation Systems", "Web development", "Lead generation", "SaaS marketing", "NorthFlow", "Premium Web Design"],
+  title: "NorthFlow | Digital Systems Built For Growth",
+  description: "NorthFlow helps businesses automate operations, capture more leads and scale efficiently through modern digital systems.",
+  keywords: ["Digital Systems Studio", "Website Systems", "Business Automation", "Custom Dashboards", "NorthFlow", "Operations OS", "Web App Development"],
   authors: [{ name: "NorthFlow" }],
   openGraph: {
-    title: "NorthFlow | Premium Websites & Intelligent Automation",
-    description: "Designing digital experiences and automation systems for modern businesses.",
+    title: "NorthFlow | Digital Systems Built For Growth",
+    description: "NorthFlow helps businesses automate operations, capture more leads and scale efficiently through modern digital systems.",
     type: "website",
     locale: "en_US",
+    siteName: "NorthFlow",
   },
+  twitter: {
+    card: "summary_large_image",
+    title: "NorthFlow | Digital Systems Built For Growth",
+    description: "We build websites, automation & dashboards that scale businesses.",
+  }
+};
+
+const structuredData = {
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "name": "NorthFlow",
+  "url": "https://northflow.com",
+  "logo": "https://northflow.com/logo.png",
+  "description": "NorthFlow builds premium websites, intelligent automations, and custom business dashboards.",
 };
 
 export default function RootLayout({
@@ -40,6 +55,9 @@ export default function RootLayout({
       className={`${inter.variable} ${plusJakartaSans.variable} scroll-smooth antialiased`}
       suppressHydrationWarning
     >
+      <head>
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }} />
+      </head>
       <body className="min-h-screen bg-background text-foreground selection:bg-brand/20 selection:text-brand">
         <ThemeProvider>
           <SmoothScroll>

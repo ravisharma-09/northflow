@@ -140,25 +140,23 @@ export default function Hero() {
           </div>
 
           {/* Heading */}
-          <h1 className="hero-headline text-4xl sm:text-5xl lg:text-6.5xl font-display font-black tracking-tight leading-[1.05] text-foreground mb-8 max-w-[620px]">
-            Websites & <br />
-            Automation <br />
-            That Turn Visitors <br />
-            Into <span className="text-brand">Customers.</span>
+          <h1 className="hero-headline text-5xl sm:text-6xl lg:text-7xl font-display font-black tracking-tighter leading-[1.05] text-foreground mb-8 max-w-[620px]">
+            Digital Systems <br />
+            Built For <span className="text-brand">Growth.</span>
           </h1>
 
           {/* Subtext */}
           <p className="hero-paragraph text-base sm:text-lg text-muted font-medium max-w-[540px] leading-[1.7] mb-10">
-            Premium websites and intelligent systems designed to help businesses move faster.
+            NorthFlow helps businesses automate operations, capture more leads and scale efficiently through modern digital systems.
           </p>
 
           {/* Call To Actions */}
           <div className="flex flex-wrap items-center gap-4 mb-12">
             <a
               href="#cta"
-              className="hero-button flex items-center gap-2 px-7 py-4 rounded-full bg-foreground text-background font-bold text-base hover:scale-[1.03] transition-transform duration-300 shadow-md group"
+              className="hero-button flex items-center gap-2 px-8 py-4 rounded-full bg-foreground text-background font-bold text-base hover:scale-[1.03] transition-transform duration-300 shadow-md group"
             >
-              Book a Call
+              Start Your System
               <span className="hero-icon flex items-center justify-center w-5 h-5 rounded-full bg-background text-foreground group-hover:translate-x-0.5 transition-transform duration-300">
                 <ArrowRight className="w-3.5 h-3.5" />
               </span>
@@ -166,9 +164,9 @@ export default function Hero() {
             
             <a
               href="#projects"
-              className="hero-button flex items-center gap-2 px-7 py-4 rounded-full border border-border bg-surface/50 text-foreground font-bold text-base hover:bg-surface hover:scale-[1.03] transition-transform duration-300"
+              className="hero-button flex items-center gap-2 px-8 py-4 rounded-full border border-border bg-surface text-foreground font-bold text-base hover:bg-surface/80 hover:scale-[1.03] transition-transform duration-300"
             >
-              View Work
+              Explore Solutions
               <span className="hero-icon flex items-center justify-center w-5 h-5 rounded-full bg-foreground/10 text-foreground">
                 <Play className="w-3.5 h-3.5 fill-current" />
               </span>

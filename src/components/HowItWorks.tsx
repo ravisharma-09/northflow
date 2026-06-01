@@ -15,26 +15,26 @@ interface Step {
 const steps: Step[] = [
   {
     number: '01',
-    title: 'Discover',
-    description: 'Align on objectives, target demographics, and system architecture.',
+    title: 'Discovery',
+    description: 'We understand your business operations and map out your ideal digital infrastructure.',
     icon: MessageSquare,
   },
   {
     number: '02',
     title: 'Build',
-    description: 'Design and engineer premium, bespoke software environments.',
+    description: 'We create the core system—designing the front-end and engineering the backend.',
     icon: Code,
   },
   {
     number: '03',
     title: 'Automate',
-    description: 'Orchestrate intelligent workflows and automated agent pipelines.',
+    description: 'Workflows and operations are connected, reducing manual tasks across your business.',
     icon: Cpu,
   },
   {
     number: '04',
     title: 'Scale',
-    description: 'Continuously optimize conversions, velocity, and global performance.',
+    description: 'Your business grows with less manual work as the system handles the heavy lifting.',
     icon: TrendingUp,
   },
 ];
@@ -49,11 +49,12 @@ export default function HowItWorks() {
         {/* Header */}
         <ScrollReveal>
           <div className="flex flex-col items-center justify-center text-center mb-24">
-            <span className="px-3 py-1 rounded-full text-xs font-bold bg-brand-muted text-brand border border-brand/20 mb-4 uppercase tracking-widest">
-              Our Method
+            <span className="px-3 py-1 rounded-full text-xs font-bold text-muted border border-border mb-4 uppercase tracking-widest bg-surface shadow-sm">
+              How It Works
             </span>
-            <h2 className="text-3xl sm:text-4xl md:text-5xl font-display font-black tracking-tight leading-tight text-foreground">
-              Simple Path. <span className="text-brand">Massive Scale.</span>
+            <h2 className="text-4xl md:text-5xl lg:text-6xl font-display font-black tracking-tighter leading-tight text-foreground">
+              Systems Engineering. <br />
+              <span className="text-muted">Simplified.</span>
             </h2>
           </div>
         </ScrollReveal>
@@ -63,27 +64,31 @@ export default function HowItWorks() {
           
           {/* Connection Line - Desktop (Flowing SVG) */}
           <svg className="hidden md:block absolute top-[30px] left-[12.5%] right-[12.5%] w-[75%] h-[6px] overflow-visible z-0" pointerEvents="none">
-            <line x1="0" y1="3" x2="100%" y2="3" stroke="rgba(255, 255, 255, 0.05)" strokeWidth="2" />
+            <line x1="0" y1="3" x2="100%" y2="3" stroke="var(--border)" strokeWidth="2" />
             <motion.line 
               x1="0" y1="3" x2="100%" y2="3" 
-              stroke="#34D279" 
+              stroke="var(--foreground)" 
               strokeWidth="2" 
-              strokeDasharray="15 30"
-              animate={{ strokeDashoffset: [-90, 0] }}
-              transition={{ duration: 4, repeat: Infinity, ease: "linear" }}
+              strokeDasharray="100% 100%"
+              initial={{ strokeDashoffset: "100%" }}
+              whileInView={{ strokeDashoffset: 0 }}
+              viewport={{ once: true, margin: "-10%" }}
+              transition={{ duration: 2, ease: "easeInOut" }}
             />
           </svg>
 
           {/* Connection Line - Mobile (Flowing SVG) */}
           <svg className="md:hidden absolute left-[31px] top-8 bottom-8 w-[6px] h-[92%] overflow-visible z-0" pointerEvents="none">
-            <line x1="3" y1="0" x2="3" y2="100%" stroke="rgba(255, 255, 255, 0.05)" strokeWidth="2" />
+            <line x1="3" y1="0" x2="3" y2="100%" stroke="var(--border)" strokeWidth="2" />
             <motion.line 
               x1="3" y1="0" x2="3" y2="100%" 
-              stroke="#34D279" 
+              stroke="var(--foreground)" 
               strokeWidth="2" 
-              strokeDasharray="15 30"
-              animate={{ strokeDashoffset: [-90, 0] }}
-              transition={{ duration: 4, repeat: Infinity, ease: "linear" }}
+              strokeDasharray="100% 100%"
+              initial={{ strokeDashoffset: "100%" }}
+              whileInView={{ strokeDashoffset: 0 }}
+              viewport={{ once: true, margin: "-10%" }}
+              transition={{ duration: 2, ease: "easeInOut" }}
             />
           </svg>
 
@@ -103,18 +108,15 @@ export default function HowItWorks() {
                 >
                   {/* Pulse Outer ring */}
                   <div className="flex items-center gap-4 md:flex-col md:gap-0">
-                    <div className="relative flex items-center justify-center w-16 h-16 rounded-full bg-surface border border-border group-hover:border-brand shadow-premium transition-all duration-500 hover:scale-105 cursor-pointer">
-                      
-                      {/* Pulsing glow ring around node */}
-                      <span className="absolute inset-0 rounded-full border border-brand/30 animate-pulse opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none" />
+                    <div className="relative flex items-center justify-center w-16 h-16 rounded-full bg-background border border-border group-hover:border-foreground shadow-sm transition-all duration-500 hover:scale-[1.03] cursor-pointer z-10">
                       
                       {/* Step Number Badge */}
-                      <span className="absolute -top-1.5 -right-1.5 flex items-center justify-center w-6 h-6 rounded-full bg-[var(--background)] border border-border text-[10px] font-extrabold text-foreground shadow-xs">
+                      <span className="absolute -top-1.5 -right-1.5 flex items-center justify-center w-6 h-6 rounded-full bg-foreground text-[10px] font-extrabold text-background shadow-sm">
                         {step.number}
                       </span>
                       
                       {/* Icon */}
-                      <Icon className="w-5 h-5 text-muted group-hover:text-brand transition-colors duration-500 animate-breathing" />
+                      <Icon className="w-6 h-6 text-foreground stroke-[1.5]" />
                     </div>
 
                     {/* Step Title (Mobile Inline layout helper) */}

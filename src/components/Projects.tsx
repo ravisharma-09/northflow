@@ -1,244 +1,175 @@
 'use client';
 
-import React, { useEffect, useRef } from 'react';
-import { motion, useScroll, useTransform, useSpring } from 'framer-motion';
-import { ArrowUpRight } from 'lucide-react';
-import { gsap } from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import React from 'react';
+import { motion } from 'framer-motion';
+import { Calendar, Bot, Users, BarChart3, TrendingUp, CheckCircle2, ChevronRight, Zap } from 'lucide-react';
 import ScrollReveal from './ScrollReveal';
 
-gsap.registerPlugin(ScrollTrigger);
+// --- CSS UI MOCKUPS ---
 
-interface Project {
-  title: string;
-  category: string;
-  description: string;
-  imageUrl: string;
-  tag: string;
-  result: string;
-}
+const CRMUI = () => (
+  <div className="w-full h-full bg-background border border-border/50 rounded-2xl p-4 flex flex-col gap-3 shadow-sm select-none">
+    <div className="flex items-center justify-between border-b border-border/40 pb-3">
+      <div className="h-4 w-24 bg-surface rounded" />
+      <div className="h-4 w-12 bg-surface rounded" />
+    </div>
+    {[1, 2, 3, 4].map((i) => (
+      <div key={i} className="flex items-center gap-3">
+        <div className="w-8 h-8 rounded-full bg-surface shrink-0" />
+        <div className="flex flex-col gap-1.5 flex-1">
+          <div className="h-2.5 w-24 bg-surface rounded" />
+          <div className="h-2 w-32 bg-surface/50 rounded" />
+        </div>
+        <div className={`h-2.5 w-12 rounded ${i === 1 ? 'bg-foreground' : 'bg-surface'}`} />
+      </div>
+    ))}
+  </div>
+);
 
-const projects: Project[] = [
-  {
-    title: 'Atlas Studio',
-    category: 'Digital Platform',
-    description: 'Bespoke portfolio and content experience designed for an international architecture house.',
-    imageUrl: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=800&q=80',
-    tag: 'Web Design',
-    result: '+80% Engagement',
-  },
-  {
-    title: 'Horizon Labs',
-    category: 'SaaS Architecture',
-    description: 'Next-generation bio-tech interfaces with built-in visual data workflow engines.',
-    imageUrl: 'https://images.unsplash.com/photo-1507413245164-6160d8298b31?auto=format&fit=crop&w=800&q=80',
-    tag: 'Interface Engine',
-    result: 'Seed-Round Funded',
-  },
-  {
-    title: 'Luma Dining',
-    category: 'Digital Experience',
-    description: 'Immersive online booking platforms and brand touchpoints for hospitality giants.',
-    imageUrl: 'https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=800&q=80',
-    tag: 'Interactive',
-    result: '+250% Booking Conv.',
-  },
-  {
-    title: 'Vertex Systems',
-    category: 'Intelligent Automation',
-    description: 'Unified automated routing, scheduling, and qualified pipeline engine.',
-    imageUrl: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=800&q=80',
-    tag: 'System Automation',
-    result: '12.5k Auto Leads',
-  },
-];
+const BookingUI = () => (
+  <div className="w-full h-full bg-background border border-border/50 rounded-2xl p-5 flex flex-col gap-4 shadow-sm select-none">
+    <div className="flex items-center gap-4 border-b border-border/40 pb-4">
+      <div className="w-12 h-12 bg-surface rounded-xl flex items-center justify-center">
+        <Calendar className="w-5 h-5 text-muted" />
+      </div>
+      <div className="flex flex-col gap-1.5">
+        <div className="h-3 w-32 bg-surface rounded" />
+        <div className="h-2 w-20 bg-surface/60 rounded" />
+      </div>
+    </div>
+    <div className="grid grid-cols-4 gap-2 flex-1">
+      {[...Array(12)].map((_, i) => (
+        <div key={i} className={`rounded-md flex items-center justify-center text-[10px] font-bold ${i === 4 ? 'bg-foreground text-background shadow-sm' : 'bg-surface text-muted/40'}`}>
+          {i + 9}:00
+        </div>
+      ))}
+    </div>
+  </div>
+);
+
+const DashboardUI = () => (
+  <div className="w-full h-full bg-background border border-border/50 rounded-2xl p-5 flex flex-col gap-4 shadow-sm select-none">
+    <div className="flex justify-between items-end">
+      <div className="flex flex-col gap-1">
+        <div className="text-[10px] font-bold text-muted uppercase tracking-wider">Revenue</div>
+        <div className="text-2xl font-display font-black text-foreground">$42,500</div>
+      </div>
+      <div className="text-[10px] font-bold text-background bg-foreground px-2 py-1 rounded-full flex items-center gap-1">
+        <TrendingUp className="w-3 h-3" /> +12%
+      </div>
+    </div>
+    <div className="flex-1 flex items-end gap-2 mt-2">
+      {[40, 70, 45, 90, 65, 80, 100].map((h, i) => (
+        <div key={i} className="flex-1 bg-surface rounded-t-sm" style={{ height: `${h}%` }}>
+          {i === 6 && <div className="w-full h-full bg-foreground rounded-t-sm shadow-sm" />}
+        </div>
+      ))}
+    </div>
+  </div>
+);
+
+const AutomationUI = () => (
+  <div className="w-full h-full bg-background border border-border/50 rounded-2xl p-5 flex flex-col items-center justify-center relative shadow-sm select-none">
+    <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808008_1px,transparent_1px),linear-gradient(to_bottom,#80808008_1px,transparent_1px)] bg-[size:12px_12px]" />
+    
+    <div className="flex flex-col gap-4 relative z-10 w-full max-w-[180px]">
+      <div className="bg-surface border border-border/80 rounded-lg p-2 flex items-center gap-3">
+        <Users className="w-4 h-4 text-muted" />
+        <div className="h-2 w-16 bg-muted/30 rounded" />
+      </div>
+      <div className="flex justify-center -my-2"><div className="w-[1px] h-4 bg-border" /></div>
+      <div className="bg-surface border border-border/80 rounded-lg p-2 flex items-center gap-3">
+        <Bot className="w-4 h-4 text-muted" />
+        <div className="h-2 w-20 bg-muted/30 rounded" />
+      </div>
+      <div className="flex justify-center -my-2"><div className="w-[1px] h-4 bg-border" /></div>
+      <div className="bg-foreground text-background rounded-lg p-2 flex items-center gap-3 shadow-md">
+        <Zap className="w-4 h-4 fill-current" />
+        <div className="text-[10px] font-bold">Deal Closed</div>
+      </div>
+    </div>
+  </div>
+);
+
+// --- MAIN COMPONENT ---
 
 export default function Projects() {
-  const pinSectionRef = useRef<HTMLDivElement>(null);
-  const scrollContainerRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    const ctx = gsap.context(() => {
-      const mm = gsap.matchMedia();
-
-      mm.add('(min-width: 768px)', () => {
-        if (!scrollContainerRef.current || !pinSectionRef.current) return;
-
-        const scrollWidth = scrollContainerRef.current.scrollWidth;
-        const viewportWidth = window.innerWidth;
-
-        // Horizontal pinning with inertia scroll
-        gsap.to(scrollContainerRef.current, {
-          x: () => -(scrollWidth - viewportWidth),
-          ease: 'none',
-          scrollTrigger: {
-            trigger: pinSectionRef.current,
-            pin: true,
-            scrub: 1.1, // watery, magnetic inertia feeling
-            start: 'top top',
-            end: () => `+=${scrollWidth - viewportWidth}`,
-            invalidateOnRefresh: true,
-          },
-        });
-      });
-    });
-
-    return () => ctx.revert();
-  }, []);
+  const showcases = [
+    {
+      title: 'Command Center CRM',
+      description: 'Manage leads, track pipeline velocity, and view unified client histories in one blazing fast interface.',
+      ui: <CRMUI />,
+      colSpan: 'lg:col-span-2 md:col-span-1',
+    },
+    {
+      title: 'Automated Booking System',
+      description: 'Convert visitors instantly with calendar sync, automatic Google Meet links, and zero-friction scheduling.',
+      ui: <BookingUI />,
+      colSpan: 'lg:col-span-1 md:col-span-1',
+    },
+    {
+      title: 'Business Dashboards',
+      description: 'Monitor your operations in real-time. Connect Stripe, analytics, and CRM data into a single source of truth.',
+      ui: <DashboardUI />,
+      colSpan: 'lg:col-span-1 md:col-span-1',
+    },
+    {
+      title: 'Intelligent Workflows',
+      description: 'Replace manual tasks with automated triggers. Send follow-ups, update records, and notify the team instantly.',
+      ui: <AutomationUI />,
+      colSpan: 'lg:col-span-2 md:col-span-1',
+    },
+  ];
 
   return (
-    <div ref={pinSectionRef} id="projects" className="relative overflow-hidden bg-background md:min-h-screen flex flex-col justify-center select-none py-20">
-      
-      {/* Mobile Stacked Layout */}
-      <div className="md:hidden py-12 px-6 relative z-10 flex flex-col gap-12">
+    <section id="showcase" className="py-32 relative overflow-hidden bg-surface">
+      <div className="w-full max-w-7xl mx-auto px-6 md:px-12 relative z-10">
+        
+        {/* Header */}
         <ScrollReveal>
-          <div className="flex flex-col text-left">
-            <span className="px-3 py-1 rounded-full text-xs font-bold bg-brand-muted text-brand border border-brand/20 mb-4 w-fit uppercase tracking-widest">
-              Selected Cases
+          <div className="flex flex-col items-center justify-center text-center mb-24 max-w-2xl mx-auto">
+            <span className="text-xs font-bold text-muted mb-4 uppercase tracking-widest">
+              System Showcase
             </span>
-            <h2 className="text-3xl font-display font-black tracking-tight text-foreground mb-4">
-              Bespoke Digital Works
+            <h2 className="text-4xl md:text-5xl lg:text-6xl font-display font-black tracking-tighter leading-tight text-foreground">
+              Inside The <br />
+              <span className="text-muted">Infrastructure.</span>
             </h2>
-            <p className="text-sm font-medium text-muted max-w-sm">
-              We design, develop, and automate systems built for high-performance brands.
-            </p>
           </div>
         </ScrollReveal>
 
-        <div className="flex flex-col gap-10">
-          {projects.map((project, idx) => (
+        {/* Bento Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {showcases.map((showcase, idx) => (
             <motion.div
               key={idx}
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: '-50px' }}
-              transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-              className="flex flex-col gap-4 bg-surface border border-border rounded-[32px] overflow-hidden p-6"
+              transition={{ duration: 0.8, delay: idx * 0.1, ease: [0.16, 1, 0.3, 1] }}
+              className={`bg-background border border-border rounded-3xl overflow-hidden flex flex-col group ${showcase.colSpan}`}
             >
-              <div className="w-full h-52 rounded-2xl overflow-hidden bg-[#121212] relative">
-                <img
-                  src={project.imageUrl}
-                  alt={project.title}
-                  className="w-full h-full object-cover"
-                />
-              </div>
-              <div className="flex flex-col gap-1">
-                <h3 className="text-xl font-display font-black text-foreground">{project.title}</h3>
-                <div className="flex items-center justify-between mt-2">
-                  <span className="text-sm font-semibold text-muted">{project.category}</span>
-                  <span className="text-xs font-bold text-foreground flex items-center gap-1">
-                    <ArrowUpRight className="w-3.5 h-3.5 text-brand" />
-                  </span>
+              {/* Graphic Area */}
+              <div className="h-64 bg-surface/50 p-6 flex items-center justify-center border-b border-border/50 relative overflow-hidden">
+                <div className="w-full h-full max-w-md mx-auto transition-transform duration-700 ease-out group-hover:scale-[1.02]">
+                  {showcase.ui}
                 </div>
+              </div>
+              
+              {/* Text Area */}
+              <div className="p-8 flex flex-col gap-3">
+                <h3 className="text-2xl font-display font-black tracking-tight text-foreground">
+                  {showcase.title}
+                </h3>
+                <p className="text-sm font-medium text-muted leading-relaxed">
+                  {showcase.description}
+                </p>
               </div>
             </motion.div>
           ))}
         </div>
+
       </div>
-
-      {/* Desktop Horizontal Scroll Layout */}
-      <div className="hidden md:block relative z-10 w-full overflow-hidden">
-        <div ref={scrollContainerRef} className="flex items-center gap-24 px-24 h-screen w-fit">
-          
-          {/* Header Panel */}
-          <div className="w-[380px] flex flex-col justify-center text-left flex-shrink-0">
-            <span className="px-3 py-1 rounded-full text-xs font-bold bg-brand-muted text-brand border border-brand/20 mb-6 w-fit uppercase tracking-widest">
-              Selected Cases
-            </span>
-            <h2 className="text-4xl lg:text-5.5xl font-display font-black tracking-tight leading-tight text-foreground mb-6">
-              Bespoke <br /> Portfolio
-            </h2>
-            <p className="text-base text-muted font-medium mb-8 leading-relaxed">
-              We design, engineer, and automate premium digital systems. Scroll horizontally to inspect our global studio cases.
-            </p>
-            <div className="flex items-center gap-3 text-sm font-bold text-muted">
-              Scroll Down to Slide <span className="text-brand animate-pulse">→</span>
-            </div>
-          </div>
-
-          {/* Project Panels */}
-          {projects.map((project, idx) => {
-            // Apply slight horizontal offsets to different panels for parallax scroll speed differences
-            const parallaxOffset = (idx % 2 === 0) ? -20 : 20;
-
-            return (
-              /* Low gravity float animation */
-              <motion.div
-                key={idx}
-                animate={{
-                  y: idx % 2 === 0 ? [-6, 6, -6] : [6, -6, 6],
-                }}
-                transition={{
-                  duration: 6 + idx * 0.7,
-                  repeat: Infinity,
-                  ease: "easeInOut",
-                }}
-                className="flex-shrink-0"
-                style={{
-                  transform: `translateX(${parallaxOffset}px)`
-                }}
-              >
-                <motion.div
-                  whileHover={{ 
-                    scale: 1.025, // expand card
-                    borderColor: 'rgba(52, 210, 121, 0.3)'
-                  }}
-                  transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-                  className="w-[740px] h-[480px] bg-surface border border-border rounded-[32px] overflow-hidden p-8 flex items-center gap-8 hover:shadow-premium transition-all duration-500 group relative cursor-pointer"
-                >
-                  {/* Image side with Zoom/Parallax effect */}
-                  <div className="w-[50%] h-full rounded-[24px] overflow-hidden relative bg-[#121212]">
-                    <div className="absolute inset-0 bg-black/20 group-hover:bg-transparent z-10 transition-colors duration-500" />
-                    <motion.img
-                      src={project.imageUrl}
-                      alt={project.title}
-                      whileHover={{ scale: 1.04 }} // exact 1.04 zoom reveal
-                      transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-                      className="w-full h-full object-cover bg-surface"
-                    />
-                    {/* Float Badge */}
-                    <span className="absolute top-4 left-4 z-20 px-3 py-1.5 rounded-full text-[10px] font-extrabold uppercase tracking-wider bg-[var(--surface)] border border-border text-foreground shadow-sm">
-                      {project.tag}
-                    </span>
-                  </div>
-
-                  {/* Info side */}
-                  <div className="w-[50%] h-full flex flex-col justify-between text-left py-4">
-                    <div className="flex flex-col gap-3">
-                      <span className="text-xs font-extrabold uppercase tracking-widest text-brand">
-                        {project.category}
-                      </span>
-                      <h3 className="text-2xl lg:text-3.5xl font-display font-black tracking-tight text-foreground group-hover:text-brand transition-colors duration-300">
-                        {project.title}
-                      </h3>
-                      <p className="text-sm font-medium text-muted leading-relaxed">
-                        {project.description}
-                      </p>
-                    </div>
-
-                    <div className="flex flex-col gap-4 border-t border-border/40 pt-4">
-                      {/* Results row */}
-                      <div className="flex items-center gap-2">
-                        <span className="inline-block w-2 h-2 rounded-full bg-brand animate-pulse" />
-                        <span className="text-xs font-extrabold text-brand uppercase tracking-wider">
-                          {project.result}
-                        </span>
-                      </div>
-                      {/* Action Link */}
-                      <div className="flex items-center gap-2 text-sm font-bold text-foreground group-hover:text-brand transition-colors duration-300">
-                        View Case 
-                        <span className="flex items-center justify-center w-6 h-6 rounded-full border border-border bg-[#161616] text-muted group-hover:bg-brand group-hover:border-brand group-hover:text-black transition-all duration-300">
-                          <ArrowUpRight className="w-3.5 h-3.5" />
-                        </span>
-                      </div>
-                    </div>
-                  </div>
-                </motion.div>
-              </motion.div>
-            );
-          })}
-        </div>
-      </div>
-    </div>
+    </section>
   );
 }
