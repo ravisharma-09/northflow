@@ -3,6 +3,7 @@ import { Mail, Plus, Trash2 } from 'lucide-react';
 import TemplateSender from '@/components/TemplateSender';
 import TemplateCard from '@/components/TemplateCard';
 import SubmitButton from '@/components/SubmitButton';
+import { saveTemplate } from '@/app/actions/email';
 
 export default async function EmailsPage() {
   const [templates, leads] = await Promise.all([
