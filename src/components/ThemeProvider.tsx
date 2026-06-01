@@ -12,27 +12,16 @@ type ThemeContextType = {
 const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
 
 export function ThemeProvider({ children }: { children: React.ReactNode }) {
-  const [theme, setTheme] = useState<Theme>('dark');
-  const [mounted, setMounted] = useState(false);
+  const [theme] = useState<Theme>('light');
 
   useEffect(() => {
-    // Read saved preference or system preference
-    const saved = localStorage.getItem('northflow-theme') as Theme | null;
-    const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-    const initial = saved || (systemPrefersDark ? 'dark' : 'light');
-
-    setTheme(initial);
-    document.documentElement.classList.toggle('dark', initial === 'dark');
-    setMounted(true);
+    // Force light mode permanently
+    document.documentElement.classList.remove('dark');
+    localStorage.setItem('northflow-theme', 'light');
   }, []);
 
   const toggleTheme = () => {
-    setTheme((prev) => {
-      const next = prev === 'dark' ? 'light' : 'dark';
-      document.documentElement.classList.toggle('dark', next === 'dark');
-      localStorage.setItem('northflow-theme', next);
-      return next;
-    });
+    // Disabled
   };
 
   return (
