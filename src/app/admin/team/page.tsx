@@ -54,7 +54,7 @@ export default async function TeamPage() {
                   </select>
                 </div>
                 <SubmitButton 
-                  icon={Plus}
+                  icon={<Plus className="w-5 h-5" />}
                   className="w-full py-3 bg-foreground text-background font-bold rounded-xl hover:scale-[1.02]"
                 >
                   Send Invite
@@ -115,7 +115,7 @@ export default async function TeamPage() {
                           await removeTeamMember(user.id);
                         }}>
                           <SubmitButton 
-                            icon={Trash2}
+                            icon={<Trash2 className="w-5 h-5" />}
                             className="p-2 text-red-500 hover:bg-red-500/10 rounded-lg"
                           />
                         </form>

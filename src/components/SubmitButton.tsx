@@ -7,12 +7,12 @@ import React from 'react';
 export default function SubmitButton({ 
   children, 
   className,
-  icon: Icon,
+  icon,
   variant = 'primary'
 }: { 
   children?: React.ReactNode, 
   className?: string,
-  icon?: any,
+  icon?: React.ReactNode,
   variant?: 'primary' | 'danger' | 'ghost'
 }) {
   const { pending } = useFormStatus();
@@ -23,7 +23,7 @@ export default function SubmitButton({
       disabled={pending}
       className={`flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed transition-all ${className || ''}`}
     >
-      {pending ? <Loader2 className="w-5 h-5 animate-spin" /> : (Icon && <Icon className="w-5 h-5" />)}
+      {pending ? <Loader2 className="w-5 h-5 animate-spin" /> : icon}
       {children}
     </button>
   );

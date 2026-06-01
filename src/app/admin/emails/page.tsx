@@ -47,7 +47,7 @@ export default async function EmailsPage() {
                   <textarea name="body" required placeholder="Type your message here..." className="w-full bg-background border border-border rounded-xl p-4 min-h-[200px] outline-none focus:ring-2 focus:ring-primary resize-y" />
                 </div>
                 <SubmitButton 
-                  icon={Plus}
+                  icon={<Plus className="w-5 h-5" />}
                   className="w-full py-3 bg-foreground text-background font-bold rounded-xl hover:scale-[1.02]"
                 >
                   Save Template
