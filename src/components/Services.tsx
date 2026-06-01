@@ -7,27 +7,35 @@ import ScrollReveal from './ScrollReveal';
 
 interface Service {
   title: string;
-  description: string;
+  problem: string;
+  solution: string;
+  outcome: string;
   icon: React.ComponentType<any>;
   tag: string;
 }
 
 const services: Service[] = [
   {
-    title: 'Website Systems',
-    description: 'Modern high-performance websites designed to convert visitors into customers.',
+    title: 'Lead Capture Systems',
+    problem: 'Traffic bounces. Paid ads bleed cash. Leads slip through the cracks of generic web pages.',
+    solution: 'Bespoke, high-performance web architecture optimized strictly for conversion and trust.',
+    outcome: 'Increased lead velocity and lower acquisition costs.',
     icon: Layout,
     tag: 'Acquisition',
   },
   {
-    title: 'Automation Systems',
-    description: 'Reduce manual work through intelligent workflows and automated operations.',
+    title: 'Operational Automation',
+    problem: 'Teams waste hours on manual data entry, follow-ups, and copy-pasting between disconnected tools.',
+    solution: 'Custom API integrations and logic workflows that connect your stack and trigger instantly.',
+    outcome: 'Zero-touch operations. Hundreds of hours saved monthly.',
     icon: Bot,
     tag: 'Efficiency',
   },
   {
-    title: 'Business Dashboards',
-    description: 'Monitor leads, meetings, revenue and operations from one centralized place.',
+    title: 'CRM Infrastructure',
+    problem: 'Data is siloed in spreadsheets. Deals stall because no one knows where leads are in the pipeline.',
+    solution: 'Centralized, automated dashboards that track revenue, pipeline stages, and team performance.',
+    outcome: 'Total visibility and predictable revenue forecasting.',
     icon: BarChart3,
     tag: 'Operations',
   },
@@ -96,7 +104,7 @@ function ServiceCard({ service, index }: { service: Service; index: number }) {
           scale: 1.01,
         }}
         transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-        className="group relative flex flex-col justify-between bg-surface border border-border rounded-3xl p-8 lg:p-10 min-h-[380px] hover:border-foreground/20 transition-colors duration-500 select-none cursor-pointer overflow-hidden"
+        className="group relative flex flex-col justify-between bg-surface border border-border rounded-3xl p-8 lg:p-10 min-h-[460px] hover:border-foreground/20 transition-colors duration-500 select-none cursor-pointer overflow-hidden"
       >
         {/* Spotlight cursor glow overlay */}
         <motion.div
@@ -105,9 +113,9 @@ function ServiceCard({ service, index }: { service: Service; index: number }) {
         />
 
         {/* Card Content */}
-        <div style={{ transform: 'translateZ(30px)' }} className="flex flex-col gap-8 text-left relative z-10">
+        <div style={{ transform: 'translateZ(30px)' }} className="flex flex-col gap-6 text-left relative z-10">
           <div className="flex justify-between items-start">
-            <div className="flex items-center justify-center w-14 h-14 rounded-2xl bg-background border border-border text-foreground shadow-sm">
+            <div className="flex items-center justify-center w-14 h-14 rounded-2xl bg-background border border-border text-foreground shadow-sm group-hover:scale-105 transition-transform duration-300">
               <Icon className="w-6 h-6 stroke-[1.5]" />
             </div>
             <span className="text-[10px] font-bold uppercase tracking-widest text-muted bg-background border border-border px-3 py-1.5 rounded-full shadow-sm">
@@ -115,18 +123,30 @@ function ServiceCard({ service, index }: { service: Service; index: number }) {
             </span>
           </div>
 
-          <div>
-            <h3 className="text-2xl lg:text-3xl font-display font-black tracking-tight text-foreground mb-4">
-              {service.title}
-            </h3>
-            <p className="text-base font-medium text-muted leading-relaxed max-w-[280px]">
-              {service.description}
-            </p>
+          <h3 className="text-2xl lg:text-3xl font-display font-black tracking-tight text-foreground mb-2 mt-2">
+            {service.title}
+          </h3>
+
+          <div className="flex flex-col gap-4 text-sm font-medium">
+            <div className="flex flex-col gap-1">
+              <span className="text-[10px] uppercase tracking-wider text-muted font-bold">The Problem</span>
+              <p className="text-foreground/70 leading-relaxed">{service.problem}</p>
+            </div>
+            
+            <div className="flex flex-col gap-1">
+              <span className="text-[10px] uppercase tracking-wider text-muted font-bold">The Solution</span>
+              <p className="text-foreground/90 leading-relaxed">{service.solution}</p>
+            </div>
+
+            <div className="flex flex-col gap-1">
+              <span className="text-[10px] uppercase tracking-wider text-muted font-bold">The Outcome</span>
+              <p className="text-brand font-bold leading-relaxed">{service.outcome}</p>
+            </div>
           </div>
         </div>
 
         {/* Bottom Link indicator */}
-        <div style={{ transform: 'translateZ(15px)' }} className="flex items-center justify-between mt-12 border-t border-border/60 pt-6 text-left relative z-10">
+        <div style={{ transform: 'translateZ(15px)' }} className="flex items-center justify-between mt-8 border-t border-border/60 pt-6 text-left relative z-10">
           <span className="text-sm font-bold text-muted group-hover:text-foreground transition-colors duration-300">
             Explore System
           </span>

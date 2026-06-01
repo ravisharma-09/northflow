@@ -47,10 +47,9 @@ export default function Navbar() {
           }}
           animate={hidden ? "hidden" : "visible"}
           transition={{ duration: 0.35, ease: "easeInOut" }}
-          className="w-full max-w-[1040px] flex items-center justify-between border rounded-full px-8 py-3.5 pointer-events-auto transition-colors duration-500"
+          className="w-full max-w-[1040px] flex items-center justify-between border border-border/40 rounded-full px-8 py-3.5 pointer-events-auto transition-colors duration-500"
           style={{
             backgroundColor: scrolled ? 'var(--nav-bg-scrolled)' : 'var(--nav-bg)',
-            borderColor: scrolled ? 'var(--nav-border-scrolled)' : 'var(--nav-border)',
             boxShadow: scrolled ? 'var(--nav-shadow-scrolled)' : 'var(--nav-shadow)',
             backdropFilter: 'blur(24px)',
             WebkitBackdropFilter: 'blur(24px)',

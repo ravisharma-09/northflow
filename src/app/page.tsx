@@ -1,10 +1,14 @@
 import Navbar from "@/components/Navbar";
 import Hero from "@/components/Hero/Hero";
+import TrustBar from "@/components/TrustBar";
 import Services from "@/components/Services";
+import SystemArchitecture from "@/components/SystemArchitecture";
 import HowItWorks from "@/components/HowItWorks";
 import Projects from "@/components/Projects";
-import Process from "@/components/Process";
+import Industries from "@/components/Industries";
 import Metrics from "@/components/Metrics";
+import FAQ from "@/components/FAQ";
+import Process from "@/components/Process";
 import CTA from "@/components/CTA";
 import Footer from "@/components/Footer";
 
@@ -15,25 +19,34 @@ export default function Home() {
       <Navbar />
       
       <main className="relative flex-1">
-        {/* Section 1: Hero Scene with 3D Canvas */}
+        {/* Section 1: Hero Scene */}
         <Hero />
         
-        {/* Section 2: Services with Spotlight 3D Tilt cards */}
+        {/* Section 2: Trust Bar */}
+        <TrustBar />
+
+        {/* Section 3: Services (Problem -> Solution) */}
         <Services />
         
-        {/* Section 3: Animated timeline how-it-works process */}
+        {/* Section 4: System Architecture Flow */}
+        <SystemArchitecture />
+
+        {/* Section 5: Animated timeline how-it-works process */}
         <HowItWorks />
         
-        {/* Section 4: Projects (System Showcase) */}
+        {/* Section 6: System Showcase (CSS Mockups) */}
         <Projects />
+
+        {/* Section 7: Industries */}
+        <Industries />
         
-        {/* Section 5: Why NorthFlow */}
+        {/* Section 8: Proof & Metrics */}
         <Metrics />
 
-        {/* Section 6: Process */}
-        <Process />
+        {/* Section 9: FAQ */}
+        <FAQ />
         
-        {/* Section 7: Final CTA */}
+        {/* Section 10: Final CTA */}
         <CTA />
       </main>
 

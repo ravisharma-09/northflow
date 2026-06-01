@@ -109,11 +109,11 @@ export default function Hero() {
   }, { scope: containerRef });
 
   const featureBadges = [
-    { name: 'Fast Delivery', icon: Clock },
-    { name: 'Modern Design', icon: Sparkles },
-    { name: 'Results Driven', icon: Zap },
-    { name: '24/7 Support', icon: Shield },
-    { name: 'Satisfaction Guarantee', icon: CheckCircle },
+    { name: 'Lead Capture Systems', icon: Zap },
+    { name: 'Booking Automation', icon: Clock },
+    { name: 'CRM Infrastructure', icon: Shield },
+    { name: 'Business Dashboards', icon: Sparkles },
+    { name: 'Operational Automation', icon: CheckCircle },
   ];
 
   return (
@@ -141,13 +141,14 @@ export default function Hero() {
 
           {/* Heading */}
           <h1 className="hero-headline text-5xl sm:text-6xl lg:text-7xl font-display font-black tracking-tighter leading-[1.05] text-foreground mb-8 max-w-[620px]">
-            Digital Systems <br />
-            Built For <span className="text-brand">Growth.</span>
+            We build the <br />
+            <span className="text-muted">operating system</span> <br />
+            behind your business.
           </h1>
 
           {/* Subtext */}
           <p className="hero-paragraph text-base sm:text-lg text-muted font-medium max-w-[540px] leading-[1.7] mb-10">
-            NorthFlow helps businesses automate operations, capture more leads and scale efficiently through modern digital systems.
+            NorthFlow replaces fragmented tools with unified business infrastructure. We design, build, and deploy bespoke systems that automate your operations from lead capture to final fulfillment.
           </p>
 
           {/* Call To Actions */}
@@ -202,7 +203,7 @@ export default function Hero() {
                 <span className="text-sm font-extrabold text-foreground ml-1">5.0/5</span>
               </div>
               <span className="text-xs text-muted font-bold mt-0.5">
-                Building systems that scale.
+                Infrastructure trusted by high-ticket operators.
               </span>
             </div>
           </div>

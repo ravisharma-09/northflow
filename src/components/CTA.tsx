@@ -47,7 +47,7 @@ export default function CTA() {
             </h2>
             
             <p className="text-lg md:text-xl font-medium text-muted leading-relaxed max-w-2xl mx-auto mb-16">
-              Let's design the infrastructure your business needs to grow.
+              Let's engineer the operational infrastructure your business needs to scale.
             </p>
 
             {/* Magnetic Button */}
