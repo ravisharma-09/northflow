@@ -121,9 +121,9 @@ export default function Footer() {
             </h4>
             <div className="flex flex-col gap-3 text-sm font-semibold text-muted">
               <span className="text-foreground/80 font-bold">Remote • Worldwide</span>
-              <a href="mailto:hello@northflow.co" className="flex items-center gap-2 hover:text-brand transition-colors duration-300">
-                <Mail className="w-4 h-4" />
-                hello@northflow.co
+              <a href="mailto:northflow.work@gmail.com" className="flex items-center gap-2 hover:text-brand transition-colors duration-300">
+                <Mail className="w-5 h-5" />
+                northflow.work@gmail.com
               </a>
             </div>
           </div>

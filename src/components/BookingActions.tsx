@@ -1,10 +1,12 @@
 'use client';
 
 import { useState } from 'react';
+import { useRouter } from 'next/navigation';
 import { X, Calendar as CalendarIcon, Loader2 } from 'lucide-react';
 import { cancelBooking, rescheduleBooking } from '@/app/actions/lead';
 
 export default function BookingActions({ leadId, currentStart }: { leadId: string, currentStart: Date }) {
+  const router = useRouter();
   const [loading, setLoading] = useState(false);
   const [showReschedule, setShowReschedule] = useState(false);
   const [newDate, setNewDate] = useState('');
@@ -14,6 +16,7 @@ export default function BookingActions({ leadId, currentStart }: { leadId: strin
     setLoading(true);
     try {
       await cancelBooking(leadId);
+      router.refresh();
     } catch (e) {
       console.error(e);
       alert('Failed to cancel');
@@ -28,6 +31,7 @@ export default function BookingActions({ leadId, currentStart }: { leadId: strin
       const iso = new Date(newDate).toISOString();
       await rescheduleBooking(leadId, iso);
       setShowReschedule(false);
+      router.refresh();
     } catch (e) {
       console.error(e);
       alert('Failed to reschedule');

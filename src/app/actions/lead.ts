@@ -84,9 +84,9 @@ export async function cancelBooking(leadId: string) {
   if (!session) throw new Error("Unauthorized");
 
   const lead = await prisma.lead.findUnique({ where: { id: leadId } });
-  if (!lead || !lead.eventId) throw new Error("No booking found");
+  if (!lead) throw new Error("No lead found");
 
-  if (process.env.GOOGLE_CLIENT_ID) {
+  if (process.env.GOOGLE_CLIENT_ID && lead.eventId) {
     try {
       const calendar = getGoogleCalendarAuth();
       await calendar.events.delete({
@@ -121,12 +121,12 @@ export async function rescheduleBooking(leadId: string, newStartIso: string) {
   if (!session) throw new Error("Unauthorized");
 
   const lead = await prisma.lead.findUnique({ where: { id: leadId } });
-  if (!lead || !lead.eventId) throw new Error("No booking found");
+  if (!lead) throw new Error("No lead found");
 
   const newStart = new Date(newStartIso);
   const newEnd = addMinutes(newStart, 45);
 
-  if (process.env.GOOGLE_CLIENT_ID) {
+  if (process.env.GOOGLE_CLIENT_ID && lead.eventId) {
     try {
       const calendar = getGoogleCalendarAuth();
       await calendar.events.patch({
