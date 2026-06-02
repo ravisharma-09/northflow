@@ -116,8 +116,11 @@ export default function Hero() {
     { name: 'Operational Automation', icon: CheckCircle },
   ];
 
+  // Duplicate for seamless marquee
+  const marqueeBadges = [...featureBadges, ...featureBadges, ...featureBadges, ...featureBadges];
+
   return (
-    <section ref={containerRef} id="home" className="relative pt-24 pb-16 flex flex-col justify-center overflow-x-clip min-h-[90vh]">
+    <section ref={containerRef} id="home" className="relative pt-32 md:pt-40 pb-16 flex flex-col justify-center overflow-x-clip min-h-[90vh]">
       {/* Background with fading grid and soft glow */}
       <div className="hero-bg absolute inset-0 opacity-0 z-0 pointer-events-none">
         <div className="absolute inset-0 grid-floor bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:24px_24px] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,#000_70%,transparent_100%)] opacity-[0.03]" />
@@ -131,13 +134,13 @@ export default function Hero() {
 
 
           {/* Heading */}
-          <h1 className="hero-headline text-5xl sm:text-6xl lg:text-7xl font-display font-black tracking-tighter leading-[1.05] text-foreground mb-8 max-w-[900px]">
-            Websites, Automation & Business Systems <br className="hidden md:block" />
+          <h1 className="hero-headline text-5xl sm:text-6xl lg:text-7xl font-display font-black tracking-tighter leading-[1.05] text-foreground mb-8 w-full">
+            Websites, Automation & Business Systems{' '}
             <span className="text-muted">Built To Generate More Leads And Save You Time.</span>
           </h1>
 
           {/* Subtext */}
-          <p className="hero-paragraph text-base sm:text-lg text-muted font-medium max-w-[640px] leading-[1.7] mb-10">
+          <p className="hero-paragraph text-base sm:text-lg text-muted font-medium max-w-[800px] leading-[1.7] mb-10">
             We help businesses automate bookings, follow-ups, customer communication and operations through modern websites, intelligent automation and custom dashboards.
           </p>
 
@@ -170,17 +173,19 @@ export default function Hero() {
         </div>
 
       {/* Trust Badges Row */}
-      <div className="w-full max-w-5xl mx-auto px-6 md:px-12 mt-8 lg:mt-0 z-10 relative">
-        <div className="w-full border-y border-border/80 py-6 overflow-x-auto scrollbar-none flex gap-8 justify-center items-center whitespace-nowrap">
-          {featureBadges.map((badge, idx) => {
-            const Icon = badge.icon;
-            return (
-              <div key={idx} className="flex items-center gap-2 flex-shrink-0 text-foreground/80 hover:text-brand transition-colors duration-300">
-                <Icon className="w-4 h-4 text-brand" />
-                <span className="text-sm font-bold tracking-tight">{badge.name}</span>
-              </div>
-            );
-          })}
+      <div className="w-full mt-16 md:mt-20 z-10 relative overflow-hidden">
+        <div className="w-full border-y border-border/80 py-6 flex bg-background/50 backdrop-blur-sm">
+          <div className="animate-marquee gap-12 pr-12">
+            {marqueeBadges.map((badge, idx) => {
+              const Icon = badge.icon;
+              return (
+                <div key={idx} className="flex items-center gap-2 flex-shrink-0 text-foreground/80 hover:text-brand transition-colors duration-300">
+                  <Icon className="w-4 h-4 text-brand" />
+                  <span className="text-sm font-bold tracking-tight">{badge.name}</span>
+                </div>
+              );
+            })}
+          </div>
         </div>
       </div>
     </section>
