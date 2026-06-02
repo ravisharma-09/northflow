@@ -8,20 +8,36 @@ import ScrollReveal from './ScrollReveal';
 export default function FAQ() {
   const faqs = [
     {
-      q: "Do I need automation?",
-      a: "If your business spends time manually handling leads, bookings or follow-ups, automation can save hours every week."
-    },
-    {
-      q: "Can I start with just a website?",
-      a: "Yes. Many clients begin with a website and add automation later."
-    },
-    {
       q: "Do you provide ongoing support?",
-      a: "Yes. We offer maintenance, improvements and ongoing optimization."
+      a: "Yes. After launch, you can choose an ongoing support retainer for maintenance, updates, and future improvements."
     },
     {
-      q: "Can systems be expanded later?",
-      a: "Absolutely. Every system is designed to grow with your business."
+      q: "How long does it take to build my system?",
+      a: "Most projects are completed within 1–4 weeks depending on requirements."
+    },
+    {
+      q: "Can I start with only a website?",
+      a: "Yes. You can start with a website and add automation or dashboards later."
+    },
+    {
+      q: "Can you connect my existing tools?",
+      a: "Yes. We can integrate tools like Google Calendar, WhatsApp, CRMs, and more."
+    },
+    {
+      q: "Will I be able to manage the system myself?",
+      a: "Yes. We build easy-to-use systems and provide guidance after launch."
+    },
+    {
+      q: "What businesses do you work with?",
+      a: "We work with service businesses, agencies, consultants, coaches, local businesses, and startups."
+    },
+    {
+      q: "Do I need technical knowledge?",
+      a: "No. We handle the setup, integrations, and technical work for you."
+    },
+    {
+      q: "How do we get started?",
+      a: "Book a strategy call and we'll discuss your goals, workflow, and the best solution for your business."
     }
   ];
 
