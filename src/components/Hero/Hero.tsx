@@ -117,7 +117,7 @@ export default function Hero() {
   ];
 
   return (
-    <section ref={containerRef} id="home" className="relative min-h-screen pt-32 pb-16 flex flex-col justify-between overflow-x-clip">
+    <section ref={containerRef} id="home" className="relative pt-24 pb-16 flex flex-col justify-center overflow-x-clip min-h-[90vh]">
       {/* Background with fading grid and soft glow */}
       <div className="hero-bg absolute inset-0 opacity-0 z-0 pointer-events-none">
         <div className="absolute inset-0 grid-floor bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:24px_24px] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,#000_70%,transparent_100%)] opacity-[0.03]" />
@@ -126,33 +126,30 @@ export default function Hero() {
       </div>
 
       {/* Main Content */}
-      <div className="w-full max-w-7xl mx-auto px-6 md:px-12 flex-1 grid grid-cols-1 lg:grid-cols-12 gap-16 lg:gap-10 items-center z-10 relative">
+      <div className="w-full max-w-5xl mx-auto px-6 md:px-12 flex flex-col items-center text-center z-10 relative">
         
-        {/* Left Side: Headlines and CTAs */}
-        <div className="lg:col-span-6 flex flex-col justify-center text-left">
-          
-          <div className="hero-headline flex items-center gap-3 mb-8">
-            <span className="text-[10px] font-bold tracking-[0.2em] uppercase text-muted">Build</span>
-            <span className="w-1 h-1 rounded-full bg-border"></span>
-            <span className="text-[10px] font-bold tracking-[0.2em] uppercase text-muted">Automate</span>
-            <span className="w-1 h-1 rounded-full bg-border"></span>
-            <span className="text-[10px] font-bold tracking-[0.2em] uppercase text-muted">Scale</span>
-          </div>
+        <div className="hero-headline flex items-center justify-center gap-4 mb-8">
+          <span className="text-sm font-bold tracking-[0.3em] uppercase text-muted">Build</span>
+          <span className="text-muted/30 text-xs">•</span>
+          <span className="text-sm font-bold tracking-[0.3em] uppercase text-muted">Automate</span>
+          <span className="text-muted/30 text-xs">•</span>
+          <span className="text-sm font-bold tracking-[0.3em] uppercase text-muted">Scale</span>
+        </div>
 
           {/* Heading */}
-          <h1 className="hero-headline text-5xl sm:text-6xl lg:text-7xl font-display font-black tracking-tighter leading-[1.05] text-foreground mb-8 max-w-[800px]">
-            Websites, Automation & Business Systems <br />
+          <h1 className="hero-headline text-5xl sm:text-6xl lg:text-7xl font-display font-black tracking-tighter leading-[1.05] text-foreground mb-8 max-w-[900px]">
+            Websites, Automation & Business Systems <br className="hidden md:block" />
             <span className="text-muted">Built To Generate More Leads And Save You Time.</span>
           </h1>
 
           {/* Subtext */}
-          <p className="hero-paragraph text-base sm:text-lg text-muted font-medium max-w-[600px] leading-[1.7] mb-10">
+          <p className="hero-paragraph text-base sm:text-lg text-muted font-medium max-w-[640px] leading-[1.7] mb-10">
             We help businesses automate bookings, follow-ups, customer communication and operations through modern websites, intelligent automation and custom dashboards.
           </p>
 
           {/* Call To Actions */}
-          <div className="flex flex-col gap-6 mb-12">
-            <div className="flex flex-wrap items-center gap-4">
+          <div className="flex flex-col items-center gap-6 mb-12">
+            <div className="flex flex-wrap items-center justify-center gap-4">
               <a
                 href="#cta"
                 className="hero-button flex items-center gap-2 px-8 py-4 rounded-full bg-foreground text-background font-bold text-base hover:scale-[1.03] transition-transform duration-300 shadow-md group outline-none"
@@ -176,18 +173,11 @@ export default function Hero() {
             </div>
           </div>
 
-
         </div>
-
-        {/* Right Side: 2D Visual Container */}
-        <div className="lg:col-span-6 h-[450px] lg:h-[600px] w-full relative z-10 overflow-visible">
-          <HeroVisual />
-        </div>
-      </div>
 
       {/* Trust Badges Row */}
-      <div className="w-full max-w-7xl mx-auto px-6 md:px-12 mt-8 lg:mt-0 z-10 relative">
-        <div className="w-full border-y border-border/80 py-6 overflow-x-auto scrollbar-none flex gap-8 md:justify-between items-center whitespace-nowrap">
+      <div className="w-full max-w-5xl mx-auto px-6 md:px-12 mt-8 lg:mt-0 z-10 relative">
+        <div className="w-full border-y border-border/80 py-6 overflow-x-auto scrollbar-none flex gap-8 justify-center items-center whitespace-nowrap">
           {featureBadges.map((badge, idx) => {
             const Icon = badge.icon;
             return (
