@@ -120,7 +120,7 @@ export default function Hero() {
   const marqueeBadges = [...featureBadges, ...featureBadges, ...featureBadges, ...featureBadges];
 
   return (
-    <section ref={containerRef} id="home" className="relative pt-32 md:pt-40 pb-16 flex flex-col justify-center overflow-x-clip min-h-[90vh]">
+    <section ref={containerRef} id="home" className="relative pt-40 md:pt-56 pb-20 flex flex-col justify-center overflow-x-clip min-h-[90vh]">
       {/* Background with fading grid and soft glow */}
       <div className="hero-bg absolute inset-0 opacity-0 z-0 pointer-events-none">
         <div className="absolute inset-0 grid-floor bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:24px_24px] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,#000_70%,transparent_100%)] opacity-[0.03]" />
@@ -129,24 +129,23 @@ export default function Hero() {
       </div>
 
       {/* Main Content */}
-      <div className="w-full max-w-5xl mx-auto px-6 md:px-12 flex flex-col items-center text-center z-10 relative">
+      <div className="w-full max-w-6xl mx-auto px-6 md:px-12 flex flex-col items-start text-left z-10 relative">
         
 
-
           {/* Heading */}
-          <h1 className="hero-headline text-5xl sm:text-6xl lg:text-7xl font-display font-black tracking-tighter leading-[1.05] text-foreground mb-8 w-full">
+          <h1 className="hero-headline text-5xl sm:text-6xl lg:text-[80px] font-display font-black tracking-tighter leading-[1.05] text-foreground mb-8 max-w-[1000px]">
             Websites, Automation & Business Systems{' '}
-            <span className="text-muted">Built To Generate More Leads And Save You Time.</span>
+            <span className="text-muted block mt-2">Built To Generate More Leads And Save You Time.</span>
           </h1>
 
           {/* Subtext */}
-          <p className="hero-paragraph text-base sm:text-lg text-muted font-medium max-w-[800px] leading-[1.7] mb-10">
+          <p className="hero-paragraph text-lg sm:text-xl text-muted font-medium max-w-[700px] leading-[1.7] mb-12">
             We help businesses automate bookings, follow-ups, customer communication and operations through modern websites, intelligent automation and custom dashboards.
           </p>
 
           {/* Call To Actions */}
-          <div className="flex flex-col items-center gap-6 mb-12">
-            <div className="flex flex-wrap items-center justify-center gap-4">
+          <div className="flex flex-col items-start gap-6 mb-16">
+            <div className="flex flex-wrap items-center justify-start gap-4">
               <a
                 href="#cta"
                 className="hero-button flex items-center gap-2 px-8 py-4 rounded-full bg-foreground text-background font-bold text-base hover:scale-[1.03] transition-transform duration-300 shadow-md group outline-none"
