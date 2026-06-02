@@ -21,15 +21,14 @@ export default function Industries() {
     <section className="py-32 bg-background border-t border-border/40">
       <div className="w-full max-w-7xl mx-auto px-6 md:px-12">
         <ScrollReveal>
-          <div className="flex flex-col md:flex-row justify-between items-end mb-16 gap-8">
-            <div className="flex flex-col">
-              <span className="text-xs font-bold text-muted mb-4 uppercase tracking-[0.15em]">
-                Industries We Help
-              </span>
-              <h2 className="text-4xl md:text-5xl font-display font-black tracking-tight text-foreground">
-                Built For Modern <br />
-                <span className="text-muted">Service Businesses.</span>
-              </h2>
+          <div className="text-center mb-16 max-w-3xl mx-auto">
+            <span className="text-xs font-bold text-muted mb-4 uppercase tracking-[0.15em] block">
+              Industries We Help
+            </span>
+            <h2 className="text-4xl md:text-5xl font-display font-black tracking-tight text-foreground">
+              Built For Modern <br />
+              <span className="text-muted">Service Businesses.</span>
+            </h2>
           </div>
         </ScrollReveal>
 
