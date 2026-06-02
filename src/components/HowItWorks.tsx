@@ -47,6 +47,16 @@ const steps: Step[] = [
 
 export default function HowItWorks() {
   const sectionRef = useRef<HTMLDivElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: sectionRef,
+    offset: ["start center", "end center"]
+  });
+
+  const smoothProgress = useSpring(scrollYProgress, {
+    stiffness: 50,
+    damping: 20,
+    restDelta: 0.001
+  });
 
   return (
     <section ref={sectionRef} id="how-it-works" className="py-32 relative overflow-hidden bg-background">
@@ -69,17 +79,13 @@ export default function HowItWorks() {
         <div className="relative mt-16 max-w-6xl mx-auto">
           
           {/* Connection Line - Desktop (Flowing SVG) */}
-          <svg className="hidden md:block absolute top-[30px] left-[12.5%] right-[12.5%] w-[75%] h-[6px] overflow-visible z-0" pointerEvents="none">
+          <svg className="hidden md:block absolute top-[30px] left-[10%] w-[80%] h-[6px] overflow-visible z-0" pointerEvents="none">
             <line x1="0" y1="3" x2="100%" y2="3" stroke="var(--border)" strokeWidth="2" />
             <motion.line 
               x1="0" y1="3" x2="100%" y2="3" 
               stroke="var(--foreground)" 
               strokeWidth="2" 
-              strokeDasharray="100% 100%"
-              initial={{ strokeDashoffset: "100%" }}
-              whileInView={{ strokeDashoffset: 0 }}
-              viewport={{ once: true, margin: "-10%" }}
-              transition={{ duration: 2, ease: "easeInOut" }}
+              style={{ pathLength: smoothProgress }}
             />
           </svg>
 
@@ -90,11 +96,7 @@ export default function HowItWorks() {
               x1="3" y1="0" x2="3" y2="100%" 
               stroke="var(--foreground)" 
               strokeWidth="2" 
-              strokeDasharray="100% 100%"
-              initial={{ strokeDashoffset: "100%" }}
-              whileInView={{ strokeDashoffset: 0 }}
-              viewport={{ once: true, margin: "-10%" }}
-              transition={{ duration: 2, ease: "easeInOut" }}
+              style={{ pathLength: smoothProgress }}
             />
           </svg>
 
