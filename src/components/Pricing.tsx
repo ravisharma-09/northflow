@@ -51,7 +51,7 @@ const plans = [
 
 export default function Pricing() {
   return (
-    <section id="pricing" className="py-32 bg-background border-t border-border/40">
+    <section id="pricing" className="py-16 bg-background border-t border-border/40">
       <div className="w-full max-w-7xl mx-auto px-6 md:px-12">
         <ScrollReveal>
           <div className="text-center mb-20 max-w-3xl mx-auto">

@@ -117,7 +117,7 @@ export default function Hero() {
   ];
 
   return (
-    <section ref={containerRef} id="home" className="relative min-h-screen pt-36 pb-24 flex flex-col justify-between overflow-x-clip">
+    <section ref={containerRef} id="home" className="relative min-h-screen pt-32 pb-16 flex flex-col justify-between overflow-x-clip">
       {/* Background with fading grid and soft glow */}
       <div className="hero-bg absolute inset-0 opacity-0 z-0 pointer-events-none">
         <div className="absolute inset-0 grid-floor bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:24px_24px] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,#000_70%,transparent_100%)] opacity-[0.03]" />

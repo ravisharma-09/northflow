@@ -18,10 +18,10 @@ export default function Industries() {
   ];
 
   return (
-    <section className="py-24 bg-background border-t border-border/40">
+    <section className="py-16 bg-background border-t border-border/40">
       <div className="w-full max-w-7xl mx-auto px-6 md:px-12">
         <ScrollReveal>
-          <div className="text-center mb-16 max-w-3xl mx-auto">
+          <div className="text-center mb-10 max-w-3xl mx-auto">
             <span className="text-xs font-bold text-muted mb-4 uppercase tracking-[0.15em] block">
               Industries We Help
             </span>

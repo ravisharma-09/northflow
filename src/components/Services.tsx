@@ -164,7 +164,7 @@ function ServiceCard({ service, index }: { service: Service; index: number }) {
 
 export default function Services() {
   return (
-    <section id="services" className="py-32 relative overflow-hidden bg-background">
+    <section id="services" className="py-16 relative overflow-hidden bg-background">
       <div className="w-full max-w-7xl mx-auto px-6 md:px-12 relative z-10">
         
         <ScrollReveal>

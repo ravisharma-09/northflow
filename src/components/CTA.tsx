@@ -34,7 +34,7 @@ export default function CTA() {
   };
 
   return (
-    <section id="cta" className="py-48 relative overflow-hidden bg-background">
+    <section id="cta" className="py-24 relative overflow-hidden bg-background">
       <div className="w-full max-w-5xl mx-auto px-6 md:px-12 relative z-10">
         
         {/* Massive Whitespace CTA */}
@@ -46,7 +46,7 @@ export default function CTA() {
               <span className="text-muted">Behind Your Growth.</span>
             </h2>
             
-            <p className="text-lg md:text-xl font-medium text-muted leading-relaxed max-w-2xl mx-auto mb-16">
+            <p className="text-lg md:text-xl font-medium text-muted leading-relaxed max-w-2xl mx-auto mb-10">
               Whether you need a website, automation or a complete business system, we'll help you design the right solution.
             </p>
 

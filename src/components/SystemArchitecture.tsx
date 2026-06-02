@@ -30,11 +30,11 @@ export default function SystemArchitecture() {
   ];
 
   return (
-    <section className="py-32 bg-surface border-y border-border/40 relative overflow-hidden">
+    <section className="py-16 bg-surface border-y border-border/40 relative overflow-hidden">
       <div className="w-full max-w-7xl mx-auto px-6 md:px-12 relative z-10">
         
         <ScrollReveal>
-          <div className="flex flex-col items-center justify-center text-center mb-24 max-w-2xl mx-auto">
+          <div className="flex flex-col items-center justify-center text-center mb-12 max-w-2xl mx-auto">
             <span className="text-xs font-bold text-muted mb-4 uppercase tracking-[0.15em]">
               The Architecture
             </span>

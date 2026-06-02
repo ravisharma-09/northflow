@@ -15,7 +15,7 @@ const reasons = [
 
 export default function Metrics() {
   return (
-    <section id="metrics" className="py-24 bg-background border-t border-border/40 overflow-hidden">
+    <section id="metrics" className="py-16 bg-background border-t border-border/40 overflow-hidden">
       <div className="w-full max-w-7xl mx-auto px-6 md:px-12">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24 items-center">
           

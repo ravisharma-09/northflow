@@ -15,7 +15,7 @@ export default function Problem() {
   ];
 
   return (
-    <section className="py-32 bg-surface border-t border-border/40 overflow-hidden">
+    <section className="py-16 bg-surface border-t border-border/40 overflow-hidden">
       <div className="w-full max-w-7xl mx-auto px-6 md:px-12">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
           

@@ -59,12 +59,12 @@ export default function HowItWorks() {
   });
 
   return (
-    <section ref={sectionRef} id="how-it-works" className="py-24 relative overflow-hidden bg-background">
+    <section ref={sectionRef} id="how-it-works" className="py-16 relative overflow-hidden bg-background">
       <div className="w-full max-w-[1440px] mx-auto px-6 md:px-12 relative z-10">
         
         {/* Header */}
         <ScrollReveal>
-          <div className="flex flex-col items-center justify-center text-center mb-24">
+          <div className="flex flex-col items-center justify-center text-center mb-12">
             <span className="px-3 py-1 rounded-full text-xs font-bold text-muted border border-border mb-4 uppercase tracking-widest bg-surface shadow-sm">
               How It Works
             </span>

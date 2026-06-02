@@ -7,6 +7,7 @@ import HowItWorks from "@/components/HowItWorks";
 import Projects from "@/components/Projects";
 import Industries from "@/components/Industries";
 import Metrics from "@/components/Metrics";
+import Deliverables from "@/components/Deliverables";
 import Pricing from "@/components/Pricing";
 import FAQ from "@/components/FAQ";
 import Process from "@/components/Process";
@@ -44,13 +45,16 @@ export default function Home() {
         {/* Section 8: Proof & Metrics */}
         <Metrics />
 
-        {/* Section 9: Pricing */}
+        {/* Section 9: Deliverables */}
+        <Deliverables />
+
+        {/* Section 10: Pricing */}
         <Pricing />
 
-        {/* Section 10: FAQ */}
+        {/* Section 11: FAQ */}
         <FAQ />
         
-        {/* Section 11: Final CTA */}
+        {/* Section 12: Final CTA */}
         <CTA />
       </main>
 
