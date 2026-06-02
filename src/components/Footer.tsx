@@ -46,7 +46,7 @@ export default function Footer() {
           {/* Logo & Description */}
           <div className="lg:col-span-5 flex flex-col items-start text-left gap-5">
             <a href="#home" className="flex items-center gap-2">
-              <span className="flex items-center justify-center w-8 h-8 rounded-full bg-brand text-black font-bold text-lg">
+              <span className="flex items-center justify-center w-8 h-8 rounded-full bg-foreground text-background font-extrabold text-lg shadow-sm">
                 N
               </span>
               <span className="font-display font-bold tracking-tight text-lg text-foreground">
