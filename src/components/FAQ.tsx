@@ -8,20 +8,20 @@ import ScrollReveal from './ScrollReveal';
 export default function FAQ() {
   const faqs = [
     {
-      q: "Do you only build the website, or the CRM too?",
-      a: "We build the entire end-to-end system. This includes the public-facing marketing website, the automated booking engine, the backend CRM, and the automation pipelines that connect them."
+      q: "Do I need automation?",
+      a: "If your business spends time manually handling leads, bookings or follow-ups, automation can save hours every week."
     },
     {
-      q: "How long does a typical system implementation take?",
-      a: "Most bespoke system implementations take between 4 to 8 weeks, depending on the complexity of your custom automation requirements and database structure."
+      q: "Can I start with just a website?",
+      a: "Yes. Many clients begin with a website and add automation later."
     },
     {
-      q: "Can this integrate with our existing tools?",
-      a: "Yes. Our architecture is API-first. We can integrate with Stripe, Google Workspace, Slack, Twilio, and most major ERPs or specialized industry tools."
+      q: "Do you provide ongoing support?",
+      a: "Yes. We offer maintenance, improvements and ongoing optimization."
     },
     {
-      q: "Do we own the code and the system?",
-      a: "Absolutely. Once the project is completed and handed over, you own the infrastructure, the data, and the intellectual property."
+      q: "Can systems be expanded later?",
+      a: "Absolutely. Every system is designed to grow with your business."
     }
   ];
 
