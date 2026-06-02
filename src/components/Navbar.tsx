@@ -57,10 +57,8 @@ export default function Navbar() {
         >
           {/* Logo */}
           <a href="#home" className="flex items-center gap-2 group">
-            <span className="flex items-center justify-center w-8 h-8 rounded-full bg-foreground text-background shadow-sm">
-              <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor" className="mt-[-1px]">
-                <path d="M12 3L23 21H1L12 3Z" />
-              </svg>
+            <span className="flex items-center justify-center w-8 h-8 rounded-full bg-foreground text-background font-extrabold text-lg shadow-sm">
+              N
             </span>
             <span className="font-display font-bold tracking-tight text-lg text-foreground">
               NorthFlow
