@@ -114,7 +114,7 @@ function ServiceCard({ service, index }: { service: Service; index: number }) {
           scale: 1.01,
         }}
         transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-        className="group relative flex flex-col justify-between bg-surface border border-border rounded-3xl p-8 lg:p-10 min-h-[460px] hover:border-foreground/20 transition-colors duration-500 select-none cursor-pointer overflow-hidden"
+        className="group relative flex flex-col justify-between bg-surface border border-border rounded-3xl p-8 lg:p-10 min-h-[460px] hover:border-foreground/20 transition-colors duration-500 select-none cursor-pointer overflow-hidden h-full"
       >
         <motion.div
           className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none rounded-3xl z-0"
