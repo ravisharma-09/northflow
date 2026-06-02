@@ -1,12 +1,12 @@
 import Navbar from "@/components/Navbar";
 import Hero from "@/components/Hero/Hero";
-import TrustBar from "@/components/TrustBar";
 import Services from "@/components/Services";
 import SystemArchitecture from "@/components/SystemArchitecture";
 import HowItWorks from "@/components/HowItWorks";
 import Projects from "@/components/Projects";
 import Industries from "@/components/Industries";
 import Metrics from "@/components/Metrics";
+import Pricing from "@/components/Pricing";
 import FAQ from "@/components/FAQ";
 import Process from "@/components/Process";
 import CTA from "@/components/CTA";
@@ -21,11 +21,8 @@ export default function Home() {
       <main className="relative flex-1">
         {/* Section 1: Hero Scene */}
         <Hero />
-        
-        {/* Section 2: Trust Bar */}
-        <TrustBar />
 
-        {/* Section 3: Services (Problem -> Solution) */}
+        {/* Section 2: Services (Problem -> Solution) */}
         <Services />
         
         {/* Section 4: System Architecture Flow */}
@@ -43,10 +40,13 @@ export default function Home() {
         {/* Section 8: Proof & Metrics */}
         <Metrics />
 
-        {/* Section 9: FAQ */}
+        {/* Section 9: Pricing */}
+        <Pricing />
+
+        {/* Section 10: FAQ */}
         <FAQ />
         
-        {/* Section 10: Final CTA */}
+        {/* Section 11: Final CTA */}
         <CTA />
       </main>
 

@@ -108,15 +108,13 @@ const FollowUpUI = () => (
 );
 
 const GrowthUI = () => (
-  <div className="w-full h-full bg-background border border-border/50 rounded-xl p-4 flex flex-col gap-3 shadow-sm select-none">
+  <div className="w-full h-full bg-background border border-border/50 rounded-2xl p-5 flex flex-col gap-4 shadow-sm select-none">
     <div className="flex justify-between items-end">
-      <div className="flex flex-col gap-1">
-        <div className="text-[8px] font-bold text-muted uppercase tracking-wider">Revenue</div>
-        <div className="text-xl font-display font-black text-foreground">$124k</div>
+      <div className="flex flex-col gap-2">
+        <div className="text-[10px] font-bold text-muted uppercase tracking-wider">Revenue</div>
+        <div className="h-6 w-24 bg-surface rounded" />
       </div>
-      <div className="text-[8px] font-bold text-background bg-foreground px-2 py-1 rounded flex items-center gap-1">
-        <TrendingUp className="w-2 h-2" /> +32%
-      </div>
+      <div className="h-4 w-12 bg-foreground rounded-full shadow-sm" />
     </div>
     <div className="flex-1 flex items-end gap-1.5 mt-2">
       {[30, 45, 40, 60, 50, 80, 100].map((h, i) => (

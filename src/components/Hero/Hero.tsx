@@ -174,39 +174,7 @@ export default function Hero() {
             </a>
           </div>
 
-          {/* Trust Row */}
-          <div className="hero-paragraph flex flex-wrap items-center gap-6 border-t border-border/80 pt-8">
-            <div className="flex -space-x-3">
-              {[
-                'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=80&q=80',
-                'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=80&q=80',
-                'https://images.unsplash.com/photo-1492562080023-ab3db95bfbce?auto=format&fit=crop&w=80&q=80',
-                'https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=80&q=80',
-              ].map((avatar, idx) => (
-                <img
-                  key={idx}
-                  src={avatar}
-                  alt="Client avatar"
-                  className="w-9 h-9 rounded-full border-2 border-background object-cover bg-surface"
-                />
-              ))}
-              <div className="flex items-center justify-center w-9 h-9 rounded-full border-2 border-background bg-surface text-[10px] font-extrabold text-foreground">
-                20+
-              </div>
-            </div>
 
-            <div className="flex flex-col text-left">
-              <div className="flex items-center gap-1">
-                {[...Array(5)].map((_, idx) => (
-                  <Star key={idx} className="w-4 h-4 fill-brand text-brand" />
-                ))}
-                <span className="text-sm font-extrabold text-foreground ml-1">5.0/5</span>
-              </div>
-              <span className="text-xs text-muted font-bold mt-0.5">
-                Infrastructure trusted by high-ticket operators.
-              </span>
-            </div>
-          </div>
         </div>
 
         {/* Right Side: 2D Visual Container */}

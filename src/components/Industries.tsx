@@ -6,10 +6,15 @@ import { Building2, Landmark, Stethoscope, Laptop } from 'lucide-react';
 
 export default function Industries() {
   const industries = [
-    { name: 'Financial Services', icon: Landmark, desc: 'Wealth management, PE, and accounting firms.' },
-    { name: 'Healthcare', icon: Stethoscope, desc: 'Private clinics, specialized medical practices.' },
-    { name: 'Enterprise SaaS', icon: Laptop, desc: 'B2B software platforms and enterprise tooling.' },
-    { name: 'Real Estate', icon: Building2, desc: 'Commercial brokerages and luxury agencies.' },
+    'Real Estate',
+    'Consultants',
+    'Agencies',
+    'Coaches',
+    'Law Firms',
+    'Dental Clinics',
+    'Construction Companies',
+    'Local Businesses',
+    'Startups',
   ];
 
   return (
@@ -19,34 +24,28 @@ export default function Industries() {
           <div className="flex flex-col md:flex-row justify-between items-end mb-16 gap-8">
             <div className="flex flex-col">
               <span className="text-xs font-bold text-muted mb-4 uppercase tracking-[0.15em]">
-                Who We Serve
+                Industries We Help
               </span>
               <h2 className="text-4xl md:text-5xl font-display font-black tracking-tight text-foreground">
-                Built For <br />
-                <span className="text-muted">High-Ticket Operators.</span>
+                Built For Modern <br />
+                <span className="text-muted">Service Businesses.</span>
               </h2>
-            </div>
-            <p className="text-base text-muted font-medium max-w-md">
-              We design infrastructure exclusively for businesses where a single captured lead or automated workflow generates significant ROI.
-            </p>
           </div>
         </ScrollReveal>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-          {industries.map((ind, idx) => {
-            const Icon = ind.icon;
-            return (
-              <ScrollReveal key={idx} delay={idx * 0.1}>
-                <div className="p-8 rounded-3xl bg-surface border border-border/50 hover:border-foreground/20 transition-colors duration-500 group">
-                  <div className="w-12 h-12 rounded-xl bg-background border border-border/50 flex items-center justify-center mb-8 group-hover:scale-110 transition-transform duration-500">
-                    <Icon className="w-5 h-5 text-foreground" />
-                  </div>
-                  <h3 className="text-xl font-display font-bold text-foreground mb-2">{ind.name}</h3>
-                  <p className="text-sm text-muted font-medium leading-relaxed">{ind.desc}</p>
+        <div className="flex flex-wrap gap-4">
+          {industries.map((ind, idx) => (
+            <ScrollReveal key={idx} delay={idx * 0.05}>
+              <div className="flex items-center gap-3 px-5 py-3 rounded-full bg-surface border border-border/50 hover:border-foreground/20 transition-colors duration-300">
+                <div className="flex items-center justify-center w-5 h-5 rounded-full bg-foreground text-background">
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
+                    <polyline points="20 6 9 17 4 12"></polyline>
+                  </svg>
                 </div>
-              </ScrollReveal>
-            );
-          })}
+                <span className="text-sm font-bold text-foreground">{ind}</span>
+              </div>
+            </ScrollReveal>
+          ))}
         </div>
       </div>
     </section>

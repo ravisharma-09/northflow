@@ -41,13 +41,13 @@ export default function CTA() {
         <ScrollReveal>
           <div className="flex flex-col items-center justify-center text-center">
             
-            <h2 className="text-5xl md:text-7xl lg:text-8xl font-display font-black tracking-tighter leading-[1.05] text-foreground mb-8">
-              Ready To Build <br />
-              <span className="text-muted">Your System?</span>
+            <h2 className="text-4xl md:text-5xl lg:text-7xl font-display font-black tracking-tighter leading-[1.05] text-foreground mb-8">
+              Let's Build The Infrastructure <br />
+              <span className="text-muted">Behind Your Growth.</span>
             </h2>
             
             <p className="text-lg md:text-xl font-medium text-muted leading-relaxed max-w-2xl mx-auto mb-16">
-              Let's engineer the operational infrastructure your business needs to scale.
+              Whether you need a website, automation or a complete business system, we'll help you design the right solution.
             </p>
 
             {/* Magnetic Button */}
@@ -59,7 +59,7 @@ export default function CTA() {
               href="/start"
               className="flex items-center gap-3 px-10 py-5 rounded-full bg-foreground text-background font-bold text-lg hover:scale-105 transition-transform duration-300 shadow-premium group"
             >
-              Start Your System
+              Start With A Strategy Call
               <span className="flex items-center justify-center w-6 h-6 rounded-full bg-background text-foreground group-hover:translate-x-1 transition-transform duration-300">
                 <ArrowRight className="w-4 h-4 stroke-[2.5]" />
               </span>
