@@ -38,7 +38,7 @@ export default function Navbar() {
   return (
     <>
       <header
-        className="fixed top-6 left-0 right-0 z-50 flex justify-center px-4 md:px-8 pointer-events-none"
+        className="fixed top-4 md:top-6 left-0 right-0 z-50 flex justify-center px-4 md:px-8 pointer-events-none"
       >
         <motion.div
           variants={{
@@ -111,7 +111,7 @@ export default function Navbar() {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -20 }}
             transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
-            className="fixed top-24 left-4 right-4 z-40 md:hidden bg-glass-bg border border-glass-border shadow-premium rounded-[32px] p-6 backdrop-blur-lg flex flex-col gap-4"
+            className="fixed top-20 left-4 right-4 z-40 md:hidden bg-glass-bg border border-glass-border shadow-premium rounded-[32px] p-6 backdrop-blur-lg flex flex-col gap-4"
           >
             <nav className="flex flex-col gap-2">
               {navLinks.map((link) => (

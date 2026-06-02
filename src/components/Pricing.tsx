@@ -67,7 +67,7 @@ export default function Pricing() {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           {plans.map((plan, idx) => (
             <ScrollReveal key={idx} delay={idx * 0.1}>
-              <div className={`relative flex flex-col h-full p-8 rounded-3xl bg-surface border ${plan.recommended ? 'border-foreground shadow-premium' : 'border-border/50 hover:border-foreground/20'} transition-all duration-300`}>
+              <div className={`relative flex flex-col h-full p-6 lg:p-8 rounded-3xl bg-surface border ${plan.recommended ? 'border-foreground shadow-premium' : 'border-border/50 hover:border-foreground/20'} transition-all duration-300`}>
                 
                 {plan.recommended && (
                   <div className="absolute -top-4 left-1/2 -translate-x-1/2 bg-foreground text-background text-xs font-bold uppercase tracking-widest py-1.5 px-4 rounded-full shadow-sm">

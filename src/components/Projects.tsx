@@ -157,7 +157,7 @@ export default function Projects() {
                   </div>
                   
                   {/* Right Side: Dashboard Preview */}
-                  <div className="flex flex-col justify-center">
+                  <div className="hidden lg:flex flex-col justify-center">
                      <div className="transform transition-transform duration-500 lg:hover:-translate-y-2 lg:hover:rotate-1">
                        {sys.ui}
                      </div>
