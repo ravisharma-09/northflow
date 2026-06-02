@@ -140,15 +140,14 @@ export default function Hero() {
           </div>
 
           {/* Heading */}
-          <h1 className="hero-headline text-5xl sm:text-6xl lg:text-7xl font-display font-black tracking-tighter leading-[1.05] text-foreground mb-8 max-w-[620px]">
-            We build the <br />
-            <span className="text-muted">operating system</span> <br />
-            behind your business.
+          <h1 className="hero-headline text-5xl sm:text-6xl lg:text-7xl font-display font-black tracking-tighter leading-[1.05] text-foreground mb-8 max-w-[800px]">
+            Websites, Automation & Business Systems <br />
+            <span className="text-muted">Built To Generate More Leads And Save You Time.</span>
           </h1>
 
           {/* Subtext */}
-          <p className="hero-paragraph text-base sm:text-lg text-muted font-medium max-w-[540px] leading-[1.7] mb-10">
-            NorthFlow replaces fragmented tools with unified business infrastructure. We design, build, and deploy bespoke systems that automate your operations from lead capture to final fulfillment.
+          <p className="hero-paragraph text-base sm:text-lg text-muted font-medium max-w-[600px] leading-[1.7] mb-10">
+            We help businesses automate bookings, follow-ups, customer communication and operations through modern websites, intelligent automation and custom dashboards.
           </p>
 
           {/* Call To Actions */}
@@ -167,7 +166,7 @@ export default function Hero() {
               href="#projects"
               className="hero-button flex items-center gap-2 px-8 py-4 rounded-full border border-border bg-surface text-foreground font-bold text-base hover:bg-surface/80 hover:scale-[1.03] transition-transform duration-300"
             >
-              Explore Solutions
+              View Solutions
               <span className="hero-icon flex items-center justify-center w-5 h-5 rounded-full bg-foreground/10 text-foreground">
                 <Play className="w-3.5 h-3.5 fill-current" />
               </span>
