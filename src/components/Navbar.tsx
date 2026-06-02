@@ -73,7 +73,7 @@ export default function Navbar() {
               <a
                 key={link.name}
                 href={link.href}
-                className="px-4 py-2 rounded-full text-sm font-semibold text-muted hover:text-foreground transition-all duration-300"
+                className="px-4 py-2 rounded-full text-sm font-semibold text-muted hover:text-foreground transition-all duration-300 outline-none"
               >
                 {link.name}
               </a>
@@ -121,7 +121,7 @@ export default function Navbar() {
                   key={link.name}
                   href={link.href}
                   onClick={() => setMobileMenuOpen(false)}
-                  className="px-4 py-3 rounded-2xl text-base font-semibold text-foreground hover:text-brand hover:bg-surface transition-all duration-300"
+                  className="px-4 py-3 rounded-2xl text-base font-semibold text-foreground hover:text-brand hover:bg-surface transition-all duration-300 outline-none"
                 >
                   {link.name}
                 </a>

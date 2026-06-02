@@ -18,7 +18,7 @@ export default function Industries() {
   ];
 
   return (
-    <section className="py-32 bg-background border-t border-border/40">
+    <section className="py-24 bg-background border-t border-border/40">
       <div className="w-full max-w-7xl mx-auto px-6 md:px-12">
         <ScrollReveal>
           <div className="text-center mb-16 max-w-3xl mx-auto">

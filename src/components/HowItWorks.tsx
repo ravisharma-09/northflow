@@ -59,7 +59,7 @@ export default function HowItWorks() {
   });
 
   return (
-    <section ref={sectionRef} id="how-it-works" className="py-32 relative overflow-hidden bg-background">
+    <section ref={sectionRef} id="how-it-works" className="py-24 relative overflow-hidden bg-background">
       <div className="w-full max-w-[1440px] mx-auto px-6 md:px-12 relative z-10">
         
         {/* Header */}

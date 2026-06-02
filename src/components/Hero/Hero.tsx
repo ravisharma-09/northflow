@@ -151,26 +151,29 @@ export default function Hero() {
           </p>
 
           {/* Call To Actions */}
-          <div className="flex flex-wrap items-center gap-4 mb-12">
-            <a
-              href="#cta"
-              className="hero-button flex items-center gap-2 px-8 py-4 rounded-full bg-foreground text-background font-bold text-base hover:scale-[1.03] transition-transform duration-300 shadow-md group"
-            >
-              Start Your System
-              <span className="hero-icon flex items-center justify-center w-5 h-5 rounded-full bg-background text-foreground group-hover:translate-x-0.5 transition-transform duration-300">
-                <ArrowRight className="w-3.5 h-3.5" />
+          <div className="flex flex-col gap-6 mb-12">
+            <div className="flex flex-wrap items-center gap-4">
+              <a
+                href="#cta"
+                className="hero-button flex items-center gap-2 px-8 py-4 rounded-full bg-foreground text-background font-bold text-base hover:scale-[1.03] transition-transform duration-300 shadow-md group outline-none"
+              >
+                Book A Strategy Call
+                <span className="hero-icon flex items-center justify-center w-5 h-5 rounded-full bg-background text-foreground group-hover:translate-x-0.5 transition-transform duration-300">
+                  <ArrowRight className="w-3.5 h-3.5" />
+                </span>
+              </a>
+            </div>
+
+            {/* Contact Info */}
+            <div className="flex items-center gap-6 text-sm font-bold text-muted hero-paragraph">
+              <span className="flex items-center gap-2">
+                <span className="w-2 h-2 rounded-full bg-foreground animate-pulse" />
+                Remote • Worldwide
               </span>
-            </a>
-            
-            <a
-              href="#projects"
-              className="hero-button flex items-center gap-2 px-8 py-4 rounded-full border border-border bg-surface text-foreground font-bold text-base hover:bg-surface/80 hover:scale-[1.03] transition-transform duration-300"
-            >
-              View Solutions
-              <span className="hero-icon flex items-center justify-center w-5 h-5 rounded-full bg-foreground/10 text-foreground">
-                <Play className="w-3.5 h-3.5 fill-current" />
-              </span>
-            </a>
+              <a href="mailto:northflow.work@gmail.com" className="hover:text-foreground transition-colors duration-300">
+                northflow.work@gmail.com
+              </a>
+            </div>
           </div>
 
 
