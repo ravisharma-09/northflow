@@ -128,13 +128,7 @@ export default function Hero() {
       {/* Main Content */}
       <div className="w-full max-w-5xl mx-auto px-6 md:px-12 flex flex-col items-center text-center z-10 relative">
         
-        <div className="hero-headline flex items-center justify-center gap-4 mb-8">
-          <span className="text-sm font-bold tracking-[0.3em] uppercase text-muted">Build</span>
-          <span className="text-muted/30 text-xs">•</span>
-          <span className="text-sm font-bold tracking-[0.3em] uppercase text-muted">Automate</span>
-          <span className="text-muted/30 text-xs">•</span>
-          <span className="text-sm font-bold tracking-[0.3em] uppercase text-muted">Scale</span>
-        </div>
+
 
           {/* Heading */}
           <h1 className="hero-headline text-5xl sm:text-6xl lg:text-7xl font-display font-black tracking-tighter leading-[1.05] text-foreground mb-8 max-w-[900px]">
