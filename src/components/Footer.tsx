@@ -22,7 +22,7 @@ export default function Footer() {
     ],
     company: [
       { name: 'About Us', href: '#metrics' },
-      { name: 'Our Work', href: '#projects' },
+      { name: 'Our Work', href: '#journey' },
       { name: 'Start Your System', href: '/start' },
     ],
     resources: [

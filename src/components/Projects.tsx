@@ -49,12 +49,12 @@ const BookingUI = () => (
 );
 
 const CRMUI = () => (
-  <div className="w-full h-full bg-background border border-border/50 rounded-xl p-4 flex flex-col gap-2 shadow-sm select-none">
+  <div className="w-full h-full bg-background border border-border/50 rounded-xl p-4 flex flex-col gap-2 shadow-sm select-none overflow-hidden">
     <div className="flex justify-between pb-2 border-b border-border/40">
       <div className="h-3 w-16 bg-surface rounded" />
       <div className="h-3 w-12 bg-surface rounded" />
     </div>
-    {[1, 2, 3].map((i) => (
+    {[1, 2].map((i) => (
       <div key={i} className="flex items-center gap-3 py-1">
         <div className="w-6 h-6 rounded-full bg-surface shrink-0" />
         <div className="flex flex-col gap-1 flex-1">
