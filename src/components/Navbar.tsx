@@ -31,7 +31,7 @@ export default function Navbar() {
     { name: 'Home', href: '#home' },
     { name: 'Services', href: '#services' },
     { name: 'How It Works', href: '#how-it-works' },
-    { name: 'Our Work', href: '#journey' },
+    { name: 'Systems', href: '#journey' },
     { name: 'About Us', href: '#metrics' },
   ];
 

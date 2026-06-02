@@ -2,176 +2,261 @@
 
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Calendar, Bot, Users, BarChart3, Globe, TrendingUp, Zap, MessageSquare } from 'lucide-react';
+import { Check, ArrowRight, ArrowDown } from 'lucide-react';
 import ScrollReveal from './ScrollReveal';
 
-// --- MINIMAL CSS UI MOCKUPS ---
-
-const WebsiteUI = () => (
-  <div className="w-full h-full bg-background border border-border/50 rounded-xl p-4 flex flex-col gap-4 shadow-sm select-none">
-    <div className="flex items-center justify-between border-b border-border/40 pb-3">
-      <div className="flex items-center gap-2">
-        <div className="w-4 h-4 rounded-full bg-foreground" />
-        <div className="h-3 w-16 bg-surface rounded" />
-      </div>
-      <div className="flex gap-2">
-        <div className="h-2 w-8 bg-surface rounded" />
-        <div className="h-2 w-8 bg-surface rounded" />
-      </div>
+const DashboardRealEstate = () => (
+  <div className="bg-background border border-border/50 rounded-2xl p-6 shadow-sm select-none">
+    <div className="flex flex-col sm:flex-row sm:items-center justify-between border-b border-border/40 pb-4 mb-4 gap-2">
+      <h4 className="font-bold text-foreground">Recent Leads</h4>
+      <span className="text-[10px] font-bold uppercase tracking-wider text-green-500 flex items-center gap-1.5">
+        <span className="w-1.5 h-1.5 rounded-full bg-green-500 animate-pulse"></span>
+        Live Tracking Enabled
+      </span>
     </div>
-    <div className="flex-1 flex flex-col items-center justify-center gap-3 text-center">
-      <div className="h-4 w-3/4 bg-surface rounded" />
-      <div className="h-4 w-1/2 bg-surface rounded" />
-      <div className="h-6 w-24 bg-foreground rounded-full mt-2 shadow-sm" />
+    <div className="flex flex-col gap-3">
+      <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center bg-surface p-3 rounded-lg border border-border/50 gap-2">
+        <span className="text-sm font-semibold text-foreground">Sarah Johnson</span>
+        <span className="text-xs font-bold text-blue-500 bg-blue-500/10 px-2.5 py-1 rounded-md border border-blue-500/20 whitespace-nowrap">New Inquiry</span>
+      </div>
+      <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center bg-surface p-3 rounded-lg border border-border/50 gap-2">
+        <span className="text-sm font-semibold text-foreground">Michael Chen</span>
+        <span className="text-xs font-bold text-amber-500 bg-amber-500/10 px-2.5 py-1 rounded-md border border-amber-500/20 whitespace-nowrap">Viewing Scheduled</span>
+      </div>
+      <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center bg-surface p-3 rounded-lg border border-border/50 gap-2">
+        <span className="text-sm font-semibold text-foreground">Emma Davis</span>
+        <span className="text-xs font-bold text-emerald-500 bg-emerald-500/10 px-2.5 py-1 rounded-md border border-emerald-500/20 whitespace-nowrap">Follow-up Sent</span>
+      </div>
     </div>
   </div>
 );
 
-const BookingUI = () => (
-  <div className="w-full h-full bg-background border border-border/50 rounded-xl p-4 flex flex-col gap-3 shadow-sm select-none">
-    <div className="flex items-center gap-3 border-b border-border/40 pb-3">
-      <div className="w-8 h-8 bg-surface rounded flex items-center justify-center">
-        <Calendar className="w-4 h-4 text-muted" />
+const DashboardCoaching = () => (
+  <div className="bg-background border border-border/50 rounded-2xl p-6 shadow-sm select-none">
+    <div className="flex flex-col sm:flex-row sm:items-center justify-between border-b border-border/40 pb-4 mb-4 gap-2">
+      <h4 className="font-bold text-foreground">Upcoming Calls</h4>
+      <span className="text-[10px] font-bold uppercase tracking-wider text-green-500 flex items-center gap-1.5">
+        <span className="w-1.5 h-1.5 rounded-full bg-green-500 animate-pulse"></span>
+        Automated Scheduling Active
+      </span>
+    </div>
+    <div className="flex flex-col gap-3">
+      <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center bg-surface p-3 rounded-lg border border-border/50 gap-2">
+        <span className="text-sm font-semibold text-foreground">Monday</span>
+        <span className="text-xs font-bold text-foreground bg-foreground/5 px-2.5 py-1 rounded-md border border-border/40 whitespace-nowrap">2:00 PM</span>
       </div>
-      <div className="flex flex-col gap-1">
-        <div className="h-2 w-20 bg-surface rounded" />
-        <div className="h-2 w-12 bg-surface/60 rounded" />
+      <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center bg-surface p-3 rounded-lg border border-border/50 gap-2">
+        <span className="text-sm font-semibold text-foreground">Tuesday</span>
+        <span className="text-xs font-bold text-foreground bg-foreground/5 px-2.5 py-1 rounded-md border border-border/40 whitespace-nowrap">11:00 AM</span>
+      </div>
+      <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center bg-surface p-3 rounded-lg border border-border/50 gap-2">
+        <span className="text-sm font-semibold text-foreground">Wednesday</span>
+        <span className="text-xs font-bold text-foreground bg-foreground/5 px-2.5 py-1 rounded-md border border-border/40 whitespace-nowrap">4:00 PM</span>
       </div>
     </div>
-    <div className="grid grid-cols-3 gap-2 flex-1">
-      {[...Array(9)].map((_, i) => (
-        <div key={i} className={`rounded text-[8px] font-bold flex items-center justify-center ${i === 4 ? 'bg-foreground text-background shadow-sm' : 'bg-surface text-muted/40'}`}>
-          {i + 9}:00
+  </div>
+);
+
+const DashboardStartup = () => (
+  <div className="bg-background border border-border/50 rounded-2xl p-6 shadow-sm select-none">
+    <div className="flex flex-col sm:flex-row sm:items-center justify-between border-b border-border/40 pb-4 mb-4 gap-2">
+      <h4 className="font-bold text-foreground">Pipeline</h4>
+      <span className="text-[10px] font-bold uppercase tracking-wider text-green-500 flex items-center gap-1.5">
+        <span className="w-1.5 h-1.5 rounded-full bg-green-500 animate-pulse"></span>
+        Live Pipeline Tracking
+      </span>
+    </div>
+    <div className="flex flex-col gap-2 relative">
+      <div className="absolute left-[9px] top-4 bottom-4 w-[2px] bg-border/40" />
+      {[
+        { label: "New Leads", count: 12, color: "bg-blue-500", active: true },
+        { label: "Qualified", count: 8, color: "bg-amber-500", active: true },
+        { label: "Meeting Scheduled", count: 5, color: "bg-emerald-500", active: true },
+        { label: "Proposal Sent", count: 3, color: "bg-purple-500", active: true },
+        { label: "Closed", count: 2, color: "bg-green-500", active: false }
+      ].map((stage, i) => (
+        <div key={i} className={`flex justify-between items-center bg-surface p-2.5 rounded-lg border border-border/50 relative z-10 ${stage.active ? '' : 'opacity-60'}`}>
+          <div className="flex items-center gap-3">
+             <div className={`w-2.5 h-2.5 rounded-full ${stage.color} shrink-0 ring-4 ring-background ml-1`} />
+             <span className="text-sm font-semibold text-foreground">{stage.label}</span>
+          </div>
+          <span className="text-xs font-bold text-foreground bg-background px-2 py-0.5 rounded-md border border-border/40">{stage.count}</span>
         </div>
       ))}
     </div>
   </div>
 );
 
-const CRMUI = () => (
-  <div className="w-full h-full bg-background border border-border/50 rounded-xl p-4 flex flex-col gap-2 shadow-sm select-none overflow-hidden">
-    <div className="flex justify-between pb-2 border-b border-border/40">
-      <div className="h-3 w-16 bg-surface rounded" />
-      <div className="h-3 w-12 bg-surface rounded" />
-    </div>
-    {[1, 2].map((i) => (
-      <div key={i} className="flex items-center gap-3 py-1">
-        <div className="w-6 h-6 rounded-full bg-surface shrink-0" />
-        <div className="flex flex-col gap-1 flex-1">
-          <div className="h-2 w-20 bg-surface rounded" />
-          <div className="h-1.5 w-24 bg-surface/50 rounded" />
-        </div>
-        <div className={`h-2 w-10 rounded ${i === 1 ? 'bg-foreground' : 'bg-surface'}`} />
-      </div>
-    ))}
-  </div>
-);
-
-const AutomationUI = () => (
-  <div className="w-full h-full bg-background border border-border/50 rounded-xl p-4 flex flex-col items-center justify-center relative shadow-sm select-none">
-    <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808008_1px,transparent_1px),linear-gradient(to_bottom,#80808008_1px,transparent_1px)] bg-[size:8px_8px]" />
-    <div className="flex flex-col gap-2 relative z-10 w-full max-w-[140px]">
-      <div className="bg-surface border border-border/80 rounded p-1.5 flex items-center gap-2">
-        <Calendar className="w-3 h-3 text-muted" />
-        <div className="h-1.5 w-12 bg-muted/30 rounded" />
-      </div>
-      <div className="flex justify-center -my-1"><div className="w-[1px] h-3 bg-border" /></div>
-      <div className="bg-surface border border-border/80 rounded p-1.5 flex items-center gap-2">
-        <Bot className="w-3 h-3 text-muted" />
-        <div className="h-1.5 w-16 bg-muted/30 rounded" />
-      </div>
-      <div className="flex justify-center -my-1"><div className="w-[1px] h-3 bg-border" /></div>
-      <div className="bg-foreground text-background rounded p-1.5 flex items-center gap-2 shadow-sm">
-        <Zap className="w-3 h-3 fill-current" />
-        <div className="text-[8px] font-bold">Trigger API</div>
-      </div>
-    </div>
-  </div>
-);
-
-const FollowUpUI = () => (
-  <div className="w-full h-full bg-background border border-border/50 rounded-xl p-4 flex flex-col gap-3 shadow-sm select-none">
-    <div className="flex justify-center border-b border-border/40 pb-2">
-      <MessageSquare className="w-4 h-4 text-muted" />
-    </div>
-    <div className="flex flex-col gap-2 mt-2">
-      <div className="self-end bg-surface border border-border/50 rounded-l-lg rounded-tr-lg p-2 max-w-[80%]">
-        <div className="h-2 w-20 bg-muted/50 rounded mb-1" />
-        <div className="h-2 w-12 bg-muted/50 rounded" />
-      </div>
-      <div className="self-start bg-foreground text-background rounded-r-lg rounded-tl-lg p-2 max-w-[80%] shadow-sm">
-        <div className="h-2 w-24 bg-background/50 rounded mb-1" />
-        <div className="h-2 w-16 bg-background/50 rounded" />
-      </div>
-    </div>
-  </div>
-);
-
-const GrowthUI = () => (
-  <div className="w-full h-full bg-background border border-border/50 rounded-2xl p-5 flex flex-col gap-4 shadow-sm select-none">
-    <div className="flex justify-between items-end">
-      <div className="flex flex-col gap-2">
-        <div className="text-[10px] font-bold text-muted uppercase tracking-wider">Revenue</div>
-        <div className="h-6 w-24 bg-surface rounded" />
-      </div>
-      <div className="h-4 w-12 bg-foreground rounded-full shadow-sm" />
-    </div>
-    <div className="flex-1 flex items-end gap-1.5 mt-2">
-      {[30, 45, 40, 60, 50, 80, 100].map((h, i) => (
-        <div key={i} className="flex-1 bg-surface rounded-t-sm" style={{ height: `${h}%` }}>
-          {i === 6 && <div className="w-full h-full bg-foreground rounded-t-sm shadow-sm" />}
-        </div>
-      ))}
-    </div>
-  </div>
-);
+const systemsData = [
+  {
+    title: "Real Estate Lead Engine",
+    flow: [
+      "Customer visits landing page",
+      "Submits property inquiry",
+      "Lead enters CRM automatically",
+      "Agent receives instant notification",
+      "Automated follow-up sequence starts",
+      "Property viewing booked",
+      "Lead tracked in dashboard"
+    ],
+    tech: ["Website", "CRM", "Automation", "Dashboard", "Email", "WhatsApp"],
+    benefits: [
+      "Faster lead response",
+      "No missed inquiries",
+      "Centralized lead management"
+    ],
+    ui: <DashboardRealEstate />
+  },
+  {
+    title: "Coaching Business System",
+    flow: [
+      "Visitor lands on website",
+      "Books strategy call",
+      "Calendar event created",
+      "CRM updated automatically",
+      "Reminder sequence sent",
+      "Call completed",
+      "Client onboarding triggered"
+    ],
+    tech: ["Website", "Booking System", "CRM", "Email Automation", "Dashboard"],
+    benefits: [
+      "Fewer no-shows",
+      "Automated reminders",
+      "Simplified onboarding"
+    ],
+    ui: <DashboardCoaching />
+  },
+  {
+    title: "Startup Sales Pipeline",
+    flow: [
+      "Lead arrives from website",
+      "Lead qualification form submitted",
+      "CRM entry created",
+      "Sales team notified",
+      "Automated nurturing begins",
+      "Meeting booked",
+      "Pipeline updated automatically"
+    ],
+    tech: ["Website", "CRM", "Automation", "Dashboard", "Email"],
+    benefits: [
+      "Organized sales process",
+      "Faster follow-ups",
+      "Better pipeline visibility"
+    ],
+    ui: <DashboardStartup />
+  }
+];
 
 export default function Projects() {
-  const journey = [
-    { title: '1. Website System', desc: 'High-converting landing page captures the lead.', ui: <WebsiteUI /> },
-    { title: '2. Booking System', desc: 'Lead self-schedules a strategy call instantly.', ui: <BookingUI /> },
-    { title: '3. CRM Dashboard', desc: 'Lead appears in your pipeline automatically.', ui: <CRMUI /> },
-    { title: '4. Automation Engine', desc: 'System assigns lead to sales and creates Meet link.', ui: <AutomationUI /> },
-    { title: '5. Follow-Up System', desc: 'Automated SMS/Email reminders prevent no-shows.', ui: <FollowUpUI /> },
-    { title: '6. Business Growth', desc: 'Higher close rates, shorter sales cycles, predictable revenue.', ui: <GrowthUI /> },
-  ];
-
   return (
     <section id="journey" className="py-16 relative overflow-hidden bg-surface border-t border-border/40">
-      <div className="w-full max-w-7xl mx-auto px-6 md:px-12 relative z-10">
+      <div className="w-full max-w-5xl mx-auto px-6 md:px-12 relative z-10">
         
         <ScrollReveal>
-          <div className="flex flex-col items-center justify-center text-center mb-12 max-w-2xl mx-auto">
+          <div className="flex flex-col items-center justify-center text-center mb-16 max-w-3xl mx-auto">
             <span className="text-xs font-bold text-muted mb-4 uppercase tracking-[0.15em]">
-              System Showcase
+              Systems We Build
             </span>
-            <h2 className="text-4xl md:text-5xl font-display font-black tracking-tight text-foreground">
-              The Complete Journey.
+            <h2 className="text-4xl md:text-5xl font-display font-black tracking-tight text-foreground mb-6">
+              Real Business Systems.<br/>Built For Growth.
             </h2>
+            <p className="text-base text-muted font-medium leading-relaxed">
+              Every business has different workflows. We build connected systems that capture leads, automate follow-ups, streamline operations, and give you complete visibility over your business.
+            </p>
           </div>
         </ScrollReveal>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {journey.map((step, idx) => (
-            <ScrollReveal key={idx} delay={idx * 0.1}>
-              <div className="bg-background border border-border rounded-2xl overflow-hidden flex flex-col group h-full hover:border-foreground/20 transition-colors duration-500">
-                <div className="h-48 bg-surface/50 p-6 flex items-center justify-center border-b border-border/50 relative overflow-hidden">
-                  <div className="w-full h-full max-w-[240px] mx-auto transition-transform duration-700 ease-out group-hover:scale-105">
-                    {step.ui}
+        <div className="flex flex-col gap-12 lg:gap-16">
+          {systemsData.map((sys, idx) => (
+            <ScrollReveal key={idx} delay={0.1}>
+              <div className="bg-background border border-border/60 rounded-[32px] p-8 lg:p-12 shadow-premium relative group overflow-hidden">
+                <div className="absolute top-0 right-0 w-64 h-64 bg-foreground/[0.02] rounded-full blur-3xl -translate-y-1/2 translate-x-1/4 pointer-events-none" />
+                
+                <div className="mb-10">
+                  <h3 className="text-2xl md:text-3xl font-display font-black tracking-tight text-foreground">{sys.title}</h3>
+                </div>
+                
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 mb-12">
+                  {/* Left Side: Workflow Timeline */}
+                  <div className="relative">
+                    <div className="absolute left-[15px] top-4 bottom-4 w-[2px] bg-border/80" />
+                    <div className="flex flex-col gap-6 relative z-10">
+                      {sys.flow.map((step, i) => (
+                        <div key={i} className="flex gap-4 items-start group/step">
+                           <div className="w-8 h-8 rounded-full bg-foreground text-background flex items-center justify-center shrink-0 mt-[-2px] shadow-sm relative z-10 transition-transform duration-300 group-hover/step:scale-110">
+                              <ArrowDown className="w-4 h-4" />
+                           </div>
+                           <div className="pt-1">
+                              <span className="font-semibold text-foreground/90 text-sm md:text-base transition-colors duration-300 group-hover/step:text-foreground">{step}</span>
+                           </div>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                  
+                  {/* Right Side: Dashboard Preview */}
+                  <div className="flex flex-col justify-center">
+                     <div className="transform transition-transform duration-500 lg:hover:-translate-y-2 lg:hover:rotate-1">
+                       {sys.ui}
+                     </div>
                   </div>
                 </div>
-                <div className="p-6 flex flex-col gap-2">
-                  <h3 className="text-lg font-display font-bold tracking-tight text-foreground">
-                    {step.title}
-                  </h3>
-                  <p className="text-sm font-medium text-muted leading-relaxed">
-                    {step.desc}
-                  </p>
+
+                {/* Bottom: Tech & Benefits */}
+                <div className="pt-10 border-t border-border/60 grid grid-cols-1 md:grid-cols-2 gap-10">
+                  <div>
+                     <h4 className="text-xs font-bold uppercase tracking-[0.15em] text-muted mb-5">Technologies</h4>
+                     <div className="flex flex-wrap gap-2">
+                       {sys.tech.map((t, i) => (
+                         <span key={i} className="px-3.5 py-1.5 rounded-full bg-surface border border-border/50 text-xs font-bold text-foreground hover:border-foreground/20 transition-colors duration-300">
+                           {t}
+                         </span>
+                       ))}
+                     </div>
+                  </div>
+                  <div>
+                     <h4 className="text-xs font-bold uppercase tracking-[0.15em] text-muted mb-5">Typical Benefits</h4>
+                     <div className="flex flex-col gap-3.5">
+                       {sys.benefits.map((b, i) => (
+                         <div key={i} className="flex items-center gap-3">
+                           <div className="flex-shrink-0 w-5 h-5 rounded-full bg-foreground/5 flex items-center justify-center text-foreground">
+                             <Check className="w-3.5 h-3.5" />
+                           </div>
+                           <span className="text-sm font-bold text-foreground/90">{b}</span>
+                         </div>
+                       ))}
+                     </div>
+                  </div>
                 </div>
               </div>
             </ScrollReveal>
           ))}
         </div>
+
+        {/* Section CTA */}
+        <ScrollReveal delay={0.2}>
+          <div className="mt-20 bg-foreground text-background rounded-[32px] p-10 md:p-14 text-center max-w-4xl mx-auto shadow-xl relative overflow-hidden group">
+            <div className="absolute inset-0 bg-[linear-gradient(to_right,#ffffff08_1px,transparent_1px),linear-gradient(to_bottom,#ffffff08_1px,transparent_1px)] bg-[size:24px_24px] opacity-20 pointer-events-none" />
+            
+            <div className="relative z-10">
+              <h2 className="text-3xl md:text-4xl font-display font-black tracking-tight mb-6">
+                Let's Build Your Growth System
+              </h2>
+              <p className="text-background/80 font-medium text-base md:text-lg mb-10 max-w-2xl mx-auto">
+                Whether you need a website, automation, CRM, dashboard, or a complete business system, we'll help design the right solution for your business.
+              </p>
+              <a
+                href="/start"
+                className="inline-flex items-center gap-2 px-8 py-4 rounded-full bg-background text-foreground font-bold text-base hover:scale-[1.02] active:scale-[0.98] transition-all duration-300 shadow-md group/btn"
+              >
+                Start With A Strategy Call
+                <span className="flex items-center justify-center w-5 h-5 rounded-full bg-foreground text-background group-hover/btn:translate-x-0.5 transition-transform duration-300">
+                  <ArrowRight className="w-3.5 h-3.5" />
+                </span>
+              </a>
+            </div>
+          </div>
+        </ScrollReveal>
 
       </div>
     </section>
