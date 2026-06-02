@@ -106,44 +106,6 @@ const systemsData = [
       "Centralized lead management"
     ],
     ui: <DashboardRealEstate />
-  },
-  {
-    title: "Coaching Business System",
-    flow: [
-      "Visitor lands on website",
-      "Books strategy call",
-      "Calendar event created",
-      "CRM updated automatically",
-      "Reminder sequence sent",
-      "Call completed",
-      "Client onboarding triggered"
-    ],
-    tech: ["Website", "Booking System", "CRM", "Email Automation", "Dashboard"],
-    benefits: [
-      "Fewer no-shows",
-      "Automated reminders",
-      "Simplified onboarding"
-    ],
-    ui: <DashboardCoaching />
-  },
-  {
-    title: "Startup Sales Pipeline",
-    flow: [
-      "Lead arrives from website",
-      "Lead qualification form submitted",
-      "CRM entry created",
-      "Sales team notified",
-      "Automated nurturing begins",
-      "Meeting booked",
-      "Pipeline updated automatically"
-    ],
-    tech: ["Website", "CRM", "Automation", "Dashboard", "Email"],
-    benefits: [
-      "Organized sales process",
-      "Faster follow-ups",
-      "Better pipeline visibility"
-    ],
-    ui: <DashboardStartup />
   }
 ];
 
