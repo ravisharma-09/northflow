@@ -15,26 +15,32 @@ interface Step {
 const steps: Step[] = [
   {
     number: '01',
-    title: 'Discovery',
-    description: 'We understand your business operations and map out your ideal digital infrastructure.',
+    title: 'Discovery Call',
+    description: 'We understand your business, current challenges and goals.',
     icon: MessageSquare,
   },
   {
     number: '02',
-    title: 'Build',
-    description: 'We create the core system—designing the front-end and engineering the backend.',
+    title: 'System Planning',
+    description: 'We design the website, automation and infrastructure.',
     icon: Code,
   },
   {
     number: '03',
-    title: 'Automate',
-    description: 'Workflows and operations are connected, reducing manual tasks across your business.',
+    title: 'Build & Integration',
+    description: 'We develop and connect everything together.',
     icon: Cpu,
   },
   {
     number: '04',
-    title: 'Scale',
-    description: 'Your business grows with less manual work as the system handles the heavy lifting.',
+    title: 'Launch',
+    description: 'Your new system goes live.',
+    icon: TrendingUp,
+  },
+  {
+    number: '05',
+    title: 'Optimize & Scale',
+    description: 'We continuously improve performance and efficiency.',
     icon: TrendingUp,
   },
 ];
@@ -93,7 +99,7 @@ export default function HowItWorks() {
           </svg>
 
           {/* Steps List */}
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-16 md:gap-8 relative z-10">
+          <div className="grid grid-cols-1 md:grid-cols-5 gap-12 md:gap-4 relative z-10">
             {steps.map((step, idx) => {
               const Icon = step.icon;
               

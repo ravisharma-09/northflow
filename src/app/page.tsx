@@ -1,5 +1,6 @@
 import Navbar from "@/components/Navbar";
 import Hero from "@/components/Hero/Hero";
+import Problem from "@/components/Problem";
 import Services from "@/components/Services";
 import SystemArchitecture from "@/components/SystemArchitecture";
 import HowItWorks from "@/components/HowItWorks";
@@ -22,7 +23,10 @@ export default function Home() {
         {/* Section 1: Hero Scene */}
         <Hero />
 
-        {/* Section 2: Services (Problem -> Solution) */}
+        {/* Section 2: Problem We Solve */}
+        <Problem />
+
+        {/* Section 3: Services (Problem -> Solution) */}
         <Services />
         
         {/* Section 4: System Architecture Flow */}
