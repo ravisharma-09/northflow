@@ -13,10 +13,12 @@ export default function Footer() {
 
   const footerLinks = {
     services: [
-      { name: 'Website Design', href: '#services' },
-      { name: 'Landing Pages', href: '#services' },
-      { name: 'AI Automation', href: '#services' },
-      { name: 'Growth Systems', href: '#services' },
+      { name: 'Lead Generation Websites', href: '#services' },
+      { name: 'CRM Systems', href: '#services' },
+      { name: 'Booking Automation', href: '#services' },
+      { name: 'WhatsApp Automation', href: '#services' },
+      { name: 'Business Dashboards', href: '#services' },
+      { name: 'Ongoing Support', href: '#pricing' },
     ],
     company: [
       { name: 'About Us', href: '#metrics' },
