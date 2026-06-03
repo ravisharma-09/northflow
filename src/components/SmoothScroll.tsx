@@ -1,6 +1,7 @@
 'use client';
 
 import React, { createContext, useContext, useEffect, useRef } from 'react';
+import { usePathname } from 'next/navigation';
 import Lenis from '@studio-freight/lenis';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
@@ -11,6 +12,7 @@ const SmoothScrollContext = createContext<Lenis | null>(null);
 
 export function SmoothScroll({ children }: { children: React.ReactNode }) {
   const lenisRef = useRef<Lenis | null>(null);
+  const pathname = usePathname();
 
   useEffect(() => {
     // Instantiate Lenis smooth scrolling with slight inertia and custom easing
@@ -46,6 +48,14 @@ export function SmoothScroll({ children }: { children: React.ReactNode }) {
       gsap.ticker.remove(updateTicker);
     };
   }, []);
+
+  useEffect(() => {
+    if (lenisRef.current) {
+      lenisRef.current.scrollTo(0, { immediate: true });
+    } else {
+      window.scrollTo(0, 0);
+    }
+  }, [pathname]);
 
   return (
     <SmoothScrollContext.Provider value={lenisRef.current}>

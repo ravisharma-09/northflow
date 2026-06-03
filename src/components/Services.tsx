@@ -4,12 +4,14 @@ import React, { useRef } from 'react';
 import { motion, useMotionValue, useSpring, useTransform, useMotionTemplate } from 'framer-motion';
 import { Layout, Bot, BarChart3, ArrowUpRight, Check } from 'lucide-react';
 import ScrollReveal from './ScrollReveal';
+import Link from 'next/link';
 
 interface Service {
   title: string;
   description: string;
   features: string[];
   icon: React.ComponentType<any>;
+  link: string;
 }
 
 const services: Service[] = [
@@ -24,6 +26,7 @@ const services: Service[] = [
       'SEO Ready'
     ],
     icon: Layout,
+    link: '/systems/website',
   },
   {
     title: 'Automation Systems',
@@ -37,6 +40,7 @@ const services: Service[] = [
       'Workflow Automation'
     ],
     icon: Bot,
+    link: '/systems/automation',
   },
   {
     title: 'Business Dashboards',
@@ -49,6 +53,7 @@ const services: Service[] = [
       'Analytics Reporting'
     ],
     icon: BarChart3,
+    link: '/systems/dashboards',
   },
 ];
 
@@ -149,14 +154,14 @@ function ServiceCard({ service, index }: { service: Service; index: number }) {
           </ul>
         </div>
 
-        <div style={{ transform: 'translateZ(15px)' }} className="flex items-center justify-between mt-8 border-t border-border/60 pt-6 text-left relative z-10">
-          <span className="text-sm font-bold text-muted group-hover:text-foreground transition-colors duration-300">
+        <Link href={service.link} style={{ transform: 'translateZ(15px)' }} className="flex items-center justify-between mt-8 border-t border-border/60 pt-6 text-left relative z-10 group/link">
+          <span className="text-sm font-bold text-muted group-hover/link:text-foreground transition-colors duration-300">
             Explore System
           </span>
-          <div className="flex items-center justify-center w-10 h-10 rounded-full border border-border bg-background text-muted group-hover:text-background group-hover:bg-foreground group-hover:border-foreground transition-all duration-300 shadow-sm">
+          <div className="flex items-center justify-center w-10 h-10 rounded-full border border-border bg-background text-muted group-hover/link:text-background group-hover/link:bg-foreground group-hover/link:border-foreground transition-all duration-300 shadow-sm">
             <ArrowUpRight className="w-5 h-5" />
           </div>
-        </div>
+        </Link>
       </motion.div>
     </motion.div>
   );
