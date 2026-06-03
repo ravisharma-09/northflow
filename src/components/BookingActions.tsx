@@ -46,17 +46,23 @@ export default function BookingActions({ leadId, currentStart }: { leadId: strin
 
   if (showReschedule) {
     return (
-      <div className="mt-4 space-y-3 bg-background p-3 rounded-xl border border-border">
-        <label className="block text-xs font-bold text-muted">Select New Date & Time</label>
-        <input 
-          type="datetime-local" 
-          value={newDate}
-          onChange={(e) => setNewDate(e.target.value)}
-          className="w-full bg-surface border border-border rounded-lg px-3 py-2 text-sm outline-none" 
-        />
-        <div className="flex gap-2">
-          <button onClick={handleReschedule} className="flex-1 bg-primary text-background text-xs font-bold py-2 rounded-lg hover:opacity-90">Confirm</button>
-          <button onClick={() => setShowReschedule(false)} className="px-3 text-xs font-bold text-muted hover:text-foreground">Cancel</button>
+      <div className="mt-4 space-y-4 bg-background p-4 rounded-xl border border-border shadow-sm">
+        <div>
+          <label className="block text-sm font-bold text-foreground mb-1.5">Select New Date & Time</label>
+          <input 
+            type="datetime-local" 
+            value={newDate}
+            onChange={(e) => setNewDate(e.target.value)}
+            className="w-full bg-surface border border-border rounded-xl px-4 py-3 text-base font-medium outline-none focus:border-foreground transition-colors" 
+          />
+        </div>
+        <div className="flex gap-3">
+          <button onClick={handleReschedule} className="flex-1 bg-foreground text-background text-sm font-bold py-2.5 rounded-xl hover:scale-[1.02] transition-transform">
+            Confirm Reschedule
+          </button>
+          <button onClick={() => setShowReschedule(false)} className="px-4 py-2.5 text-sm font-bold text-muted hover:bg-surface border border-transparent hover:border-border rounded-xl transition-all">
+            Cancel
+          </button>
         </div>
       </div>
     );

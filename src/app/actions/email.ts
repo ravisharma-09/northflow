@@ -31,7 +31,6 @@ export async function sendCustomEmail(leadId: string, subject: string, body: str
     preheader: subject,
     heading: subject,
     body: `
-      <p style="margin:0 0 16px 0;font-size:16px;color:#111111;">Hi <strong>${lead.name}</strong>,</p>
       <div style="font-size:15px;line-height:1.7;color:#555555;">
         ${body.replace(/\\n/g, '<br/>').replace(/\n/g, '<br/>')}
       </div>
@@ -122,7 +121,6 @@ export async function sendTemplateToLeads(templateId: string, leadIds: string[])
       preheader: subject,
       heading: subject,
       body: `
-        <p style="margin:0 0 16px 0;font-size:16px;color:#111111;">Hi <strong>${lead.name}</strong>,</p>
         <div style="font-size:15px;line-height:1.7;color:#555555;">
           ${rawBody.replace(/\\n/g, '<br/>').replace(/\n/g, '<br/>')}
         </div>
