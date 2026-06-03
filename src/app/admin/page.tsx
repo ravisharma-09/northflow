@@ -1,7 +1,10 @@
 import { prisma } from '@/lib/prisma';
 import { Users, Calendar, DollarSign, TrendingUp, Clock, ArrowRight } from 'lucide-react';
-import { format } from 'date-fns';
 import Link from 'next/link';
+
+const fmtShort = (d: Date) => new Intl.DateTimeFormat('en-IN', {
+  timeZone: 'Asia/Kolkata', month: 'short', day: 'numeric', hour: 'numeric', minute: '2-digit', hour12: true,
+}).format(d);
 
 export default async function AdminDashboard() {
   const [totalLeads, newLeads, wonDeals] = await Promise.all([
@@ -96,7 +99,7 @@ export default async function AdminDashboard() {
                     <p className="text-xs text-muted">{lead.businessName || lead.services}</p>
                   </div>
                   <span className="px-2 py-1 bg-primary/10 text-primary text-xs font-bold rounded-lg whitespace-nowrap">
-                    {format(new Date(lead.meetingStart), 'MMM d, h:mm a')}
+                    {fmtShort(new Date(lead.meetingStart))}
                   </span>
                 </div>
               </Link>

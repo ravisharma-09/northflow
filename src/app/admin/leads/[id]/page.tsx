@@ -1,12 +1,21 @@
 import { prisma } from '@/lib/prisma';
 import { notFound } from 'next/navigation';
-import { format } from 'date-fns';
 import { ArrowLeft, Briefcase, Calendar, Mail, MessageSquare, ExternalLink } from 'lucide-react';
 import Link from 'next/link';
 import LeadNotes from '@/components/LeadNotes';
 import DealValueEditor from '@/components/DealValueEditor';
 import EmailComposer from '@/components/EmailComposer';
 import LeadAssigner from '@/components/LeadAssigner';
+
+const fmtDate = (d: Date) => new Intl.DateTimeFormat('en-IN', {
+  timeZone: 'Asia/Kolkata', weekday: 'long', month: 'long', day: 'numeric', year: 'numeric',
+}).format(d);
+const fmtTime = (d: Date) => new Intl.DateTimeFormat('en-IN', {
+  timeZone: 'Asia/Kolkata', hour: 'numeric', minute: '2-digit', hour12: true,
+}).format(d);
+const fmtShort = (d: Date) => new Intl.DateTimeFormat('en-IN', {
+  timeZone: 'Asia/Kolkata', month: 'short', day: 'numeric', hour: 'numeric', minute: '2-digit', hour12: true,
+}).format(d);
 
 export default async function LeadDetailsPage({ params }: { params: { id: string } }) {
   const [lead, templates, team] = await Promise.all([
@@ -34,7 +43,7 @@ export default async function LeadDetailsPage({ params }: { params: { id: string
           <h1 className="text-4xl font-black text-foreground mb-2">{lead.name}</h1>
           <div className="flex items-center gap-4 text-muted">
             <span className="flex items-center gap-1"><Briefcase className="w-4 h-4" /> {lead.businessName || 'No Business Name'}</span>
-            <span className="flex items-center gap-1"><Calendar className="w-4 h-4" /> Created {format(new Date(lead.createdAt), 'MMM d, yyyy')}</span>
+            <span className="flex items-center gap-1"><Calendar className="w-4 h-4" /> Created {fmtShort(new Date(lead.createdAt))}</span>
           </div>
         </div>
         <span className="px-4 py-2 bg-primary/10 text-primary font-black uppercase tracking-wider rounded-full border border-primary/20">
@@ -73,8 +82,8 @@ export default async function LeadDetailsPage({ params }: { params: { id: string
             <div className="grid grid-cols-2 gap-6">
               <div>
                 <p className="text-sm text-muted mb-1">Scheduled For</p>
-                <p className="font-semibold text-primary">{format(new Date(lead.meetingStart), 'EEEE, MMMM d, yyyy')}</p>
-                <p className="font-semibold">{format(new Date(lead.meetingStart), 'h:mm a')} - {format(new Date(lead.meetingEnd), 'h:mm a')}</p>
+                <p className="font-semibold text-primary">{fmtDate(new Date(lead.meetingStart))}</p>
+                <p className="font-semibold">{fmtTime(new Date(lead.meetingStart))} - {fmtTime(new Date(lead.meetingEnd))}</p>
               </div>
               <div>
                 <p className="text-sm text-muted mb-1">Google Meet Link</p>
@@ -113,13 +122,13 @@ export default async function LeadDetailsPage({ params }: { params: { id: string
                 <div key={activity.id} className="relative pl-6 border-l-2 border-primary/20">
                   <div className="absolute w-3 h-3 bg-primary rounded-full -left-[7px] top-1"></div>
                   <p className="font-medium text-sm">{activity.action}</p>
-                  <p className="text-xs text-muted mt-1">{format(new Date(activity.createdAt), 'MMM d, h:mm a')}</p>
+                  <p className="text-xs text-muted mt-1">{fmtShort(new Date(activity.createdAt))}</p>
                 </div>
               ))}
               <div className="relative pl-6 border-l-2 border-primary/20">
                 <div className="absolute w-3 h-3 bg-primary rounded-full -left-[7px] top-1"></div>
                 <p className="font-medium text-sm">Lead Created</p>
-                <p className="text-xs text-muted mt-1">{format(new Date(lead.createdAt), 'MMM d, h:mm a')}</p>
+                <p className="text-xs text-muted mt-1">{fmtShort(new Date(lead.createdAt))}</p>
               </div>
             </div>
           </div>

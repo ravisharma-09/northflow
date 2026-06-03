@@ -78,6 +78,7 @@ model Lead {
   dealValue    Float?   @default(0)
   finalValue   Float?   @default(0)
   
+  timezone     String?  @default("Asia/Kolkata") // Client's timezone for consistent formatting
   remindersSent Int     @default(0) // 0 = none, 1 = 24h sent, 2 = 1h sent, 3 = 15m sent
   
   assignedToId String?

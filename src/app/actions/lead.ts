@@ -7,6 +7,8 @@ import { authOptions } from '@/lib/auth';
 import { google } from 'googleapis';
 import { addMinutes } from 'date-fns';
 import { sendTemplateToLeads } from './email';
+import nodemailer from 'nodemailer';
+import { buildEmail } from '@/lib/emailTemplate';
 
 export async function updateLeadStatus(leadId: string, newStatus: string) {
   const session = await getServerSession(authOptions);
@@ -183,8 +185,7 @@ export async function assignLead(leadId: string, userId: string | null) {
       // Email the assignee!
       if (process.env.GMAIL_APP_PASSWORD && assignee.email) {
         try {
-          const transporter = getGoogleCalendarAuth(); // wait, no, I need nodemailer here
-          const mailer = require('nodemailer').createTransport({
+          const mailer = nodemailer.createTransport({
             service: 'gmail',
             auth: {
               user: process.env.GOOGLE_CALENDAR_ID,
@@ -192,20 +193,33 @@ export async function assignLead(leadId: string, userId: string | null) {
             },
           });
 
+          const assignHtml = buildEmail({
+            preheader: `You've been assigned a new lead: ${lead.name}`,
+            heading: `🔔 New Lead Assigned to You`,
+            body: `
+              <p style="margin:0 0 20px 0;">You have been assigned a new lead in the NorthFlow CRM.</p>
+              
+              <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background-color:#F5F5F5;border-radius:12px;margin:0 0 24px 0;">
+                <tr>
+                  <td style="padding:24px;">
+                    <table role="presentation" width="100%" cellpadding="0" cellspacing="0">
+                      <tr><td style="padding:0 0 8px 0;"><strong style="color:#111;">Lead:</strong> <span style="color:#333;">${lead.name}</span></td></tr>
+                      <tr><td style="padding:0 0 8px 0;"><strong style="color:#111;">Company:</strong> <span style="color:#333;">${lead.businessName || 'N/A'}</span></td></tr>
+                      <tr><td><strong style="color:#111;">Email:</strong> <span style="color:#333;">${lead.email}</span></td></tr>
+                    </table>
+                  </td>
+                </tr>
+              </table>
+            `,
+            ctaText: 'View in CRM →',
+            ctaUrl: `${process.env.NEXTAUTH_URL}/admin/leads/${lead.id}`,
+          });
+
           await mailer.sendMail({
             from: `"NorthFlow CRM" <${process.env.GOOGLE_CALENDAR_ID}>`,
             to: assignee.email,
             subject: `🔔 New Lead Assigned: ${lead.name}`,
-            html: `
-              <div style="font-family: sans-serif; padding: 20px; color: #333;">
-                <h2>You have been assigned a new lead!</h2>
-                <p><strong>Lead:</strong> ${lead.name}</p>
-                <p><strong>Company:</strong> ${lead.businessName || 'N/A'}</p>
-                <div style="margin-top: 20px;">
-                  <a href="${process.env.NEXTAUTH_URL}/admin/leads/${lead.id}" style="background: #0070f3; color: #fff; padding: 10px 20px; text-decoration: none; border-radius: 5px;">View in CRM</a>
-                </div>
-              </div>
-            `
+            html: assignHtml,
           });
         } catch (e) {
           console.error("Failed to email assignee", e);

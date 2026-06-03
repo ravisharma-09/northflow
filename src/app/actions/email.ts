@@ -5,6 +5,7 @@ import { getServerSession } from 'next-auth/next';
 import { authOptions } from '@/lib/auth';
 import nodemailer from 'nodemailer';
 import { revalidatePath } from 'next/cache';
+import { buildEmail } from '@/lib/emailTemplate';
 
 const getTransporter = () => {
   if (!process.env.GMAIL_APP_PASSWORD) throw new Error("Gmail App Password not configured");
@@ -26,15 +27,23 @@ export async function sendCustomEmail(leadId: string, subject: string, body: str
 
   const transporter = getTransporter();
 
+  const styledHtml = buildEmail({
+    preheader: subject,
+    heading: subject,
+    body: `
+      <p style="margin:0 0 16px 0;font-size:16px;color:#111111;">Hi <strong>${lead.name}</strong>,</p>
+      <div style="font-size:15px;line-height:1.7;color:#555555;">
+        ${body.replace(/\\n/g, '<br/>').replace(/\n/g, '<br/>')}
+      </div>
+    `,
+    footerNote: 'This email was sent by the NorthFlow team. Reply directly to get in touch.',
+  });
+
   await transporter.sendMail({
     from: `"NorthFlow" <${process.env.GOOGLE_CALENDAR_ID}>`,
     to: lead.email,
     subject,
-    html: `
-      <div style="font-family: sans-serif; padding: 30px; max-width: 600px; color: #333; line-height: 1.6;">
-        ${body.replace(/\\n/g, '<br/>')}
-      </div>
-    `
+    html: styledHtml,
   });
 
   await prisma.leadActivity.create({
@@ -102,22 +111,30 @@ export async function sendTemplateToLeads(templateId: string, leadIds: string[])
       .replace(/\{\{businessName\}\}|\[Company\]/gi, lead.businessName || 'your company')
       .replace(/\{\{services\}\}/gi, lead.services || '');
 
-    const body = template.body
+    const rawBody = template.body
       .replace(/\{\{name\}\}|\[Name\]/gi, lead.name)
       .replace(/\{\{businessName\}\}|\[Company\]/gi, lead.businessName || 'your company')
       .replace(/\{\{services\}\}/gi, lead.services || '')
       .replace(/\{\{meetLink\}\}|\[MeetLink\]/gi, lead.meetLink || 'N/A')
       .replace(/\[Time\]/gi, 'your scheduled time');
 
+    const styledHtml = buildEmail({
+      preheader: subject,
+      heading: subject,
+      body: `
+        <p style="margin:0 0 16px 0;font-size:16px;color:#111111;">Hi <strong>${lead.name}</strong>,</p>
+        <div style="font-size:15px;line-height:1.7;color:#555555;">
+          ${rawBody.replace(/\\n/g, '<br/>').replace(/\n/g, '<br/>')}
+        </div>
+      `,
+      footerNote: 'This email was sent by the NorthFlow team. Reply directly to get in touch.',
+    });
+
     await transporter.sendMail({
       from: `"NorthFlow" <${process.env.GOOGLE_CALENDAR_ID}>`,
       to: lead.email,
       subject,
-      html: `
-        <div style="font-family: sans-serif; padding: 30px; max-width: 600px; color: #333; line-height: 1.6;">
-          ${body.replace(/\\n/g, '<br/>')}
-        </div>
-      `
+      html: styledHtml,
     });
 
     await prisma.leadActivity.create({

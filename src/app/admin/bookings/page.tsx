@@ -1,8 +1,16 @@
 import { prisma } from '@/lib/prisma';
-import { format, isToday, isTomorrow, isThisWeek, isAfter, startOfDay } from 'date-fns';
+import { isToday, isTomorrow, isThisWeek, isAfter, startOfDay } from 'date-fns';
 import { ExternalLink, Calendar as CalendarIcon, Clock } from 'lucide-react';
 import Link from 'next/link';
 import BookingActions from '@/components/BookingActions';
+
+const formatTimeIST = (date: Date) => new Intl.DateTimeFormat('en-IN', {
+  timeZone: 'Asia/Kolkata', hour: 'numeric', minute: '2-digit', hour12: true,
+}).format(date);
+
+const formatDateIST = (date: Date) => new Intl.DateTimeFormat('en-IN', {
+  timeZone: 'Asia/Kolkata', weekday: 'long', month: 'long', day: 'numeric',
+}).format(date);
 
 export default async function BookingsPage() {
   const upcomingLeads = await prisma.lead.findMany({
@@ -26,12 +34,12 @@ export default async function BookingsPage() {
           <p className="text-sm text-muted font-medium">{lead.businessName || lead.services}</p>
         </div>
         <span className="px-3 py-1 bg-primary/10 text-primary text-xs font-bold uppercase tracking-wider rounded-full">
-          {format(new Date(lead.meetingStart), 'h:mm a')}
+          {formatTimeIST(new Date(lead.meetingStart))}
         </span>
       </div>
       <div className="flex items-center gap-2 text-sm text-muted mb-4">
         <CalendarIcon className="w-4 h-4" />
-        {format(new Date(lead.meetingStart), 'EEEE, MMMM d')}
+        {formatDateIST(new Date(lead.meetingStart))}
       </div>
       {lead.meetLink && (
         <a href={lead.meetLink} target="_blank" className="w-full flex items-center justify-center gap-2 py-3 bg-foreground text-background font-bold rounded-xl hover:scale-[1.02] transition-transform">

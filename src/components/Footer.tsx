@@ -58,26 +58,7 @@ export default function Footer() {
             <p className="text-sm font-medium text-muted leading-relaxed max-w-sm">
               Designing digital experiences and automation systems for modern businesses.
             </p>
-            {/* Social icons */}
-            <div className="flex items-center gap-3 mt-2">
-              {[
-                { icon: Instagram, href: '#', name: 'Instagram' },
-                { icon: Linkedin, href: '#', name: 'LinkedIn' },
-                { icon: Twitter, href: '#', name: 'X' },
-              ].map((social, idx) => {
-                const Icon = social.icon;
-                return (
-                  <a
-                    key={idx}
-                    href={social.href}
-                    title={social.name}
-                    className="flex items-center justify-center w-9 h-9 rounded-full border border-border bg-surface/50 text-muted hover:text-brand hover:border-brand hover:scale-105 transition-all duration-300"
-                  >
-                    <Icon className="w-4.5 h-4.5" />
-                  </a>
-                );
-              })}
-            </div>
+
           </div>
 
           {/* Links Column 1: Services */}

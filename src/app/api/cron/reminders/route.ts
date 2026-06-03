@@ -2,6 +2,7 @@ import { NextResponse } from 'next/server';
 import { prisma } from '@/lib/prisma';
 import nodemailer from 'nodemailer';
 import { differenceInMinutes } from 'date-fns';
+import { buildEmail, formatTimeForClient, formatTimeIST } from '@/lib/emailTemplate';
 
 export async function GET(request: Request) {
   // Security: Prevent random people from triggering this endpoint in production
@@ -17,7 +18,7 @@ export async function GET(request: Request) {
   const transporter = nodemailer.createTransport({
     service: 'gmail',
     auth: {
-      user: process.env.GOOGLE_CALENDAR_ID, // Use their email address
+      user: process.env.GOOGLE_CALENDAR_ID,
       pass: process.env.GMAIL_APP_PASSWORD,
     },
   });
@@ -40,45 +41,78 @@ export async function GET(request: Request) {
       let shouldSend = false;
       let emailType = '';
       let newReminderState = lead.remindersSent;
+      let urgencyEmoji = '📅';
 
       // 24 Hour Reminder
       if (minutesUntilMeeting <= 1440 && minutesUntilMeeting > 60 && lead.remindersSent === 0) {
         shouldSend = true;
         emailType = '24 Hours';
         newReminderState = 1;
+        urgencyEmoji = '📅';
       }
       // 1 Hour Reminder
       else if (minutesUntilMeeting <= 60 && minutesUntilMeeting > 15 && lead.remindersSent < 2) {
         shouldSend = true;
         emailType = '1 Hour';
         newReminderState = 2;
+        urgencyEmoji = '⏰';
       }
       // 15 Minute Reminder
       else if (minutesUntilMeeting <= 15 && minutesUntilMeeting > 0 && lead.remindersSent < 3) {
         shouldSend = true;
         emailType = '15 Minutes';
         newReminderState = 3;
+        urgencyEmoji = '🔔';
       }
 
       if (shouldSend) {
+        const clientTz = lead.timezone || 'Asia/Kolkata';
+        const formattedTime = formatTimeForClient(new Date(lead.meetingStart), clientTz);
+
+        const reminderHtml = buildEmail({
+          preheader: `Your discovery call with NorthFlow starts in ${emailType}`,
+          heading: `${urgencyEmoji} Your Call Starts in ${emailType}`,
+          body: `
+            <p style="margin:0 0 16px 0;font-size:16px;color:#111111;">Hi <strong>${lead.name}</strong>,</p>
+            <p style="margin:0 0 20px 0;">Just a friendly reminder that your discovery call with NorthFlow is coming up soon.</p>
+            
+            <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background-color:#F5F5F5;border-radius:12px;margin:0 0 24px 0;">
+              <tr>
+                <td style="padding:24px;">
+                  <table role="presentation" width="100%" cellpadding="0" cellspacing="0">
+                    <tr>
+                      <td style="padding:0 0 12px 0;">
+                        <span style="font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;color:#888888;">📅 Meeting Details</span>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td style="padding:0 0 8px 0;">
+                        <span style="font-size:15px;font-weight:600;color:#111111;">${formattedTime}</span>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <span style="font-size:14px;color:#555555;">Duration: 45 minutes · Google Meet</span>
+                      </td>
+                    </tr>
+                  </table>
+                </td>
+              </tr>
+            </table>
+
+            <p style="margin:0 0 8px 0;font-size:14px;color:#555555;">We're looking forward to chatting about your business!</p>
+            ${lead.meetLink ? `<p style="margin:16px 0 0 0;font-size:13px;color:#888888;">Direct link: <a href="${lead.meetLink}" style="color:#111111;">${lead.meetLink}</a></p>` : ''}
+          `,
+          ctaText: lead.meetLink ? 'Join Google Meet →' : undefined,
+          ctaUrl: lead.meetLink || undefined,
+          footerNote: 'If you need to reschedule, simply reply to this email.',
+        });
+
         await transporter.sendMail({
           from: `"NorthFlow" <${process.env.GOOGLE_CALENDAR_ID}>`,
           to: lead.email,
-          subject: `Reminder: Discovery Call in ${emailType} - NorthFlow`,
-          html: `
-            <div style="font-family: sans-serif; padding: 30px; max-width: 600px; color: #333; line-height: 1.6;">
-              <h2 style="color: #000;">Hi ${lead.name},</h2>
-              <p>Just a quick reminder that your discovery call with NorthFlow starts in <strong>${emailType}</strong>.</p>
-              ${lead.meetLink ? `
-              <div style="margin: 30px 0;">
-                <a href="${lead.meetLink}" style="background: #000; color: #fff; padding: 14px 28px; text-decoration: none; border-radius: 8px; font-weight: bold; display: inline-block;">Join Google Meet</a>
-              </div>
-              <p style="font-size: 14px; color: #666;">Or copy this link: <a href="${lead.meetLink}">${lead.meetLink}</a></p>
-              ` : ''}
-              <p>Looking forward to chatting about your business!</p>
-              <p>Best regards,<br/><strong>Ravi Sharma</strong><br/>NorthFlow</p>
-            </div>
-          `
+          subject: `${urgencyEmoji} Reminder: Discovery Call in ${emailType} — NorthFlow`,
+          html: reminderHtml,
         });
 
         // Update database so we don't send this reminder again
