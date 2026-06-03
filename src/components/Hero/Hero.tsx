@@ -120,7 +120,7 @@ export default function Hero() {
   const marqueeBadges = [...featureBadges, ...featureBadges, ...featureBadges, ...featureBadges];
 
   return (
-    <section ref={containerRef} id="home" className="relative pt-24 md:pt-28 pb-6 md:pb-10 flex flex-col justify-center overflow-x-clip min-h-[90vh] md:min-h-screen">
+    <section ref={containerRef} id="home" className="relative pt-24 md:pt-28 pb-12 md:pb-16 flex flex-col justify-center overflow-x-clip min-h-screen">
       {/* Background with fading grid and soft glow */}
       <div className="hero-bg absolute inset-0 opacity-0 z-0 pointer-events-none">
         <div className="absolute inset-0 grid-floor bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:24px_24px] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,#000_70%,transparent_100%)] opacity-[0.03]" />
@@ -133,18 +133,18 @@ export default function Hero() {
         
 
           {/* Heading */}
-          <h1 className="hero-headline text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-display font-black tracking-tighter leading-[1.05] text-foreground mb-6 max-w-[1000px]">
+          <h1 className="hero-headline text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-display font-black tracking-tighter leading-[1.05] text-foreground mb-6 max-w-[1100px]">
             Websites, Automation & Business Systems{' '}
             <span className="text-muted block mt-2">Built To Generate More Leads And Save You Time.</span>
           </h1>
 
           {/* Subtext */}
-          <p className="hero-paragraph text-base sm:text-lg lg:text-xl text-muted font-medium max-w-[700px] leading-[1.6] mb-8">
+          <p className="hero-paragraph text-base sm:text-lg lg:text-xl text-muted font-medium max-w-[700px] leading-[1.6] mb-10">
             We help businesses automate bookings, follow-ups, customer communication and operations through modern websites, intelligent automation and custom dashboards.
           </p>
 
           {/* Call To Actions */}
-          <div className="flex flex-col items-start gap-5 mb-10">
+          <div className="flex flex-col items-start gap-5 mb-14">
             <div className="flex flex-wrap items-center justify-start gap-4">
               <a
                 href="#cta"
@@ -172,7 +172,7 @@ export default function Hero() {
         </div>
 
       {/* Trust Badges Row */}
-      <div className="w-full mt-6 md:mt-12 z-10 relative overflow-hidden">
+      <div className="w-full mt-auto z-10 relative overflow-hidden">
         <div className="w-full border-y border-border/80 py-4 md:py-6 flex bg-background/50 backdrop-blur-sm">
           <div className="animate-marquee gap-12 pr-12">
             {marqueeBadges.map((badge, idx) => {
