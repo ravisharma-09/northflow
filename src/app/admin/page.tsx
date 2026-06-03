@@ -76,7 +76,7 @@ export default async function AdminDashboard() {
                   </Link>
                   {' - '}{activity.action}
                 </p>
-                <p className="text-xs text-muted mt-1">{format(new Date(activity.createdAt), 'MMM d, h:mm a')}</p>
+                <p className="text-xs text-muted mt-1">{fmtShort(new Date(activity.createdAt))}</p>
               </div>
             ))}
             {recentActivities.length === 0 && <p className="text-muted text-sm">No recent activity.</p>}

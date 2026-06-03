@@ -60,9 +60,9 @@ export async function POST(request: Request) {
         dateTime: endDateTime.toISOString(),
         timeZone: tz,
       },
-      attendees: [
-        { email: email }
-      ],
+      // NOTE: No `attendees` — adding attendees causes Google to send its own
+      // duplicate calendar invite email regardless of sendUpdates setting.
+      // The client receives the Meet link in our branded confirmation email instead.
       conferenceData: {
         createRequest: {
           requestId: `northflow-${Date.now()}`,
