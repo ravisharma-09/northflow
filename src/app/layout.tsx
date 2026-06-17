@@ -16,7 +16,7 @@ const plusJakartaSans = Plus_Jakarta_Sans({
   display: "swap",
 });
 
-const SITE_URL = "https://northflow.com";
+const SITE_URL = "https://northflow-amber.vercel.app";
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
@@ -93,13 +93,6 @@ export const metadata: Metadata = {
     description:
       "Scale your service business with NorthFlow. We specialize in Business Automation, CRM Systems, AI Automation, WhatsApp Automation, Lead Management, and Workflow Automation.",
     images: [`${SITE_URL}/og-image.png`],
-  },
-
-  icons: {
-    icon: [
-      { url: "/favicon.ico", sizes: "any" },
-    ],
-    apple: "/apple-touch-icon.png",
   },
 
   category: "technology",

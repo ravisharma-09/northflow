@@ -9,6 +9,6 @@ export default function robots(): MetadataRoute.Robots {
         disallow: ['/api/', '/_next/', '/admin/', '/login/'],
       },
     ],
-    sitemap: 'https://northflow.com/sitemap.xml',
+    sitemap: 'https://northflow-amber.vercel.app/sitemap.xml',
   };
 }
