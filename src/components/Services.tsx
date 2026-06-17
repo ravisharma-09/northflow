@@ -169,7 +169,7 @@ function ServiceCard({ service, index }: { service: Service; index: number }) {
 
 export default function Services() {
   return (
-    <section id="services" className="py-16 relative overflow-hidden bg-background">
+    <section id="services" aria-labelledby="services-heading" className="py-16 relative overflow-hidden bg-background">
       <div className="w-full max-w-7xl mx-auto px-6 md:px-12 relative z-10">
         
         <ScrollReveal>
@@ -177,7 +177,7 @@ export default function Services() {
             <span className="text-xs font-bold text-muted mb-4 uppercase tracking-widest">
               What We Build
             </span>
-            <h2 className="text-4xl md:text-5xl lg:text-6xl font-display font-black tracking-tighter leading-tight text-foreground mb-6">
+            <h2 id="services-heading" className="text-4xl md:text-5xl lg:text-6xl font-display font-black tracking-tighter leading-tight text-foreground mb-6">
               What We Build
             </h2>
             <p className="text-lg md:text-xl text-muted font-medium leading-relaxed max-w-lg">

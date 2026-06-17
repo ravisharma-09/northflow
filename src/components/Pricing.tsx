@@ -51,14 +51,14 @@ const plans = [
 
 export default function Pricing() {
   return (
-    <section id="pricing" className="py-16 bg-background border-t border-border/40">
+    <section id="pricing" aria-labelledby="pricing-heading" className="py-16 bg-background border-t border-border/40">
       <div className="w-full max-w-7xl mx-auto px-6 md:px-12">
         <ScrollReveal>
           <div className="text-center mb-20 max-w-3xl mx-auto">
             <span className="text-xs font-bold text-muted mb-4 uppercase tracking-[0.15em] block">
               Pricing & Plans
             </span>
-            <h2 className="text-4xl md:text-5xl font-display font-black tracking-tight text-foreground">
+            <h2 id="pricing-heading" className="text-4xl md:text-5xl font-display font-black tracking-tight text-foreground">
               Choose Your Growth System
             </h2>
           </div>

@@ -22,20 +22,23 @@ export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
 
   title: {
-    default: "NorthFlow — Websites, Automation & Business Systems Built For Growth",
+    default: "NorthFlow | Business Automation, CRM Systems & Custom Dashboards",
     template: "%s | NorthFlow",
   },
 
   description:
-    "NorthFlow builds websites, CRM systems, booking automation, WhatsApp workflows and custom dashboards that help service businesses capture more leads, automate follow-ups and scale operations.",
+    "Scale your service business with NorthFlow. We specialize in Business Automation, CRM Systems, AI Automation, WhatsApp Automation, Lead Management, Workflow Automation, and custom Business Dashboards.",
 
   keywords: [
-    "business automation",
+    "Business Automation",
+    "CRM Systems",
+    "Business Dashboards",
+    "AI Automation",
+    "WhatsApp Automation",
+    "Lead Management",
+    "Workflow Automation",
     "lead generation website",
-    "CRM system",
     "booking automation",
-    "WhatsApp automation",
-    "business dashboard",
     "website for service business",
     "NorthFlow",
     "digital systems studio",
@@ -43,8 +46,6 @@ export const metadata: Metadata = {
     "lead capture system",
     "custom CRM dashboard",
     "business growth system",
-    "web development agency",
-    "automation agency",
   ],
 
   authors: [{ name: "NorthFlow", url: SITE_URL }],
@@ -68,9 +69,9 @@ export const metadata: Metadata = {
   },
 
   openGraph: {
-    title: "NorthFlow — Websites, Automation & Business Systems Built For Growth",
+    title: "NorthFlow | Business Automation, CRM Systems & Custom Dashboards",
     description:
-      "We build websites, CRM systems, booking automation, WhatsApp workflows and custom dashboards for service businesses worldwide.",
+      "Scale your service business with NorthFlow. We specialize in Business Automation, CRM Systems, AI Automation, WhatsApp Automation, Lead Management, Workflow Automation, and custom Business Dashboards.",
     type: "website",
     locale: "en_US",
     url: SITE_URL,
@@ -80,7 +81,7 @@ export const metadata: Metadata = {
         url: `${SITE_URL}/og-image.png`,
         width: 1200,
         height: 630,
-        alt: "NorthFlow — Websites, Automation & Business Systems",
+        alt: "NorthFlow — Business Automation & CRM Systems",
         type: "image/png",
       },
     ],
@@ -88,9 +89,9 @@ export const metadata: Metadata = {
 
   twitter: {
     card: "summary_large_image",
-    title: "NorthFlow — Websites, Automation & Business Systems",
+    title: "NorthFlow | Business Automation, CRM Systems & Custom Dashboards",
     description:
-      "We build websites, CRM systems, booking automation and custom dashboards for service businesses.",
+      "Scale your service business with NorthFlow. We specialize in Business Automation, CRM Systems, AI Automation, WhatsApp Automation, Lead Management, and Workflow Automation.",
     images: [`${SITE_URL}/og-image.png`],
   },
 
@@ -112,7 +113,7 @@ const organizationSchema = {
   url: SITE_URL,
   logo: `${SITE_URL}/logo.png`,
   description:
-    "NorthFlow builds websites, CRM systems, booking automation, WhatsApp workflows and custom dashboards for service businesses worldwide.",
+    "NorthFlow builds websites, CRM systems, AI automation, WhatsApp workflows and custom business dashboards for service businesses worldwide.",
   email: "northflow.work@gmail.com",
   sameAs: [],
   contactPoint: {
@@ -122,7 +123,7 @@ const organizationSchema = {
     availableLanguage: ["English"],
   },
   areaServed: "Worldwide",
-  serviceOutput: "Digital Business Systems",
+  serviceOutput: "Business Automation and CRM Systems",
 };
 
 const websiteSchema = {
@@ -131,7 +132,7 @@ const websiteSchema = {
   name: "NorthFlow",
   url: SITE_URL,
   description:
-    "NorthFlow builds websites, automation systems, and business dashboards for service businesses.",
+    "NorthFlow specializes in Business Automation, CRM Systems, AI Automation, and Business Dashboards.",
   publisher: {
     "@type": "Organization",
     name: "NorthFlow",
@@ -142,7 +143,7 @@ const websiteSchema = {
 const serviceSchema = {
   "@context": "https://schema.org",
   "@type": "Service",
-  serviceType: "Digital Business Systems",
+  serviceType: "Business Automation & Workflow Automation",
   provider: {
     "@type": "Organization",
     name: "NorthFlow",
@@ -150,7 +151,7 @@ const serviceSchema = {
   },
   areaServed: "Worldwide",
   description:
-    "We build websites, CRM systems, booking automation, WhatsApp workflows and custom dashboards for service businesses.",
+    "We provide Business Automation, CRM Systems, AI Automation, WhatsApp Automation, Lead Management, Workflow Automation, and Business Dashboards for service businesses.",
   hasOfferCatalog: {
     "@type": "OfferCatalog",
     name: "Business System Plans",
@@ -159,27 +160,27 @@ const serviceSchema = {
         "@type": "Offer",
         itemOffered: {
           "@type": "Service",
-          name: "Website System",
+          name: "Website & Lead Management System",
           description:
-            "Professional website with lead capture forms, booking integration, mobile optimization and SEO.",
+            "Professional website with lead capture forms, Lead Management capabilities, mobile optimization and SEO.",
         },
       },
       {
         "@type": "Offer",
         itemOffered: {
           "@type": "Service",
-          name: "Website + Automation System",
+          name: "Website + AI & WhatsApp Automation",
           description:
-            "Website with lead notifications, email automation, booking automation, WhatsApp workflows and follow-up systems.",
+            "Website with AI Automation, Lead Management notifications, email automation, booking automation, WhatsApp Automation workflows and follow-up systems.",
         },
       },
       {
         "@type": "Offer",
         itemOffered: {
           "@type": "Service",
-          name: "Website + Automation + Dashboard System",
+          name: "Website + Workflow Automation + Business Dashboard System",
           description:
-            "Complete business system with CRM dashboard, lead pipeline, revenue tracking, business analytics and team visibility.",
+            "Complete business system with a custom CRM System dashboard, lead pipeline, Workflow Automation, revenue tracking, business analytics and team visibility.",
         },
       },
     ],

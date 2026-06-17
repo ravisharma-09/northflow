@@ -15,7 +15,7 @@ export default function Problem() {
   ];
 
   return (
-    <section className="py-16 bg-surface border-t border-border/40 overflow-hidden">
+    <section aria-labelledby="problem-heading" className="py-16 bg-surface border-t border-border/40 overflow-hidden">
       <div className="w-full max-w-7xl mx-auto px-6 md:px-12">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
           
@@ -25,7 +25,7 @@ export default function Problem() {
               <span className="text-xs font-bold text-muted mb-4 uppercase tracking-[0.15em]">
                 The Problem
               </span>
-              <h2 className="text-3xl md:text-5xl font-display font-black tracking-tight text-foreground mb-10">
+              <h2 id="problem-heading" className="text-3xl md:text-5xl font-display font-black tracking-tight text-foreground mb-10">
                 Most businesses lose <br />
                 <span className="text-muted">customers because:</span>
               </h2>
@@ -63,7 +63,7 @@ export default function Problem() {
                 </div>
                 
                 <h3 className="text-2xl md:text-3xl font-display font-black tracking-tight text-foreground leading-tight">
-                  NorthFlow fixes this by connecting your website, automation systems and business operations into one streamlined workflow.
+                  NorthFlow fixes this by connecting your website, Workflow Automation systems and CRM business operations into one streamlined workflow.
                 </h3>
               </div>
             </div>

@@ -120,7 +120,7 @@ export default function Hero() {
   const marqueeBadges = [...featureBadges, ...featureBadges, ...featureBadges, ...featureBadges];
 
   return (
-    <section ref={containerRef} id="home" className="relative pt-24 md:pt-28 pb-12 md:pb-16 flex flex-col justify-center overflow-x-clip min-h-screen">
+    <section ref={containerRef} id="home" aria-labelledby="hero-heading" className="relative pt-24 md:pt-28 pb-12 md:pb-16 flex flex-col justify-center overflow-x-clip min-h-screen">
       {/* Background with fading grid and soft glow */}
       <div className="hero-bg absolute inset-0 opacity-0 z-0 pointer-events-none">
         <div className="absolute inset-0 grid-floor bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:24px_24px] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,#000_70%,transparent_100%)] opacity-[0.03]" />
@@ -133,14 +133,14 @@ export default function Hero() {
         
 
           {/* Heading */}
-          <h1 className="hero-headline text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-display font-black tracking-tighter leading-[1.05] text-foreground mb-6 max-w-[1100px]">
+          <h1 id="hero-heading" className="hero-headline text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-display font-black tracking-tighter leading-[1.05] text-foreground mb-6 max-w-[1100px]">
             Websites, Automation & Business Systems{' '}
             <span className="text-muted block mt-2">Built To Generate More Leads And Save You Time.</span>
           </h1>
 
           {/* Subtext */}
           <p className="hero-paragraph text-base sm:text-lg lg:text-xl text-muted font-medium max-w-[700px] leading-[1.6] mb-10">
-            We help businesses automate bookings, follow-ups, customer communication and operations through modern websites, intelligent automation and custom dashboards.
+            We help businesses automate bookings, follow-ups, Lead Management and operations through modern websites, AI Automation, WhatsApp Automation, and custom CRM Systems and Business Dashboards.
           </p>
 
           {/* Call To Actions */}

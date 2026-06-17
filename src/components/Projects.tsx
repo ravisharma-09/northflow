@@ -111,7 +111,7 @@ const systemsData = [
 
 export default function Projects() {
   return (
-    <section id="journey" className="py-16 relative overflow-hidden bg-surface border-t border-border/40">
+    <section id="journey" aria-labelledby="projects-heading" className="py-16 relative overflow-hidden bg-surface border-t border-border/40">
       <div className="w-full max-w-5xl mx-auto px-6 md:px-12 relative z-10">
         
         <ScrollReveal>
@@ -119,7 +119,7 @@ export default function Projects() {
             <span className="text-xs font-bold text-muted mb-4 uppercase tracking-[0.15em]">
               Systems We Build
             </span>
-            <h2 className="text-4xl md:text-5xl font-display font-black tracking-tight text-foreground mb-6">
+            <h2 id="projects-heading" className="text-4xl md:text-5xl font-display font-black tracking-tight text-foreground mb-6">
               Real Business Systems.<br/>Built For Growth.
             </h2>
             <p className="text-base text-muted font-medium leading-relaxed">

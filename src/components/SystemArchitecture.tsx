@@ -30,7 +30,7 @@ export default function SystemArchitecture() {
   ];
 
   return (
-    <section className="py-16 bg-surface border-y border-border/40 relative overflow-hidden">
+    <section aria-labelledby="architecture-heading" className="py-16 bg-surface border-y border-border/40 relative overflow-hidden">
       <div className="w-full max-w-7xl mx-auto px-6 md:px-12 relative z-10">
         
         <ScrollReveal>
@@ -38,7 +38,7 @@ export default function SystemArchitecture() {
             <span className="text-xs font-bold text-muted mb-4 uppercase tracking-[0.15em]">
               The Architecture
             </span>
-            <h2 className="text-4xl md:text-5xl lg:text-6xl font-display font-black tracking-tight text-foreground">
+            <h2 id="architecture-heading" className="text-4xl md:text-5xl lg:text-6xl font-display font-black tracking-tight text-foreground">
               Connected Systems. <br />
               <span className="text-muted">Zero Friction.</span>
             </h2>

@@ -34,7 +34,7 @@ const processes = [
 
 export default function Process() {
   return (
-    <section id="process" className="py-16 relative overflow-hidden bg-background border-t border-border/40">
+    <section id="process" aria-labelledby="process-heading" className="py-16 relative overflow-hidden bg-background border-t border-border/40">
       <div className="w-full max-w-5xl mx-auto px-6 md:px-12 relative z-10">
         
         {/* Header */}
@@ -43,7 +43,7 @@ export default function Process() {
             <span className="text-xs font-bold text-muted mb-4 uppercase tracking-widest">
               Execution
             </span>
-            <h2 className="text-4xl md:text-5xl lg:text-6xl font-display font-black tracking-tighter leading-tight text-foreground">
+            <h2 id="process-heading" className="text-4xl md:text-5xl lg:text-6xl font-display font-black tracking-tighter leading-tight text-foreground">
               The NorthFlow <br />
               <span className="text-muted">Process.</span>
             </h2>

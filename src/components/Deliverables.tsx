@@ -17,14 +17,14 @@ const deliverables = [
 
 export default function Deliverables() {
   return (
-    <section className="py-16 bg-background border-t border-border/40 overflow-hidden">
+    <section aria-labelledby="deliverables-heading" className="py-16 bg-background border-t border-border/40 overflow-hidden">
       <div className="w-full max-w-4xl mx-auto px-6 md:px-12">
         <ScrollReveal>
           <div className="text-center mb-12">
             <span className="text-xs font-bold text-muted mb-4 uppercase tracking-[0.15em] block">
               Deliverables
             </span>
-            <h2 className="text-3xl md:text-4xl font-display font-black tracking-tight text-foreground mb-4">
+            <h2 id="deliverables-heading" className="text-3xl md:text-4xl font-display font-black tracking-tight text-foreground mb-4">
               What You Get
             </h2>
           </div>

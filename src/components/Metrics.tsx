@@ -15,7 +15,7 @@ const reasons = [
 
 export default function Metrics() {
   return (
-    <section id="metrics" className="py-16 bg-background border-t border-border/40 overflow-hidden">
+    <section id="metrics" aria-labelledby="metrics-heading" className="py-16 bg-background border-t border-border/40 overflow-hidden">
       <div className="w-full max-w-7xl mx-auto px-6 md:px-12">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24 items-center">
           
@@ -25,7 +25,7 @@ export default function Metrics() {
               <span className="text-xs font-bold text-muted mb-4 uppercase tracking-[0.15em] block">
                 Why NorthFlow
               </span>
-              <h2 className="text-4xl md:text-5xl lg:text-6xl font-display font-black tracking-tight text-foreground mb-8 leading-[1.1]">
+              <h2 id="metrics-heading" className="text-4xl md:text-5xl lg:text-6xl font-display font-black tracking-tight text-foreground mb-8 leading-[1.1]">
                 Why Businesses <br />
                 <span className="text-muted">Choose NorthFlow.</span>
               </h2>

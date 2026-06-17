@@ -18,14 +18,14 @@ export default function Industries() {
   ];
 
   return (
-    <section className="py-16 bg-background border-t border-border/40">
+    <section aria-labelledby="industries-heading" className="py-16 bg-background border-t border-border/40">
       <div className="w-full max-w-7xl mx-auto px-6 md:px-12">
         <ScrollReveal>
           <div className="text-center mb-10 max-w-3xl mx-auto">
             <span className="text-xs font-bold text-muted mb-4 uppercase tracking-[0.15em] block">
               Industries We Help
             </span>
-            <h2 className="text-4xl md:text-5xl font-display font-black tracking-tight text-foreground">
+            <h2 id="industries-heading" className="text-4xl md:text-5xl font-display font-black tracking-tight text-foreground">
               Built For Modern <br />
               <span className="text-muted">Service Businesses.</span>
             </h2>

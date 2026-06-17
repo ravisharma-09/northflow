@@ -59,7 +59,7 @@ export default function HowItWorks() {
   });
 
   return (
-    <section ref={sectionRef} id="how-it-works" className="py-16 relative overflow-hidden bg-background">
+    <section ref={sectionRef} id="how-it-works" aria-labelledby="how-it-works-heading" className="py-16 relative overflow-hidden bg-background">
       <div className="w-full max-w-[1440px] mx-auto px-6 md:px-12 relative z-10">
         
         {/* Header */}
@@ -68,7 +68,7 @@ export default function HowItWorks() {
             <span className="px-3 py-1 rounded-full text-xs font-bold text-muted border border-border mb-4 uppercase tracking-widest bg-surface shadow-sm">
               How It Works
             </span>
-            <h2 className="text-4xl md:text-5xl lg:text-6xl font-display font-black tracking-tighter leading-tight text-foreground">
+            <h2 id="how-it-works-heading" className="text-4xl md:text-5xl lg:text-6xl font-display font-black tracking-tighter leading-tight text-foreground">
               Systems Engineering. <br />
               <span className="text-muted">Simplified.</span>
             </h2>

@@ -34,14 +34,14 @@ export default function CTA() {
   };
 
   return (
-    <section id="cta" className="py-24 relative overflow-hidden bg-background">
+    <section id="cta" aria-labelledby="cta-heading" className="py-24 relative overflow-hidden bg-background">
       <div className="w-full max-w-5xl mx-auto px-6 md:px-12 relative z-10">
         
         {/* Massive Whitespace CTA */}
         <ScrollReveal>
           <div className="flex flex-col items-center justify-center text-center">
             
-            <h2 className="text-4xl md:text-5xl lg:text-7xl font-display font-black tracking-tighter leading-[1.05] text-foreground mb-8">
+            <h2 id="cta-heading" className="text-4xl md:text-5xl lg:text-7xl font-display font-black tracking-tighter leading-[1.05] text-foreground mb-8">
               Let's Build The Infrastructure <br />
               <span className="text-muted">Behind Your Growth.</span>
             </h2>
