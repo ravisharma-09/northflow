@@ -41,6 +41,7 @@ model Account {
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@unique([provider, providerAccountId])
+  @@index([userId])
 }
 
 model Session {
@@ -49,9 +50,12 @@ model Session {
   userId       String
   expires      DateTime
   user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
 }
 
 model VerificationToken {
+  id         String   @id @default(cuid())
   identifier String
   token      String   @unique
   expires    DateTime
@@ -89,6 +93,8 @@ model Lead {
   
   createdAt    DateTime @default(now())
   updatedAt    DateTime @updatedAt
+
+  @@index([assignedToId])
 }
 
 model LeadNote {
@@ -98,6 +104,8 @@ model LeadNote {
   lead      Lead     @relation(fields: [leadId], references: [id], onDelete: Cascade)
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+
+  @@index([leadId])
 }
 
 model LeadActivity {
@@ -109,6 +117,9 @@ model LeadActivity {
   userId      String?  // Optional: Who did this action
   user        User?    @relation(fields: [userId], references: [id], onDelete: SetNull)
   createdAt   DateTime @default(now())
+
+  @@index([leadId])
+  @@index([userId])
 }
 
 model EmailTemplate {
@@ -147,4 +158,6 @@ model AutomationRule {
   isActive     Boolean  @default(true)
   createdAt    DateTime @default(now())
   updatedAt    DateTime @updatedAt
+
+  @@index([templateId])
 }
