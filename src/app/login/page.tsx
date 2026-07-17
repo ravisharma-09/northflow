@@ -2,13 +2,15 @@
 
 import { signIn } from "next-auth/react";
 import { motion } from "framer-motion";
-import { Lock, AlertCircle } from "lucide-react";
+import { Lock, AlertCircle, Key } from "lucide-react";
 import { useSearchParams } from 'next/navigation';
-import { Suspense } from 'react';
+import { Suspense, useState } from 'react';
 
 function LoginForm() {
   const searchParams = useSearchParams();
   const error = searchParams.get('error');
+  const [password, setPassword] = useState('');
+  const [loading, setLoading] = useState(false);
 
   let errorMessage = '';
   if (error === 'AccessDenied') {
@@ -41,7 +43,7 @@ function LoginForm() {
         
         <button
           onClick={() => signIn("google", { callbackUrl: "/admin" })}
-          className="w-full py-4 bg-foreground text-background font-bold rounded-full hover:scale-[1.02] transition-transform text-lg flex items-center justify-center gap-3"
+          className="w-full py-4 bg-foreground text-background font-bold rounded-full hover:scale-[1.02] transition-transform text-lg flex items-center justify-center gap-3 mb-6"
         >
           <svg className="w-6 h-6" viewBox="0 0 24 24">
             <path
@@ -63,6 +65,36 @@ function LoginForm() {
           </svg>
           Sign in with Google
         </button>
+
+        <div className="flex items-center gap-4 mb-6">
+          <div className="h-[1px] bg-border flex-1"></div>
+          <span className="text-sm font-medium text-muted uppercase tracking-widest">OR</span>
+          <div className="h-[1px] bg-border flex-1"></div>
+        </div>
+
+        <form onSubmit={async (e) => {
+          e.preventDefault();
+          setLoading(true);
+          await signIn("credentials", { password, callbackUrl: "/admin" });
+        }}>
+          <div className="relative mb-4">
+            <Key className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-muted" />
+            <input 
+              type="password"
+              placeholder="Admin Password Bypass"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              className="w-full bg-background border border-border rounded-xl py-4 pl-12 pr-4 text-foreground placeholder:text-muted focus:outline-none focus:border-primary transition-colors"
+            />
+          </div>
+          <button 
+            type="submit"
+            disabled={loading || !password}
+            className="w-full py-4 bg-surface text-foreground font-bold rounded-xl border border-border hover:bg-background transition-colors flex items-center justify-center gap-2 disabled:opacity-50"
+          >
+            {loading ? "Signing in..." : "Bypass Google Login"}
+          </button>
+        </form>
       </motion.div>
     </div>
   );
