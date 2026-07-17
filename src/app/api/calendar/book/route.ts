@@ -19,8 +19,8 @@ export async function POST(request: Request) {
     const tz = clientTimeZone || 'Asia/Kolkata';
 
     // If no Google credentials, return MOCK success so the UI can be previewed!
-    if (!process.env.GOOGLE_CLIENT_ID || !process.env.GOOGLE_REFRESH_TOKEN) {
-      console.warn("⚠️ NO GOOGLE OAUTH CREDENTIALS FOUND. Simulating successful booking.");
+    if (!process.env.GOOGLE_CLIENT_EMAIL || !process.env.GOOGLE_PRIVATE_KEY) {
+      console.warn("⚠️ NO GOOGLE SERVICE ACCOUNT CREDENTIALS FOUND. Simulating successful booking.");
       await new Promise(r => setTimeout(r, 1000));
       return NextResponse.json({ 
         success: true, 
@@ -28,12 +28,14 @@ export async function POST(request: Request) {
       });
     }
 
-    // 1. Initialize Google Auth with OAuth2
-    const auth = new google.auth.OAuth2(
-      process.env.GOOGLE_CLIENT_ID,
-      process.env.GOOGLE_CLIENT_SECRET
-    );
-    auth.setCredentials({ refresh_token: process.env.GOOGLE_REFRESH_TOKEN });
+    // 1. Initialize Google Auth with Service Account
+    const auth = new google.auth.GoogleAuth({
+      credentials: {
+        client_email: process.env.GOOGLE_CLIENT_EMAIL,
+        private_key: process.env.GOOGLE_PRIVATE_KEY.replace(/\\n/g, '\n'), // Handle escaped newlines from Vercel env
+      },
+      scopes: ['https://www.googleapis.com/auth/calendar'],
+    });
 
     const calendar = google.calendar({ version: 'v3', auth });
 

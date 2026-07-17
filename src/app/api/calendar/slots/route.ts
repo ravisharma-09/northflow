@@ -13,8 +13,8 @@ export async function GET(request: Request) {
   const requestedDate = startOfDay(new Date(dateParam));
 
   // If no Google credentials, return MOCK data so the UI can be previewed!
-  if (!process.env.GOOGLE_CLIENT_ID || !process.env.GOOGLE_REFRESH_TOKEN) {
-    console.warn("⚠️ NO GOOGLE OAUTH CREDENTIALS FOUND. Returning mock available slots for UI preview.");
+  if (!process.env.GOOGLE_CLIENT_EMAIL || !process.env.GOOGLE_PRIVATE_KEY) {
+    console.warn("⚠️ NO GOOGLE SERVICE ACCOUNT CREDENTIALS FOUND. Returning mock available slots for UI preview.");
     
     // Generate some mock slots from 11am to midnight (24:00)
     const mockSlots = [];
@@ -32,12 +32,14 @@ export async function GET(request: Request) {
   }
 
   try {
-    // 1. Initialize Google Auth with OAuth2
-    const auth = new google.auth.OAuth2(
-      process.env.GOOGLE_CLIENT_ID,
-      process.env.GOOGLE_CLIENT_SECRET
-    );
-    auth.setCredentials({ refresh_token: process.env.GOOGLE_REFRESH_TOKEN });
+    // 1. Initialize Google Auth with Service Account
+    const auth = new google.auth.GoogleAuth({
+      credentials: {
+        client_email: process.env.GOOGLE_CLIENT_EMAIL,
+        private_key: process.env.GOOGLE_PRIVATE_KEY.replace(/\\n/g, '\n'), // Handle escaped newlines from Vercel env
+      },
+      scopes: ['https://www.googleapis.com/auth/calendar'],
+    });
 
     const calendar = google.calendar({ version: 'v3', auth });
 
