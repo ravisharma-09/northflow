@@ -16,7 +16,7 @@ const plusJakartaSans = Plus_Jakarta_Sans({
   display: "swap",
 });
 
-const SITE_URL = "https://northflow-amber.vercel.app";
+const SITE_URL = "https://northflow.in";
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
