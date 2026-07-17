@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { LayoutDashboard, Users, Calendar, Mail, Settings, LogOut, Shield, Zap } from 'lucide-react';
+import { LayoutDashboard, Users, Calendar, Mail, Settings, LogOut, Shield, Zap, Table } from 'lucide-react';
 import { signOut } from 'next-auth/react';
 
 export default function AdminSidebar({ user }: any) {
@@ -13,6 +13,7 @@ export default function AdminSidebar({ user }: any) {
     { name: 'Leads', href: '/admin/leads', icon: Users, adminOnly: false },
     { name: 'Bookings', href: '/admin/bookings', icon: Calendar, adminOnly: false },
     { name: 'Emails', href: '/admin/emails', icon: Mail, adminOnly: false },
+    { name: 'Workbook', href: '/admin/workbook', icon: Table, adminOnly: false },
     { name: 'Automations', href: '/admin/automations', icon: Zap, adminOnly: true },
     { name: 'Team', href: '/admin/team', icon: Shield, adminOnly: true },
     { name: 'Settings', href: '/admin/settings', icon: Settings, adminOnly: true },
