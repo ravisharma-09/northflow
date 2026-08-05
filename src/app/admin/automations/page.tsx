@@ -8,6 +8,17 @@ import SubmitButton from '@/components/SubmitButton';
 
 const STATUSES = ['New', 'Contacted', 'Meeting Scheduled', 'Proposal Sent', 'Negotiation', 'Won', 'Lost'];
 
+export const dynamic = 'force-dynamic';
+
+async function createRuleAction(formData: FormData) {
+  'use server';
+  await createAutomationRule(
+    formData.get('name') as string,
+    formData.get('triggerValue') as string,
+    formData.get('templateId') as string
+  );
+}
+
 export default async function AutomationsPage() {
   const session = await getServerSession(authOptions);
   if ((session?.user as any)?.role !== 'ADMIN') redirect('/admin');
@@ -31,14 +42,7 @@ export default async function AutomationsPage() {
         <div className="lg:col-span-1">
           <div className="bg-surface border border-border rounded-2xl p-6 shadow-sm sticky top-8">
             <h2 className="text-xl font-bold mb-6">Create Rule</h2>
-            <form action={async (formData) => {
-              'use server';
-              await createAutomationRule(
-                formData.get('name') as string,
-                formData.get('triggerValue') as string,
-                formData.get('templateId') as string
-              );
-            }}>
+            <form action={createRuleAction}>
               <div className="space-y-6">
                 <div>
                   <label className="block text-sm text-muted mb-1 font-bold">Rule Name</label>
@@ -92,10 +96,7 @@ export default async function AutomationsPage() {
                   <span className="text-foreground">{rule.template?.name || 'Deleted Template'}</span>
                 </div>
               </div>
-              <form action={async () => {
-                'use server';
-                await deleteAutomationRule(rule.id);
-              }}>
+              <form action={deleteAutomationRule.bind(null, rule.id)}>
                 <SubmitButton 
                   icon={<Trash2 className="w-5 h-5" />}
                   className="p-3 text-red-500 hover:bg-red-500/10 rounded-xl ml-4" 

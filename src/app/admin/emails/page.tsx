@@ -5,6 +5,17 @@ import TemplateCard from '@/components/TemplateCard';
 import SubmitButton from '@/components/SubmitButton';
 import { saveTemplate } from '@/app/actions/email';
 
+export const dynamic = 'force-dynamic';
+
+async function createTemplateAction(formData: FormData) {
+  'use server';
+  await saveTemplate(
+    formData.get('name') as string,
+    formData.get('subject') as string,
+    formData.get('body') as string
+  );
+}
+
 export default async function EmailsPage() {
   const [templates, leads] = await Promise.all([
     prisma.emailTemplate.findMany({ orderBy: { createdAt: 'desc' } }),
@@ -25,14 +36,7 @@ export default async function EmailsPage() {
         <div className="lg:col-span-1">
           <div className="bg-surface border border-border rounded-2xl p-6 sticky top-8 shadow-sm">
             <h2 className="text-xl font-bold mb-4">Create Template</h2>
-            <form action={async (formData) => {
-              'use server';
-              await saveTemplate(
-                formData.get('name') as string,
-                formData.get('subject') as string,
-                formData.get('body') as string
-              );
-            }}>
+            <form action={createTemplateAction}>
               <div className="space-y-4">
                 <div>
                   <label className="block text-sm text-muted mb-1">Template Name (Internal)</label>
