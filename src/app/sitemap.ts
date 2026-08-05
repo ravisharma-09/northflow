@@ -1,5 +1,5 @@
 import { MetadataRoute } from 'next';
-import { industryDemos } from '@/lib/industryDemos';
+import { demoSites } from '@/data/demo-sites';
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const baseUrl = 'https://northflow.in';
@@ -41,7 +41,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: 'monthly',
       priority: 0.8,
     },
-    ...industryDemos.map((demo) => ({
+    ...demoSites.map((demo) => ({
       url: `${baseUrl}/demos/${demo.slug}`,
       lastModified: new Date(),
       changeFrequency: 'monthly' as const,

@@ -1,55 +1,33 @@
 import type { Metadata } from "next";
-import { ArrowRight } from "lucide-react";
-import Navbar from "@/components/Navbar";
-import Footer from "@/components/Footer";
-import { industryDemos } from "@/lib/industryDemos";
-import { IndustryDemoCard } from "@/components/public/IndustryDemoCard";
-import {
-  ButtonLink,
-  Container,
-  Eyebrow,
-  Section,
-  SectionHeading,
-} from "@/components/public/Primitives";
+import Image from "next/image";
+import { ArrowRight, ArrowUpRight } from "lucide-react";
+import PublicHeader from "@/components/public/PublicHeader";
+import PublicFooter from "@/components/public/PublicFooter";
+import { ButtonLink, Container, Eyebrow, Section } from "@/components/public/Primitives";
+import { Reveal, RevealGroup, RevealItem } from "@/components/public/Reveal";
+import { demoSites } from "@/data/demo-sites";
 
 export const metadata: Metadata = {
   title: "Industry Concept Demos",
   description:
-    "Explore fictional NorthFlow concept demos for moving, event-rental, auto-detailing, barbershop and independent car-rental businesses.",
-  alternates: {
-    canonical: "/demos",
-  },
+    "Explore five fictional NorthFlow Concept Demos for moving, event rental, auto detailing, barbershop and independent car-rental businesses.",
+  alternates: { canonical: "/demos" },
   openGraph: {
     title: "Industry Concept Demos | NorthFlow",
-    description:
-      "Fictional concept demos showing how NorthFlow designs connected websites, automation and CRM journeys for service businesses.",
+    description: "Five fictional service-business websites with complete interactive customer journeys.",
     url: "/demos",
-    images: [
-      {
-        url: "/demos/gallery-desktop.png",
-        width: 1440,
-        height: 2200,
-        alt: "NorthFlow industry concept demo gallery",
-      },
-    ],
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: "Industry Concept Demos | NorthFlow",
-    description:
-      "Fictional concept demos showing premium service-business systems.",
-    images: ["/demos/gallery-desktop.png"],
+    images: [{ url: "/demos/moving-hero.png", width: 1672, height: 941, alt: "NorthFlow Concept Demo gallery" }],
   },
 };
 
 export default function DemosPage() {
-  const collectionSchema = {
+  const schema = {
     "@context": "https://schema.org",
     "@type": "CollectionPage",
     name: "NorthFlow Industry Concept Demos",
-    description: metadata.description,
+    description: "Five fictional service-business website and customer-journey demonstrations.",
     url: "https://northflow.in/demos",
-    hasPart: industryDemos.map((demo) => ({
+    hasPart: demoSites.map((demo) => ({
       "@type": "WebPage",
       name: `${demo.businessName} Concept Demo`,
       url: `https://northflow.in/demos/${demo.slug}`,
@@ -58,81 +36,88 @@ export default function DemosPage() {
   };
 
   return (
-    <div className="public-redesign min-h-screen">
-      <Navbar />
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(collectionSchema) }}
-      />
-
+    <div className="public-site min-h-screen bg-background text-foreground">
+      <PublicHeader />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }} />
       <main>
-        <Section className="pt-32 md:pt-40">
+        <section className="public-paper-gradient border-b border-border py-20 md:py-28">
           <Container>
-            <div className="grid gap-12 lg:grid-cols-[0.9fr_1.1fr] lg:items-end">
-              <div>
-                <Eyebrow>Industry demos</Eyebrow>
-                <h1 className="mt-8 max-w-5xl text-6xl font-black leading-[0.92] tracking-normal text-foreground sm:text-7xl lg:text-8xl">
-                  Concept systems for service businesses.
+            <div className="grid gap-10 lg:grid-cols-[1.15fr_0.85fr] lg:items-end">
+              <Reveal>
+                <Eyebrow className="text-muted">Industry Concept Demos</Eyebrow>
+                <h1 className="mt-8 text-[clamp(3.8rem,7.2vw,6.8rem)] font-black leading-[0.9]">
+                  Five industries. <span className="editorial-serif block">Five complete customer journeys.</span>
                 </h1>
-              </div>
-              <div>
-                <p className="max-w-2xl text-lg font-medium leading-8 text-muted md:text-xl">
-                  These are fictional demo businesses, clearly marked as
-                  Concept Demo. They show how NorthFlow packages a premium
-                  website, request flow, follow-up logic and CRM-ready journey
-                  for different service industries.
+              </Reveal>
+              <Reveal delay={0.1}>
+                <p className="max-w-xl text-base font-medium leading-8 text-muted md:text-lg">
+                  Every business below is fictional and visibly labelled Concept Demo. Open each one as a real responsive site, explore its industry offer and build a local request summary.
                 </p>
                 <ButtonLink href="/start" className="mt-8">
                   Plan your own system
-                  <ArrowRight className="h-4 w-4" />
+                  <ArrowUpRight className="h-4 w-4" />
                 </ButtonLink>
-              </div>
+              </Reveal>
             </div>
           </Container>
-        </Section>
-
-        <Section className="border-y border-border bg-surface/45">
-          <Container>
-            <SectionHeading
-              eyebrow="Gallery"
-              title="Five fictional businesses, one reusable system approach."
-              description="Each concept page has its own industry content, colours, image and conversion flow while sharing the same NorthFlow structure."
-            />
-            <div className="mt-14 grid gap-4 lg:grid-cols-2">
-              {industryDemos.map((demo, index) => (
-                <IndustryDemoCard
-                  key={demo.slug}
-                  demo={demo}
-                  featured={index === 0}
-                />
-              ))}
-            </div>
-          </Container>
-        </Section>
+        </section>
 
         <Section>
           <Container>
-            <div className="grid gap-10 lg:grid-cols-[1fr_0.72fr] lg:items-end">
-              <SectionHeading
-                eyebrow="Strategy call"
-                title="Turn a concept pattern into your actual operating system."
-                description="NorthFlow maps the real customer journey first, then designs the pages, forms, automation and CRM layer around it."
-              />
-              <div className="flex flex-col gap-3 sm:flex-row lg:justify-end">
-                <ButtonLink href="/start">
-                  Book a strategy call
-                  <ArrowRight className="h-4 w-4" />
-                </ButtonLink>
-                <ButtonLink href="/" variant="secondary">
-                  Back to homepage
-                </ButtonLink>
-              </div>
-            </div>
+            <RevealGroup className="grid gap-6 lg:grid-cols-2">
+              {demoSites.map((demo, index) => (
+                <RevealItem key={demo.slug} className={index === 4 ? "lg:col-span-2" : ""}>
+                  <article className={`grid overflow-hidden rounded-[8px] border border-border bg-surface ${index === 4 ? "lg:grid-cols-[1.2fr_0.8fr]" : ""}`}>
+                    <a href={`/demos/${demo.slug}`} className="public-focus group relative block aspect-[16/11] overflow-hidden bg-foreground">
+                      <Image
+                        src={demo.image}
+                        alt={demo.imageAlt}
+                        fill
+                        priority={index < 2}
+                        sizes={index === 4 ? "(min-width: 1024px) 60vw, 100vw" : "(min-width: 1024px) 47vw, 100vw"}
+                        className="object-cover transition-transform duration-500 group-hover:scale-[1.03]"
+                      />
+                      <div className="absolute inset-x-0 top-0 flex items-center justify-between p-4 text-[10px] font-black uppercase tracking-[0.14em] text-white">
+                        <span className="rounded-[4px] bg-[#11100d] px-2.5 py-1">Concept Demo</span>
+                        <span>0{index + 1}</span>
+                      </div>
+                    </a>
+                    <div className="flex flex-col justify-between p-6 md:p-8">
+                      <div>
+                        <p className="text-[10px] font-black uppercase tracking-[0.15em] text-muted">{demo.industry}</p>
+                        <h2 className="mt-4 text-3xl font-black leading-tight md:text-4xl">{demo.businessName}</h2>
+                        <p className="mt-4 text-sm font-medium leading-7 text-muted">{demo.description}</p>
+                        <div className="mt-6 border-t border-border pt-5">
+                          <p className="text-[10px] font-black uppercase tracking-[0.14em] text-muted">Journey demonstrated</p>
+                          <p className="mt-2 text-sm font-bold">{demo.journey.map((step) => step.title).join(" → ")}</p>
+                        </div>
+                      </div>
+                      <a href={`/demos/${demo.slug}`} className="public-focus group mt-8 inline-flex items-center gap-2 text-sm font-black">
+                        Open live demo
+                        <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+                      </a>
+                    </div>
+                  </article>
+                </RevealItem>
+              ))}
+            </RevealGroup>
           </Container>
         </Section>
-      </main>
 
-      <Footer />
+        <section className="public-ink py-20 md:py-24">
+          <Container className="grid gap-8 lg:grid-cols-[1fr_auto] lg:items-end">
+            <div>
+              <Eyebrow className="text-muted">NorthFlow strategy call</Eyebrow>
+              <h2 className="mt-7 max-w-4xl text-[clamp(3rem,5.3vw,5rem)] font-black leading-[0.94]">Turn the right concept into your real working system.</h2>
+            </div>
+            <ButtonLink href="/start" variant="light">
+              Book a strategy call
+              <ArrowUpRight className="h-4 w-4" />
+            </ButtonLink>
+          </Container>
+        </section>
+      </main>
+      <PublicFooter />
     </div>
   );
 }

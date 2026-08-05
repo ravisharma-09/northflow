@@ -1,4 +1,8 @@
-import type { AnchorHTMLAttributes, ReactNode } from "react";
+import type {
+  AnchorHTMLAttributes,
+  HTMLAttributes,
+  ReactNode,
+} from "react";
 
 type ClassValue = string | false | null | undefined;
 
@@ -13,7 +17,7 @@ export function Container({
   children: ReactNode;
   className?: string;
 }) {
-  return <div className={cx("premium-container", className)}>{children}</div>;
+  return <div className={cx("public-container", className)}>{children}</div>;
 }
 
 export function Section({
@@ -26,43 +30,41 @@ export function Section({
   className?: string;
 }) {
   return (
-    <section id={id} className={cx("premium-section", className)}>
+    <section id={id} className={cx("public-section", className)}>
       {children}
     </section>
   );
 }
 
-export function Eyebrow({ children }: { children: ReactNode }) {
-  return <span className="premium-eyebrow">{children}</span>;
+export function Eyebrow({
+  children,
+  className,
+}: {
+  children: ReactNode;
+  className?: string;
+}) {
+  return <span className={cx("public-eyebrow", className)}>{children}</span>;
 }
 
 export function SectionHeading({
   eyebrow,
   title,
   description,
-  align = "left",
   className,
 }: {
   eyebrow: string;
   title: ReactNode;
   description?: ReactNode;
-  align?: "left" | "center";
   className?: string;
 }) {
   return (
-    <div
-      className={cx(
-        "max-w-3xl",
-        align === "center" && "mx-auto text-center",
-        className
-      )}
-    >
-      <Eyebrow>{eyebrow}</Eyebrow>
-      <h2 className="mt-6 text-4xl font-black leading-[0.98] tracking-normal text-foreground md:text-6xl">
+    <div className={cx("max-w-[760px]", className)}>
+      <Eyebrow className="text-muted">{eyebrow}</Eyebrow>
+      <h2 className="mt-7 text-[clamp(2.8rem,5.2vw,4.8rem)] font-black leading-[0.96] text-foreground">
         {title}
       </h2>
       {description ? (
-        <p className="mt-6 max-w-2xl text-base font-medium leading-8 text-muted md:text-lg">
+        <p className="mt-7 max-w-2xl text-base font-medium leading-8 text-muted md:text-lg">
           {description}
         </p>
       ) : null}
@@ -73,16 +75,15 @@ export function SectionHeading({
 export function Card({
   children,
   className,
-}: {
-  children: ReactNode;
-  className?: string;
-}) {
+  ...props
+}: HTMLAttributes<HTMLDivElement> & { children: ReactNode }) {
   return (
     <div
       className={cx(
-        "rounded-[8px] border border-border bg-surface/80 shadow-premium",
+        "rounded-[8px] border border-border bg-surface shadow-premium",
         className
       )}
+      {...props}
     >
       {children}
     </div>
@@ -90,7 +91,7 @@ export function Card({
 }
 
 type ButtonLinkProps = AnchorHTMLAttributes<HTMLAnchorElement> & {
-  variant?: "primary" | "secondary" | "dark";
+  variant?: "primary" | "secondary" | "accent" | "light";
 };
 
 export function ButtonLink({
@@ -102,13 +103,15 @@ export function ButtonLink({
   return (
     <a
       className={cx(
-        "premium-focus inline-flex min-h-12 items-center justify-center gap-2 rounded-[6px] px-5 py-3 text-sm font-extrabold transition-colors duration-200",
+        "public-focus group inline-flex min-h-12 items-center justify-center gap-2 rounded-[7px] px-5 py-3 text-sm font-extrabold transition duration-300 hover:-translate-y-0.5",
         variant === "primary" &&
-          "bg-foreground text-background hover:bg-brand-hover",
+          "border border-foreground bg-foreground text-background hover:bg-brand hover:border-brand",
         variant === "secondary" &&
-          "border border-border bg-surface text-foreground hover:border-foreground",
-        variant === "dark" &&
-          "border border-foreground bg-transparent text-foreground hover:bg-foreground hover:text-background",
+          "border border-border bg-transparent text-foreground hover:border-foreground",
+        variant === "accent" &&
+          "border border-brand bg-brand text-foreground hover:bg-brand-hover hover:border-brand-hover",
+        variant === "light" &&
+          "border border-[rgba(245,238,229,0.36)] bg-transparent text-[#f5eee5] hover:bg-[#f5eee5] hover:text-[#11100d]",
         className
       )}
       {...props}
