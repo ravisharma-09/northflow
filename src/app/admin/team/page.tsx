@@ -7,6 +7,16 @@ import { inviteTeamMember, removeTeamMember } from '@/app/actions/team';
 import { format } from 'date-fns';
 import SubmitButton from '@/components/SubmitButton';
 
+export const dynamic = 'force-dynamic';
+
+async function inviteAction(formData: FormData) {
+  'use server';
+  await inviteTeamMember(
+    formData.get('email') as string,
+    formData.get('role') as string
+  );
+}
+
 export default async function TeamPage() {
   const session = await getServerSession(authOptions);
   
@@ -33,13 +43,7 @@ export default async function TeamPage() {
         <div className="lg:col-span-1">
           <div className="bg-surface border border-border rounded-2xl p-6 shadow-sm sticky top-8">
             <h2 className="text-xl font-bold mb-4 flex items-center gap-2"><UserPlus className="w-5 h-5" /> Invite Team Member</h2>
-            <form action={async (formData) => {
-              'use server';
-              await inviteTeamMember(
-                formData.get('email') as string,
-                formData.get('role') as string
-              );
-            }}>
+            <form action={inviteAction}>
               <div className="space-y-4">
                 <div>
                   <label className="block text-sm text-muted mb-1">Google Email Address</label>
@@ -106,14 +110,11 @@ export default async function TeamPage() {
                       )}
                     </td>
                     <td className="p-4 text-sm text-muted">
-                      {format(new Date(user.createdAt), 'MMM d, yyyy')}
+                      {user.createdAt ? format(new Date(user.createdAt), 'MMM d, yyyy') : 'Unknown'}
                     </td>
                     <td className="p-4 text-right">
                       {user.email !== process.env.GOOGLE_CALENDAR_ID && (
-                        <form action={async () => {
-                          'use server';
-                          await removeTeamMember(user.id);
-                        }}>
+                        <form action={removeTeamMember.bind(null, user.id)}>
                           <SubmitButton 
                             icon={<Trash2 className="w-5 h-5" />}
                             className="p-2 text-red-500 hover:bg-red-500/10 rounded-lg"
