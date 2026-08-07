@@ -108,29 +108,27 @@ export default function StartYourSystem() {
     <div className="public-site min-h-screen bg-background text-foreground">
       <PublicHeader />
       <main className="public-paper-gradient min-h-[calc(100svh-90px)] px-5 py-12 md:px-10 md:py-20">
-        <div className={`mx-auto grid max-w-[1200px] gap-10 ${step === 2 ? "" : "lg:grid-cols-[0.82fr_1.18fr] lg:items-start"}`}>
-          {step < 2 ? (
-            <aside className="lg:sticky lg:top-32">
-              <p className="text-[11px] font-black uppercase tracking-[0.16em] text-muted">Strategy call</p>
-              <h1 className="mt-6 text-[clamp(3.4rem,6.5vw,6.3rem)] font-black leading-[0.9]">
-                Start with the business. <span className="editorial-serif block">Then design the system.</span>
-              </h1>
-              <p className="mt-7 max-w-xl text-base font-medium leading-8 text-muted">
-                Tell us where the customer journey breaks down. We will use the call to understand the workflow, current tools and the right first layer to build.
-              </p>
-              <div className="mt-9 grid gap-3 text-sm font-bold">
-                {["No public pricing assumptions", "Existing tools considered", "Booking handled by the live NorthFlow calendar"].map((item) => (
-                  <span key={item} className="flex items-center gap-3"><Check className="h-4 w-4 text-brand" />{item}</span>
-                ))}
-              </div>
-            </aside>
-          ) : null}
+        <div className="mx-auto grid max-w-[1200px] gap-10 lg:grid-cols-[0.82fr_1.18fr] lg:items-start">
+          <aside className="lg:sticky lg:top-32 hidden lg:block">
+            <p className="text-[11px] font-black uppercase tracking-[0.16em] text-muted">Strategy call</p>
+            <h1 className="mt-6 text-[clamp(3.4rem,6.5vw,6.3rem)] font-black leading-[0.9]">
+              Start with the business. <span className="editorial-serif block">Then design the system.</span>
+            </h1>
+            <p className="mt-7 max-w-xl text-base font-medium leading-8 text-muted">
+              Tell us where the customer journey breaks down. We will use the call to understand the workflow, current tools and the right first layer to build.
+            </p>
+            <div className="mt-9 grid gap-3 text-sm font-bold">
+              {["No public pricing assumptions", "Existing tools considered", "Booking handled by the live NorthFlow calendar"].map((item) => (
+                <span key={item} className="flex items-center gap-3"><Check className="h-4 w-4 text-brand" />{item}</span>
+              ))}
+            </div>
+          </aside>
 
-          <div className={step === 2 ? "w-full" : "w-full max-w-[620px] lg:justify-self-end"}>
+          <div className="w-full max-w-[620px] lg:justify-self-end mx-auto lg:mx-0">
             {step < 2 ? (
               <div className="mb-5 grid grid-cols-2 gap-2" aria-label={`Step ${step + 1} of 2`}>
                 {[0, 1].map((index) => (
-                  <span key={index} className="h-1 overflow-hidden bg-border">
+                  <span key={index} className="h-1 overflow-hidden bg-border rounded-full">
                     <motion.span
                       className="block h-full origin-left bg-foreground"
                       initial={false}
@@ -143,7 +141,7 @@ export default function StartYourSystem() {
             ) : null}
 
             {mounted ? (
-              <div className={step === 2 ? "w-full" : "overflow-hidden rounded-[8px] border border-border bg-surface p-6 shadow-premium sm:p-9"}>
+              <div className="overflow-hidden rounded-[8px] border border-border bg-surface p-6 shadow-premium sm:p-9 min-h-[400px]">
                 <AnimatePresence mode="wait">
                   {step === 0 ? (
                     <motion.div key="personal" {...panelMotion} transition={{ duration: 0.35 }}>
@@ -200,7 +198,10 @@ export default function StartYourSystem() {
                   ) : null}
 
                   {step === 2 ? (
-                    <motion.div key="calendar" {...panelMotion} transition={{ duration: 0.35 }} className="rounded-[8px] border border-border bg-surface p-5 shadow-premium md:p-8">
+                    <motion.div key="calendar" {...panelMotion} transition={{ duration: 0.35 }}>
+                      <button type="button" onClick={handlePrev} className="mb-6 public-focus inline-flex items-center gap-2 text-sm font-black text-muted hover:text-foreground">
+                        <ArrowLeft className="h-4 w-4" /> Back to details
+                      </button>
                       <BookingCalendar formData={formData} onBack={handlePrev} />
                     </motion.div>
                   ) : null}

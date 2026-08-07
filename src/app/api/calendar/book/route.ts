@@ -159,9 +159,8 @@ export async function POST(request: Request) {
         html: clientEmailHtml,
       }).catch(console.error);
 
-      // ─── Email to Team ───
-      const team = await prisma.user.findMany({ select: { email: true } });
-      const teamEmails = team.map(u => u.email).filter(Boolean).join(',');
+      // ─── Email to Admin Only ───
+      const adminEmail = process.env.GOOGLE_CALENDAR_ID;
 
       const teamEmailHtml = buildEmail({
         preheader: `New booking from ${name} (${businessName || 'No company'})`,
@@ -196,7 +195,7 @@ export async function POST(request: Request) {
 
       await transporter.sendMail({
         from: `"NorthFlow CRM" <${process.env.GOOGLE_CALENDAR_ID}>`,
-        to: teamEmails || process.env.GOOGLE_CALENDAR_ID,
+        to: adminEmail || process.env.GOOGLE_CALENDAR_ID,
         subject: `🎉 NEW BOOKING: ${name} (${businessName || 'No Company'})`,
         html: teamEmailHtml,
       }).catch(console.error);

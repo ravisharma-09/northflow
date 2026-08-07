@@ -115,9 +115,9 @@ export default async function AdminDashboard() {
     return (
       <div className="p-8">
         <h1 className="text-red-500 text-3xl font-bold mb-4">Dashboard Render Error</h1>
-        <pre className="bg-red-500/10 p-4 rounded-lg text-red-500 font-mono whitespace-pre-wrap">
-          {error.message}{'\n'}{error.stack}
-        </pre>
+        <div className="bg-red-500/10 p-4 rounded-lg text-red-500 font-mono whitespace-pre-wrap">
+          {error.message}
+        </div>
       </div>
     );
   }
