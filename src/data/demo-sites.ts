@@ -34,6 +34,11 @@ export type DemoSite = {
   nextStep: string;
   faq: Array<{ question: string; answer: string }>;
   metadata: { title: string; description: string };
+  designConfig: {
+    heroVariant: 'split-right' | 'split-left' | 'centered' | 'full-background' | 'offset-grid';
+    servicesVariant: 'grid' | 'editorial-list' | 'dark-cards' | 'minimal-list' | 'features-grid';
+    imageStyle: 'sharp' | 'soft-edges' | 'high-contrast' | 'rounded' | 'modern';
+  };
 };
 
 export const demoSites: DemoSite[] = [
@@ -86,6 +91,11 @@ export const demoSites: DemoSite[] = [
       title: "Beacon Moving Co. — Moving Company Concept Demo",
       description: "Concept Demo: a fictional moving company website with a guided estimate-request journey built by NorthFlow.",
     },
+    designConfig: {
+      heroVariant: 'split-right',
+      servicesVariant: 'grid',
+      imageStyle: 'sharp'
+    },
   },
   {
     slug: "event-rental",
@@ -135,6 +145,11 @@ export const demoSites: DemoSite[] = [
     metadata: {
       title: "Everly Event Co. — Event Rental Concept Demo",
       description: "Concept Demo: a fictional event-rental website with a guided proposal-request journey built by NorthFlow.",
+    },
+    designConfig: {
+      heroVariant: 'full-background',
+      servicesVariant: 'editorial-list',
+      imageStyle: 'soft-edges'
     },
   },
   {
@@ -186,6 +201,11 @@ export const demoSites: DemoSite[] = [
       title: "Apex Detail Lab — Auto Detailing Concept Demo",
       description: "Concept Demo: a fictional auto-detailing website with a guided package and appointment-request journey built by NorthFlow.",
     },
+    designConfig: {
+      heroVariant: 'split-left',
+      servicesVariant: 'dark-cards',
+      imageStyle: 'high-contrast'
+    },
   },
   {
     slug: "barbershop",
@@ -235,6 +255,11 @@ export const demoSites: DemoSite[] = [
     metadata: {
       title: "Northline Barbers — Barbershop Concept Demo",
       description: "Concept Demo: a fictional barbershop website with a service and booking-preference journey built by NorthFlow.",
+    },
+    designConfig: {
+      heroVariant: 'centered',
+      servicesVariant: 'minimal-list',
+      imageStyle: 'rounded'
     },
   },
   {
@@ -286,6 +311,11 @@ export const demoSites: DemoSite[] = [
     metadata: {
       title: "Sol Drive Rentals — Car Rental Concept Demo",
       description: "Concept Demo: a fictional independent car-rental website with a request-and-confirm journey built by NorthFlow.",
+    },
+    designConfig: {
+      heroVariant: 'offset-grid',
+      servicesVariant: 'features-grid',
+      imageStyle: 'modern'
     },
   },
 ];

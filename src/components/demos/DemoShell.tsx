@@ -23,14 +23,181 @@ export default function DemoShell({ demo }: { demo: DemoSite }) {
     "--demo-accent-text": demo.theme.accentText,
   } as CSSProperties;
 
+  const servicesVariant = demo.designConfig.servicesVariant;
+  const imageStyle = demo.designConfig.imageStyle;
+
+  const renderServices = () => {
+    if (servicesVariant === 'editorial-list') {
+      return (
+        <section id="services" className="px-6 py-24 md:py-32 bg-[var(--demo-surface)]">
+          <div className="mx-auto max-w-5xl">
+            <p className="text-[10px] font-black uppercase tracking-[0.2em] text-[var(--demo-accent)] mb-6 text-center">Relevant Services</p>
+            <h2 className={`${displayFont.className} text-4xl md:text-6xl font-black text-center mb-20 text-[var(--demo-text)] tracking-tight`}>
+              A clear offer before the request begins.
+            </h2>
+            <div className="flex flex-col gap-12">
+              {demo.services.map((service, index) => (
+                <motion.article 
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: index * 0.1 }}
+                  key={service.title} 
+                  className="grid md:grid-cols-[100px_1fr] gap-6 items-baseline border-b border-[var(--demo-border)] pb-12"
+                >
+                  <span className={`${displayFont.className} text-2xl font-black text-[var(--demo-accent)]`}>0{index + 1}</span>
+                  <div>
+                    <h3 className={`${displayFont.className} text-3xl font-black text-[var(--demo-text)] mb-4`}>{service.title}</h3>
+                    <p className="text-xl font-medium leading-relaxed text-[var(--demo-muted)] max-w-2xl">{service.text}</p>
+                  </div>
+                </motion.article>
+              ))}
+            </div>
+          </div>
+        </section>
+      );
+    }
+
+    if (servicesVariant === 'dark-cards') {
+      return (
+        <section id="services" className="px-6 py-24 md:py-32 bg-[var(--demo-text)]">
+          <div className="mx-auto max-w-7xl">
+            <div className="mb-16">
+              <p className="text-[10px] font-black uppercase tracking-[0.2em] text-[var(--demo-accent)] mb-6">Relevant Services</p>
+              <h2 className={`${displayFont.className} text-5xl md:text-7xl font-black text-[var(--demo-background)] tracking-tight max-w-2xl`}>
+                A clear offer before the request begins.
+              </h2>
+            </div>
+            <div className="grid gap-6 md:grid-cols-3">
+              {demo.services.map((service, index) => (
+                <motion.article 
+                  initial={{ opacity: 0, y: 30 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: index * 0.1 }}
+                  key={service.title} 
+                  className="bg-[var(--demo-surface)]/10 border border-[var(--demo-border)] p-8 hover:border-[var(--demo-accent)] transition-colors h-full flex flex-col justify-between"
+                  style={{ borderRadius: imageStyle === 'rounded' ? '24px' : imageStyle === 'soft-edges' ? '12px' : '0px' }}
+                >
+                  <div>
+                    <h3 className={`${displayFont.className} text-2xl font-black text-[var(--demo-background)] mb-4`}>{service.title}</h3>
+                    <p className="text-base font-medium leading-relaxed text-[var(--demo-muted)]">{service.text}</p>
+                  </div>
+                  <span className={`${displayFont.className} text-4xl font-black text-[var(--demo-accent)] opacity-50 mt-12 block`}>0{index + 1}</span>
+                </motion.article>
+              ))}
+            </div>
+          </div>
+        </section>
+      );
+    }
+
+    if (servicesVariant === 'minimal-list') {
+      return (
+        <section id="services" className="px-6 py-24 md:py-32 bg-[var(--demo-background)] border-y border-[var(--demo-border)]">
+          <div className="mx-auto max-w-4xl text-center">
+            <p className="text-[10px] font-black uppercase tracking-[0.2em] text-[var(--demo-accent)] mb-6">Relevant Services</p>
+            <h2 className={`${displayFont.className} text-4xl md:text-5xl font-black text-[var(--demo-text)] tracking-tight mb-16`}>
+              A clear offer before the request begins.
+            </h2>
+            <div className="grid gap-8">
+              {demo.services.map((service, index) => (
+                <motion.article 
+                  initial={{ opacity: 0, scale: 0.98 }}
+                  whileInView={{ opacity: 1, scale: 1 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: index * 0.1 }}
+                  key={service.title} 
+                  className="bg-[var(--demo-surface)] p-8 flex flex-col md:flex-row md:items-center justify-between text-left gap-6 border border-[var(--demo-border)] hover:border-[var(--demo-accent)] transition-colors"
+                  style={{ borderRadius: imageStyle === 'rounded' ? '16px' : '8px' }}
+                >
+                  <div>
+                    <h3 className={`${displayFont.className} text-2xl font-black text-[var(--demo-text)] mb-2`}>{service.title}</h3>
+                    <p className="text-base font-medium text-[var(--demo-muted)] max-w-lg">{service.text}</p>
+                  </div>
+                  <a href="#request" className="shrink-0 text-sm font-black uppercase tracking-widest text-[var(--demo-accent)] hover:underline">Select</a>
+                </motion.article>
+              ))}
+            </div>
+          </div>
+        </section>
+      );
+    }
+
+    if (servicesVariant === 'features-grid') {
+      return (
+        <section id="services" className="px-6 py-24 md:py-32 bg-[var(--demo-surface)]">
+          <div className="mx-auto max-w-7xl text-center">
+            <p className="text-[10px] font-black uppercase tracking-[0.2em] text-[var(--demo-accent)] mb-6">Relevant Services</p>
+            <h2 className={`${displayFont.className} text-4xl md:text-6xl font-black text-[var(--demo-text)] tracking-tight mb-20`}>
+              A clear offer before the request begins.
+            </h2>
+            <div className="grid gap-x-8 gap-y-16 md:grid-cols-3 text-left">
+              {demo.services.map((service, index) => (
+                <motion.article 
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: index * 0.1 }}
+                  key={service.title} 
+                  className="relative pl-12"
+                >
+                  <span className="absolute left-0 top-0 h-full w-1 bg-[var(--demo-accent)] opacity-20" />
+                  <h3 className={`${displayFont.className} text-2xl font-black text-[var(--demo-text)] mb-4`}>{service.title}</h3>
+                  <p className="text-base font-medium text-[var(--demo-muted)]">{service.text}</p>
+                </motion.article>
+              ))}
+            </div>
+          </div>
+        </section>
+      );
+    }
+
+    // Default: grid (Moving)
+    return (
+      <section id="services" className="px-6 py-24 md:py-32 relative bg-[var(--demo-background)]">
+        <div className="mx-auto max-w-7xl relative z-10">
+          <div className="grid gap-12 lg:grid-cols-[0.8fr_1.2fr]">
+            <div>
+              <p className="text-[10px] font-black uppercase tracking-[0.2em] text-[var(--demo-accent)] mb-6">Relevant Services</p>
+              <h2 className={`${displayFont.className} text-5xl md:text-7xl lg:text-[5.5rem] font-black leading-[0.9] max-w-2xl text-[var(--demo-text)] tracking-tight`}>
+                A clear offer before the request begins.
+              </h2>
+            </div>
+            
+            <div className="grid gap-6 md:grid-cols-2">
+              {demo.services.map((service, index) => (
+                <motion.article 
+                  initial={{ opacity: 0, y: 30 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: index * 0.1 }}
+                  key={service.title} 
+                  className="group min-h-[300px] flex flex-col justify-between border border-[var(--demo-border)] bg-[var(--demo-surface)] p-8 transition-colors hover:border-[var(--demo-accent)]"
+                  style={{ borderRadius: imageStyle === 'rounded' ? '24px' : imageStyle === 'soft-edges' ? '12px' : '0px' }}
+                >
+                  <span className={`${displayFont.className} text-4xl font-black text-[var(--demo-accent)] opacity-40 group-hover:opacity-100 transition-colors`}>0{index + 1}</span>
+                  <div>
+                    <h3 className={`${displayFont.className} text-3xl font-black text-[var(--demo-text)] mb-4`}>{service.title}</h3>
+                    <p className="text-base font-medium leading-relaxed text-[var(--demo-muted)]">{service.text}</p>
+                  </div>
+                </motion.article>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+    );
+  };
+
   return (
     <div 
-      className={`min-h-screen bg-[var(--demo-background)] text-[var(--demo-text)] ${sansFont.className} overflow-hidden relative selection:bg-[var(--demo-accent)] selection:text-[var(--demo-accent-text)]`}
+      className={`min-h-screen bg-[var(--demo-background)] text-[var(--demo-text)] ${sansFont.className} overflow-x-hidden relative selection:bg-[var(--demo-accent)] selection:text-[var(--demo-accent-text)]`}
       style={style}
     >
       
-      {/* Top Warning Banner - Dark neutral */}
-      <div className="bg-[#11100d] border-b border-black/10 px-6 py-2.5 flex items-center justify-between text-[10px] font-bold text-white/50 tracking-widest uppercase">
+      {/* Top Warning Banner */}
+      <div className="bg-[#11100d] border-b border-black/10 px-6 py-2.5 flex items-center justify-between text-[10px] font-bold text-white/50 tracking-widest uppercase relative z-50">
         <p><strong className="text-[#e08d57]">NorthFlow Concept Demo</strong> <span className="hidden sm:inline">· Fictional business</span></p>
         <a href="/demos" className="flex items-center gap-2 hover:text-white transition-colors">
           <ArrowLeft className="w-3 h-3" />
@@ -39,10 +206,11 @@ export default function DemoShell({ demo }: { demo: DemoSite }) {
       </div>
 
       {/* Header */}
-      <header className="sticky top-0 z-50 border-b border-[var(--demo-border)] bg-[var(--demo-background)]/90 backdrop-blur-xl px-6 md:px-12">
+      <header className="sticky top-0 z-40 border-b border-[var(--demo-border)] bg-[var(--demo-background)]/90 backdrop-blur-xl px-6 md:px-12">
         <div className="mx-auto flex h-[80px] md:h-[96px] max-w-7xl items-center justify-between">
           <a href={`/demos/${demo.slug}`} className="inline-flex items-center gap-4 group">
-            <div className="flex h-10 w-10 items-center justify-center rounded-full border-2 border-[var(--demo-accent)] text-sm font-black text-[var(--demo-accent)] transition-colors">
+            <div className="flex h-10 w-10 items-center justify-center border-2 border-[var(--demo-accent)] text-sm font-black text-[var(--demo-accent)] transition-colors"
+                 style={{ borderRadius: imageStyle === 'rounded' ? '9999px' : '4px' }}>
               {demo.initials}
             </div>
             <span className={`${displayFont.className} text-xl md:text-2xl font-bold tracking-tight text-[var(--demo-text)]`}>
@@ -57,7 +225,8 @@ export default function DemoShell({ demo }: { demo: DemoSite }) {
           </nav>
 
           <div className="flex items-center gap-4">
-            <a href="#request" className="hidden min-h-12 items-center gap-2 rounded-full bg-[var(--demo-accent)] px-6 text-sm font-bold text-[var(--demo-accent-text)] sm:inline-flex hover:scale-105 transform transition-transform duration-300">
+            <a href="#request" className="hidden min-h-12 items-center gap-2 bg-[var(--demo-accent)] px-6 text-sm font-bold text-[var(--demo-accent-text)] sm:inline-flex hover:scale-105 transform transition-transform duration-300"
+               style={{ borderRadius: imageStyle === 'rounded' ? '9999px' : imageStyle === 'soft-edges' ? '8px' : '0px' }}>
               {demo.primaryAction}
             </a>
             <button className="lg:hidden p-2 text-[var(--demo-muted)] hover:text-[var(--demo-text)]">
@@ -71,7 +240,7 @@ export default function DemoShell({ demo }: { demo: DemoSite }) {
         <DemoHero demo={demo} />
         
         {/* Trust Strip */}
-        <section className="border-y border-[var(--demo-border)] bg-[var(--demo-text)] px-6 py-6 text-[var(--demo-background)]">
+        <section className={`border-y border-[var(--demo-border)] px-6 py-6 ${servicesVariant === 'dark-cards' ? 'bg-[var(--demo-background)] text-[var(--demo-text)]' : 'bg-[var(--demo-text)] text-[var(--demo-background)]'}`}>
           <div className="mx-auto grid max-w-7xl gap-6 sm:grid-cols-3 text-center">
             {demo.trustPoints.map((point) => (
               <div 
@@ -84,38 +253,7 @@ export default function DemoShell({ demo }: { demo: DemoSite }) {
           </div>
         </section>
 
-        {/* Services Section */}
-        <section id="services" className="px-6 py-24 md:py-32 relative">
-          <div className="mx-auto max-w-7xl relative z-10">
-            <div className="grid gap-12 lg:grid-cols-[0.8fr_1.2fr]">
-              <div>
-                <p className="text-[10px] font-black uppercase tracking-[0.2em] text-[var(--demo-accent)] mb-6">Relevant Services</p>
-                <h2 className={`${displayFont.className} text-5xl md:text-7xl lg:text-[5.5rem] font-black leading-[0.9] max-w-2xl text-[var(--demo-text)] tracking-tight`}>
-                  A clear offer before the request begins.
-                </h2>
-              </div>
-              
-              <div className="grid gap-6 md:grid-cols-2">
-                {demo.services.map((service, index) => (
-                  <motion.article 
-                    initial={{ opacity: 0, y: 30 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ delay: index * 0.1 }}
-                    key={service.title} 
-                    className="group min-h-[300px] flex flex-col justify-between rounded-none border border-[var(--demo-border)] bg-[var(--demo-surface)] p-8 transition-colors hover:border-[var(--demo-accent)]"
-                  >
-                    <span className={`${displayFont.className} text-4xl font-black text-[var(--demo-accent)] opacity-40 group-hover:opacity-100 transition-colors`}>0{index + 1}</span>
-                    <div>
-                      <h3 className={`${displayFont.className} text-3xl font-black text-[var(--demo-text)] mb-4`}>{service.title}</h3>
-                      <p className="text-base font-medium leading-relaxed text-[var(--demo-muted)]">{service.text}</p>
-                    </div>
-                  </motion.article>
-                ))}
-              </div>
-            </div>
-          </div>
-        </section>
+        {renderServices()}
 
         <DemoJourney demo={demo} />
         <DemoRequestBuilder demo={demo} />
@@ -154,7 +292,8 @@ export default function DemoShell({ demo }: { demo: DemoSite }) {
                 Build the real system behind your customer journey.
               </h2>
             </div>
-            <a href="/start" className="inline-flex min-h-14 items-center justify-center gap-3 rounded-[6px] bg-[var(--demo-accent)] px-8 text-sm font-bold text-[var(--demo-accent-text)] hover:-translate-y-1 transition-transform whitespace-nowrap">
+            <a href="/start" className="inline-flex min-h-14 items-center justify-center gap-3 bg-[var(--demo-accent)] px-8 text-sm font-bold text-[var(--demo-accent-text)] hover:-translate-y-1 transition-transform whitespace-nowrap"
+               style={{ borderRadius: imageStyle === 'rounded' ? '9999px' : imageStyle === 'soft-edges' ? '6px' : '0px' }}>
               Book a strategy call
               <ArrowRight className="h-4 w-4" />
             </a>
@@ -162,7 +301,7 @@ export default function DemoShell({ demo }: { demo: DemoSite }) {
         </section>
       </main>
 
-      <footer className="border-t border-[var(--demo-border)] px-6 py-10">
+      <footer className="border-t border-[var(--demo-border)] px-6 py-10 bg-[var(--demo-background)]">
         <div className="mx-auto flex max-w-7xl flex-col gap-6 text-[11px] font-bold uppercase tracking-wider text-[var(--demo-muted)] sm:flex-row sm:items-center sm:justify-between">
           <p>{demo.businessName} is a fictional Concept Demo created by NorthFlow.</p>
           <a href="/demos" className="inline-flex items-center gap-2 hover:text-[var(--demo-text)] transition-colors">

@@ -69,6 +69,7 @@ function FieldControl({
 }
 
 export default function DemoRequestBuilder({ demo }: { demo: DemoSite }) {
+  const imageStyle = demo.designConfig.imageStyle;
   const [values, setValues] = useState<Values>({});
   const [reviewed, setReviewed] = useState(false);
   const rows = useMemo(
@@ -91,7 +92,8 @@ export default function DemoRequestBuilder({ demo }: { demo: DemoSite }) {
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
             onSubmit={submit} 
-            className="rounded-none border border-[var(--demo-border)] bg-[var(--demo-surface)] p-8 md:p-12 relative overflow-hidden shadow-sm"
+            className="border border-[var(--demo-border)] bg-[var(--demo-surface)] p-8 md:p-12 relative overflow-hidden shadow-sm"
+            style={{ borderRadius: imageStyle === 'rounded' ? '24px' : imageStyle === 'soft-edges' ? '12px' : '0px' }}
           >
             <div className="relative z-10">
               <p className="text-[10px] font-black uppercase tracking-[0.2em] text-[var(--demo-accent)]">Interactive Request Builder</p>
@@ -118,7 +120,8 @@ export default function DemoRequestBuilder({ demo }: { demo: DemoSite }) {
 
               <button
                 type="submit"
-                className="group mt-12 inline-flex min-h-14 w-full items-center justify-center gap-3 rounded-[6px] bg-[var(--demo-accent)] px-8 text-sm font-black text-[var(--demo-accent-text)] transition-transform hover:-translate-y-1"
+                className="group mt-12 inline-flex min-h-14 w-full items-center justify-center gap-3 bg-[var(--demo-accent)] px-8 text-sm font-black text-[var(--demo-accent-text)] transition-transform hover:-translate-y-1"
+                style={{ borderRadius: imageStyle === 'rounded' ? '9999px' : imageStyle === 'soft-edges' ? '8px' : '0px' }}
               >
                 Review my request
                 <ArrowRight className="h-4 w-4" />
@@ -132,7 +135,8 @@ export default function DemoRequestBuilder({ demo }: { demo: DemoSite }) {
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6, delay: 0.2 }}
-              className="rounded-none border border-[var(--demo-border)] bg-[var(--demo-text)] p-8 md:p-10 shadow-2xl"
+              className="border border-[var(--demo-border)] bg-[var(--demo-text)] p-8 md:p-10 shadow-2xl"
+              style={{ borderRadius: imageStyle === 'rounded' ? '24px' : imageStyle === 'soft-edges' ? '12px' : '0px' }}
             >
               <div className="flex items-center justify-between gap-4 border-b border-[var(--demo-background)]/20 pb-6">
                 <p className="text-[10px] font-black uppercase tracking-[0.2em] text-[var(--demo-background)]/50">Request summary</p>
@@ -180,7 +184,8 @@ export default function DemoRequestBuilder({ demo }: { demo: DemoSite }) {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6, delay: 0.4 }}
-              className="rounded-none border border-[var(--demo-border)] bg-[var(--demo-surface)] p-8"
+              className="border border-[var(--demo-border)] bg-[var(--demo-surface)] p-8"
+              style={{ borderRadius: imageStyle === 'rounded' ? '24px' : imageStyle === 'soft-edges' ? '12px' : '0px' }}
             >
               <p className="text-[10px] font-black uppercase tracking-[0.2em] text-[var(--demo-accent)]">Want this journey for your business?</p>
               <p className="mt-4 text-sm font-medium leading-relaxed text-[var(--demo-muted)]">NorthFlow can map the real workflow, integrations and production form around your team.</p>

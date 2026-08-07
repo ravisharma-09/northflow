@@ -7,6 +7,7 @@ import { Plus_Jakarta_Sans } from "next/font/google";
 const displayFont = Plus_Jakarta_Sans({ subsets: ["latin"], weight: ["400", "500", "600", "700", "800"] });
 
 export default function DemoJourney({ demo }: { demo: DemoSite }) {
+  const imageStyle = demo.designConfig.imageStyle;
   return (
     <section id="journey" className="border-y border-[var(--demo-border)] bg-[var(--demo-surface)] px-6 py-24 md:px-12 md:py-32 relative">
       <div className="mx-auto max-w-7xl relative z-10">
@@ -46,7 +47,10 @@ export default function DemoJourney({ demo }: { demo: DemoSite }) {
                     </span>
                   </div>
                   
-                  <div className="rounded-none border-l-[3px] border-[var(--demo-border)] bg-[var(--demo-background)] p-8 transition-colors group-hover:border-[var(--demo-accent)] shadow-sm">
+                  <div 
+                    className="border-l-[3px] border-[var(--demo-border)] bg-[var(--demo-background)] p-8 transition-colors group-hover:border-[var(--demo-accent)] shadow-sm"
+                    style={{ borderRadius: imageStyle === 'rounded' ? '16px' : imageStyle === 'soft-edges' ? '8px' : '0px' }}
+                  >
                     <h3 className={`${displayFont.className} text-2xl font-black leading-tight text-[var(--demo-text)] mb-4`}>
                       {step.title}
                     </h3>
